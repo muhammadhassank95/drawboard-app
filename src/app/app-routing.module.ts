@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const innerRoutes: Route = {
+  path: '',
+  loadChildren: () => import('./layouts/inner-pages/inner-page.module').then((m) => m.InnerPageModule)
+}
+
+const routes: Routes = [innerRoutes];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

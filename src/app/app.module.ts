@@ -4,17 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DrawBoardComponent } from './draw-board/draw-board.component';
+import { ButtonRendererComponent } from './components/partials/ag-grid-helper/button-renderer/button-renderer.component';
+import { GridActionIconsComponent } from './components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DrawBoardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

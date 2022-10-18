@@ -1,6 +1,7 @@
 <div class="draw-flow-poc">
     <header>
-      <h2>Drawflow</h2>
+      <h2 style="margin-bottom: 0px">Drawflow</h2>
+      <h4 (click)="back()">Back</h4>
     </header>
     <div class="wrapper">
       <div class="col" style="text-align: center">
@@ -12,7 +13,7 @@
           >
             {{ node.name }}
           </div>
-          <div *ngIf="node.id === 4">
+          <ng-container *ngIf="node.id === 4">
             <label>Inputs:</label>
             <input
               type="number"
@@ -27,8 +28,7 @@
               min="0"
               style="width: 30px"
             />
-          </div>
-          <hr />
+          </ng-container>
         </ng-container>
       </div>
       <div class="col-right">

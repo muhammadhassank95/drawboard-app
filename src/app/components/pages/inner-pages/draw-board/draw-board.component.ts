@@ -10,6 +10,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import Drawflow, {
   ConnectionEvent,
   ConnectionStartEvent,
@@ -51,8 +52,13 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   constructor(
     private element: ElementRef,
+    private router: Router,
     private CFR: ComponentFactoryResolver
   ) {}
+
+  public back(): void {
+    this.router.navigateByUrl('');
+  }
 
   public initializeList(length: number) {
     this.nodes = this.nodeSelection;

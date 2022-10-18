@@ -1,0 +1,11 @@
+<div class="workflow-listing">
+    <input placeholder="Search">
+    <button (click)="newWorkflow()">New</button>
+    <ag-grid-angular    
+        style="width: auto; height: 200px;" 
+        class="ag-theme-alpine"
+        [rowData]="rowData" 
+        [columnDefs]="columnDefs"
+        (gridReady)="onGridReady($event)"
+        [frameworkComponents]="frameworkComponents"></ag-grid-angular>
+</div>

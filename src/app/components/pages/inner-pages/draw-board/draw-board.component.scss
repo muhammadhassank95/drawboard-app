@@ -18,10 +18,6 @@
     padding-left: 20px;
   }
   
-  header h2 {
-    margin: 0px;
-    line-height: 66px;
-  }
   
   header a {
     color: black;
@@ -168,7 +164,6 @@
     position: relative;
     width: calc(100vw - 301px);
     height: calc(100% - 50px);
-    top: 40px;
     background: var(--background-color);
     background-size: 25px 25px;
     background-image:
