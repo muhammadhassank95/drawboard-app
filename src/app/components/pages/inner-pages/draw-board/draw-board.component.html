@@ -1,7 +1,17 @@
 <div class="draw-flow-poc">
-    <header>
-      <h2 style="margin-bottom: 0px">Drawflow</h2>
-      <h4 (click)="back()">Back</h4>
+    <header class="p-3">
+      <div class="flex justify-between items-center" [formGroup]="formGroup">
+        <div (click)="back()" class="cursor-pointer flex items-center">
+          <em class="ph-arrow-left mr-1 text-xl"></em>
+          <span>
+            Back
+          </span>
+        </div>
+        <div>
+          <input type="text" nz-input formControlName="title" class="mb-1" placeholder="Name your diagram"/>
+        </div>
+        <div></div>
+      </div>
     </header>
     <div class="wrapper">
       <div class="col" style="text-align: center">
@@ -30,7 +40,9 @@
             />
           </ng-container>
         </ng-container>
+        <br>
       </div>
+      <!-- <button (click)="addImage(selectedItem)">Add Image</button> -->
       <div class="col-right">
         <!-- <div
           class="btn-export"
@@ -48,30 +60,22 @@
           (dragend)="onDragEnd($event)"
           (drop)="onDrop($event)"
         >
-  
-        <ng-template #viewContainerRef></ng-template>
-  
-          <div class="btn-submit" (click)="onSubmit()">Submit</div>
+          <div class="btn-submit" (click)="onSubmit()">Save</div>
           <div class="btn-clear" (click)="onClear()">Clear</div>
           <!-- <div class="btn-ed" (click)="initializeList(1)">Select Node</div> -->
           <div class="btn-lock">
-            <button
-              (click)="changeMode()"
-              [ngStyle]="{ display: locked ? 'none' : 'block' }"
-            >
-              Lock
-            </button>
-            <button
+            <em (click)="changeMode()" class="ph-lock-simple"></em>
+            <!-- <button
               (click)="changeMode()"
               [ngStyle]="{ display: locked ? 'block' : 'none' }"
             >
               Unlock
-            </button>
+            </button> -->
           </div>
           <div class="bar-zoom">
-            <button (click)="onZoomOut()">Out</button>
-            <button (click)="onZoomReset()">Reset</button>
-            <button (click)="onZoomIn()">In</button>
+            <em class="ph-magnifying-glass-minus" (click)="onZoomOut()"></em>
+            <em class="ph-magnifying-glass" (click)="onZoomReset()"></em>
+            <em class="ph-magnifying-glass-plus" (click)="onZoomIn()"></em>
           </div>
         </div>
       </div>

@@ -1,16 +1,15 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  ElementRef,
+  Inject,
   OnInit,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import Drawflow, {
   ConnectionEvent,
   ConnectionStartEvent,
@@ -20,9 +19,11 @@ import Drawflow, {
   DrawflowNode,
   MousePositionEvent,
 } from 'drawflow';
+import { WorkflowListingComponent } from '../workflow-listing/workflow-listing.component';
 import { NodeElement } from './node.model';
 
 @Component({
+  entryComponents: [WorkflowListingComponent],
   selector: 'app-draw-board',
   templateUrl: './draw-board.component.html',
   styleUrls: ['./draw-board.component.scss'],
@@ -38,11 +39,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   locked: boolean = false;
 
   lastMousePositionEv: any;
-
+  public selectedNodeFromId: any;
   drawFlowHtmlElement!: HTMLElement;
   public selectedItemId: number = 0;
   public positionX: number = 0;
   public positionY: number = 0;
+  public formGroup!: FormGroup;
   public nodeSelection = [
     { id: 1, name: 'Single Output', inputs: 0, outputs: 1, },
     { id: 2, name: 'Single Input', inputs: 1, outputs: 0, },
@@ -51,9 +53,9 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   ]
 
   constructor(
-    private element: ElementRef,
     private router: Router,
-    private CFR: ComponentFactoryResolver
+    private cdr: ChangeDetectorRef,
+    public route: ActivatedRoute,
   ) {}
 
   public back(): void {
@@ -159,7 +161,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         },
       },
     };
-    console.error('dataToImport',dataToImport)
     this.editor.import(dataToImport);
   }
 
@@ -185,6 +186,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         'Editor Event :>> Node selected ' + id,
         this.editor.getNodeFromId(id)
       );
+      this.selectedNodeFromId = this.editor.getNodeFromId(id);
     });
 
     this.editor.on('moduleCreated', (name: any) => {
@@ -233,14 +235,21 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initializeList(5);
     this.initializeFormGroup();
+    this.initializeData();
   }
 
-  public formGorup!: FormGroup;
+  public initializeData(): void {
+    this.route.data.subscribe((data) => {
+      if(data){
+        this.formGroup.get('title')?.patchValue(this.route.snapshot.paramMap.get('name'));
+      }
+    });
+  }
+
   public initializeFormGroup(): void {
-    this.formGorup = new FormGroup({
-      test: new FormControl('test')
+    this.formGroup = new FormGroup({
+      title: new FormControl('', Validators.required)
     })
-    console.error('this.formGorup',this.formGorup)
   }
 
   // Drag Events
@@ -307,16 +316,15 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         this.editor.precanvas.getBoundingClientRect().y *
           (this.editor.precanvas.clientHeight /
             (this.editor.precanvas.clientHeight * this.editor.zoom));
+            // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
             const htmlTemplate = `
             <div>
-              <div [formGroup]="formGorup">
-              <textarea formControlName="test" df-template></textarea>
+              <div>
+              <textarea df-template></textarea>
               </div>
-              <app-text-area>
-              </app-text-area>
             </div>
             `;
-            const data = { template: "Write your text" }
+            const data = { template: `${this.selectedItem.name}` }
             this.positionX = pos_x;
             this.positionY = pos_y
 
@@ -324,6 +332,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       
       //editor.addNode(name, inputs, outputs, posx, posy, class, data, html);
       //editor.addNode('welcome', 0, 0, 50, 50, 'welcome', {}, welcome );
+
       const nodeId = this.editor.addNode(
         this.selectedItem.name,
         this.selectedItem.inputs,
@@ -345,6 +354,13 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  addImage(selectedItem: any): void {
+    if(selectedItem){
+      this.editor.drawflow.drawflow.Home.data[selectedItem.id].html = `<img src="https://www.w3schools.com/Tags/img_girl.jpg">`
+
+      this.cdr.detectChanges()
+    }
+  }
   onClear() {
     this.editor.clear();
   }

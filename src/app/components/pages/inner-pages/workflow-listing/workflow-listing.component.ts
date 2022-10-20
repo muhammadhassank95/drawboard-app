@@ -53,9 +53,9 @@ export class WorkflowListingComponent implements OnInit {
       }
     ]
     this.rowData = [
-      { name: "Boiler Feed Water Pump", tags: "boiler, water, pump", createdBy: 'Arnold', dateTime: '10/19/2022', lastUpdated: '10/20/2022' },
-      { name: "Surveillance", tags: "lorem,ipsum,test", createdBy: 'Malek', dateTime: '10/20/2022', lastUpdated: '10/20/2022' },
-      { name: "Detailed Offline Pump Inspection", tags: "tag1,tag2,tag3", createdBy: 'Matthew', dateTime: '10/17/2022', lastUpdated: '10/19/2022' },
+      { id: 1, name: "Boiler Feed Water Pump", tags: "boiler, water, pump", createdBy: 'Arnold', dateTime: '10/19/2022', lastUpdated: '10/20/2022' },
+      { id: 2, name: "Surveillance", tags: "lorem,ipsum,test", createdBy: 'Malek', dateTime: '10/20/2022', lastUpdated: '10/20/2022' },
+      { id: 3, name: "Detailed Offline Pump Inspection", tags: "tag1,tag2,tag3", createdBy: 'Matthew', dateTime: '10/17/2022', lastUpdated: '10/19/2022' },
     ]
   }
 
@@ -65,7 +65,9 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   public OnDiagramView(e: any): void {
-    this.router.navigateByUrl('cloud-map');
+    console.error('eeee',e)
+    // this.router.navigate(['/cloud-map', e.rowData]);
+
   }
 
 }

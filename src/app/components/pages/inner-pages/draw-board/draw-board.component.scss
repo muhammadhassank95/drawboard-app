@@ -1,3 +1,4 @@
+
 .draw-flow-poc {
     --border-color: #cacaca;
     --background-color: #ffffff;
@@ -13,7 +14,6 @@
   }
   
   header {
-    height: 66px;
     border-bottom: 1px solid var(--border-color);
     padding-left: 20px;
   }
@@ -50,7 +50,7 @@
   
   .col {
     overflow: auto;
-    width: 300px;
+    width: 250px;
     height: 100%;
     border-right: 1px solid var(--border-color);
   }
@@ -162,8 +162,8 @@
   
   #drawflow {
     position: relative;
-    width: calc(100vw - 301px);
-    height: calc(100% - 50px);
+    width: calc(100vw - 250px);
+    height: calc(100%);
     background: var(--background-color);
     background-size: 25px 25px;
     background-image:

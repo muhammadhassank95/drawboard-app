@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonRendererComponent } from './components/partials/ag-grid-helper/button-renderer/button-renderer.component';
 import { GridActionIconsComponent } from './components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { GridActionIconsComponent } from './components/partials/ag-grid-helper/g
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
