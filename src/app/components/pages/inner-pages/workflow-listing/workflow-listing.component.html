@@ -1,11 +1,11 @@
 <div class="workflow-listing" class="flex flex-col p-5">
-    <div class="mb-3 flex justify-between">
+    <div class="mb-3 flex justify-end">
+        <button nz-button nzType="primary" (click)="newWorkflow()" class="w-[10%] mr-2">New</button>
         <input type="text" nz-input placeholder="Search" class="w-1/5"/>
-        <button nz-button nzType="primary" (click)="newWorkflow()" class="w-[10%]">New</button>
     </div>
     <div>
         <ag-grid-angular    
-            style="width: auto; height: 200px;" 
+            style="width: auto; height: 600px;" 
             class="ag-theme-alpine"
             [rowData]="rowData" 
             [columnDefs]="columnDefs"

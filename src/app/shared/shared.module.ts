@@ -4,6 +4,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     ReactiveFormsModule,
     //ngZorro
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzTagModule,
+    NzAvatarModule
   ]
 })
 export class SharedModule { }

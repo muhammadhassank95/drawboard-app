@@ -2,13 +2,14 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Inject,
   OnInit,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Drawflow, {
   ConnectionEvent,
@@ -19,8 +20,10 @@ import Drawflow, {
   DrawflowNode,
   MousePositionEvent,
 } from 'drawflow';
+import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service';
 import { WorkflowListingComponent } from '../workflow-listing/workflow-listing.component';
 import { NodeElement } from './node.model';
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   entryComponents: [WorkflowListingComponent],
@@ -32,6 +35,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   nodes: NodeElement[] = [];
   nodesHTML!: NodeListOf<Element>;
   @ViewChild('txtArea', {static: true}) txtArea!: TemplateRef<any>;
+  @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
+
   nodesDrawn: any[] = [];
   selectedItem!: NodeElement;
   editor!: any;
@@ -45,6 +50,15 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public positionX: number = 0;
   public positionY: number = 0;
   public formGroup!: FormGroup;
+  public tags = ['test'];
+  public inputVisible = false;
+  public inputValue = '';
+  public diagramTags: any = new FormArray([]);
+  public canvasData: any;
+  public diagramByIdResponse: any;
+  public isEdit: boolean = false;
+  public diagramId: string = '';
+
   public nodeSelection = [
     { id: 1, name: 'Single Output', inputs: 0, outputs: 1, },
     { id: 2, name: 'Single Input', inputs: 1, outputs: 0, },
@@ -56,6 +70,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     private router: Router,
     private cdr: ChangeDetectorRef,
     public route: ActivatedRoute,
+    public drawBoardService: DrawBoardService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   public back(): void {
@@ -74,181 +90,127 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  private initDrawFlow(htmlElement: HTMLElement): void {
+  private initDrawFlow(htmlElement: HTMLElement, diagramData?: any): void {
     this.editor = new Drawflow(htmlElement);
     this.editor.reroute = true;
     this.editor.reroute_fix_curvature = true;
     this.editor.force_first_input = false;
     this.editor.start();
-    const dataToImport = {
-      drawflow: {
-        Home: {
-          // data: {
-          //   '1': {
-          //     id: 1,
-          //     name: 'node1',
-          //     data: {},
-          //     class: '',
-          //     html: '\n          <div>\n           <input min="0" />\n          </div>\n          ',
-          //     typenode: false,
-          //     inputs: {},
-          //     outputs: {},
-          //     pos_x: 134,
-          //     pos_y: 131,
-          //   },
-          //   '2': {
-          //     id: 2,
-          //     name: 'node2',
-          //     data: {template: 'HAHAHAH'},
-          //     class: 'template',
-          //     html: '\n          <div>\n            <i class="title-box">node2</i>\n <textarea df-template></textarea>         </div>\n          ',
-          //     typenode: false,
-          //     inputs: {
-          //       input_1: {
-          //         connections: [
-          //           {
-          //             node: '3',
-          //             input: 'output_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     outputs: {
-          //       output_1: {
-          //         connections: [
-          //           {
-          //             node: '3',
-          //             output: 'input_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     pos_x: 520,
-          //     pos_y: 111,
-          //   },
-          //   '3': {
-          //     id: 3,
-          //     name: 'node3',
-          //     data: {},
-          //     class: '',
-          //     html: '\n          <div>\n            <i class="title-box">node3</i>\n          </div>\n          ',
-          //     typenode: false,
-          //     inputs: {
-          //       input_1: {
-          //         connections: [
-          //           {
-          //             node: '2',
-          //             input: 'output_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     outputs: {
-          //       output_1: {
-          //         connections: [
-          //           {
-          //             node: '2',
-          //             output: 'input_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     pos_x: 525,
-          //     pos_y: 321,
-          //   },
-          // },
-          data: {}
+    let dataToImport: any;
+    if(diagramData){
+      dataToImport = {
+        drawflow: this.canvasData,
+      };
+    } else {
+      dataToImport = {
+        drawflow: {
+          Home: {
+            data: {}
+          },
         },
-      },
-    };
+      }
+    }
     this.editor.import(dataToImport);
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     this.drawFlowHtmlElement = <HTMLElement>document.getElementById('drawflow');
-    this.initDrawFlow(this.drawFlowHtmlElement);
-
-    // Events!
-    this.editor.on('nodeCreated', (id: any) => {
-      console.log(
-        'Editor Event :>> Node created ' + id,
-        this.editor.getNodeFromId(id)
-      );
-    });
-
-    this.editor.on('nodeRemoved', (id: any) => {
-      console.log('Editor Event :>> Node removed ' + id);
-    });
-
-    this.editor.on('nodeSelected', (id: any) => {
-      // debugger
-      console.log(
-        'Editor Event :>> Node selected ' + id,
-        this.editor.getNodeFromId(id)
-      );
-      this.selectedNodeFromId = this.editor.getNodeFromId(id);
-    });
-
-    this.editor.on('moduleCreated', (name: any) => {
-      console.log('Editor Event :>> Module Created ' + name);
-    });
-
-    this.editor.on('moduleChanged', (name: any) => {
-      console.log('Editor Event :>> Module Changed ' + name);
-    });
-
-    this.editor.on('connectionCreated', (connection: any) => {
-      console.log('Editor Event :>> Connection created ', connection);
-    });
-
-    this.editor.on('connectionRemoved', (connection: any) => {
-      console.log('Editor Event :>> Connection removed ', connection);
-    });
-
-    // this.editor.on('mouseMove', (position: any) => {
-    //   console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
-    // });
-
-    this.editor.on('nodeMoved', (id: any) => {
-      console.log('Editor Event :>> Node moved ' + id);
-    });
-
-    this.editor.on('zoom', (zoom: any) => {
-      console.log('Editor Event :>> Zoom level ' + zoom);
-    });
-
-    // this.editor.on('translate', (position: any) => {
-    //   console.log(
-    //     'Editor Event :>> Translate x:' + position.x + ' y:' + position.y
-    //   );
-    // });
-
-    this.editor.on('addReroute', (id: any) => {
-      console.log('Editor Event :>> Reroute added ' + id);
-    });
-
-    this.editor.on('removeReroute', (id: any) => {
-      console.log('Editor Event :>> Reroute removed ' + id);
+    const hehe = await this.initializeData();
+    this.route.data.subscribe(async (data) => {
+      if(this.route.snapshot.paramMap.get('id')){
+        this.isEdit = true;
+        const responsezz = this.drawBoardService.getDiagramByid(this.route.snapshot.paramMap.get('id')!)
+        this.diagramByIdResponse = await lastValueFrom(responsezz);
+        if(this.diagramByIdResponse){
+          this.canvasData = JSON.parse(this.diagramByIdResponse.data);
+          this.formGroup.get('title')?.patchValue(this.diagramByIdResponse.name);
+          this.diagramTags.push(new FormControl(this.diagramByIdResponse.tag));
+        }
+      }
+      
+        this.initDrawFlow(this.drawFlowHtmlElement, this.canvasData);
+    
+        // Events!
+        this.editor.on('nodeCreated', (id: any) => {
+          console.log(
+            'Editor Event :>> Node created ' + id,
+            this.editor.getNodeFromId(id)
+          );
+        });
+    
+        this.editor.on('nodeRemoved', (id: any) => {
+          console.log('Editor Event :>> Node removed ' + id);
+        });
+    
+        this.editor.on('nodeSelected', (id: any) => {
+          // debugger
+          console.log(
+            'Editor Event :>> Node selected ' + id,
+            this.editor.getNodeFromId(id)
+          );
+          this.selectedNodeFromId = this.editor.getNodeFromId(id);
+        });
+    
+        this.editor.on('moduleCreated', (name: any) => {
+          console.log('Editor Event :>> Module Created ' + name);
+        });
+    
+        this.editor.on('moduleChanged', (name: any) => {
+          console.log('Editor Event :>> Module Changed ' + name);
+        });
+    
+        this.editor.on('connectionCreated', (connection: any) => {
+          console.log('Editor Event :>> Connection created ', connection);
+        });
+    
+        this.editor.on('connectionRemoved', (connection: any) => {
+          console.log('Editor Event :>> Connection removed ', connection);
+        });
+    
+        // this.editor.on('mouseMove', (position: any) => {
+        //   console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
+        // });
+    
+        this.editor.on('nodeMoved', (id: any) => {
+          console.log('Editor Event :>> Node moved ' + id);
+        });
+    
+        this.editor.on('zoom', (zoom: any) => {
+          console.log('Editor Event :>> Zoom level ' + zoom);
+        });
+    
+        // this.editor.on('translate', (position: any) => {
+        //   console.log(
+        //     'Editor Event :>> Translate x:' + position.x + ' y:' + position.y
+        //   );
+        // });
+    
+        this.editor.on('addReroute', (id: any) => {
+          console.log('Editor Event :>> Reroute added ' + id);
+        });
+    
+        this.editor.on('removeReroute', (id: any) => {
+          console.log('Editor Event :>> Reroute removed ' + id);
+        });
     });
   }
 
   ngOnInit(): void {
     this.initializeList(5);
     this.initializeFormGroup();
-    this.initializeData();
+    
   }
 
-  public initializeData(): void {
-    this.route.data.subscribe((data) => {
-      if(data){
-        this.formGroup.get('title')?.patchValue(this.route.snapshot.paramMap.get('name'));
-      }
-    });
+  public async initializeData() {
+    let apiResponse: any
+
+    return apiResponse;
   }
 
   public initializeFormGroup(): void {
     this.formGroup = new FormGroup({
-      title: new FormControl('', Validators.required)
+      title: new FormControl('', Validators.required),
+      tags: new FormControl('',)
     })
   }
 
@@ -319,8 +281,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
             // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
             const htmlTemplate = `
             <div>
-              <div>
-              <textarea df-template></textarea>
+              <div class="${this.selectedItem.name}">
+                <textarea df-template style="border: 1px solid #ccc; padding: 3px 8px;"></textarea>
               </div>
             </div>
             `;
@@ -384,7 +346,49 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     const dataExport = this.editor.export();
-    console.log('dataExport :>> ', dataExport);
+    const payload = {
+      name: this.formGroup.value.title,
+      data: JSON.stringify(dataExport.drawflow),
+      tag: this.diagramTags.value[0]
+    }
+    if(this.formGroup.valid){
+      if(this.isEdit){
+        this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
+          console.error('responmse',response)
+        })
+      } else {
+        this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
+          console.error('responmse',response)
+        })
+      }
+    } else {
+      this.formGroup.markAllAsTouched();
+    }
   }
+
+  handleClose(removedTag: {}): void {
+    this.tags = this.tags.filter(tag => tag !== removedTag);
+  }
+
+  sliceTagName(tag: string): string {
+    const isLongTag = tag.length > 20;
+    return isLongTag ? `${tag.slice(0, 20)}...` : tag;
+  }
+
+  showInput(): void {
+    this.inputVisible = true;
+    setTimeout(() => {
+      this.inputElement?.nativeElement.focus();
+    }, 10);
+  }
+
+  handleInputConfirm(): void {
+    if (this.inputValue && this.tags.indexOf(this.inputValue) === -1) {
+      this.diagramTags.push(new FormControl(this.inputValue, Validators.required));
+    }
+    this.inputValue = '';
+    this.inputVisible = false;
+  }
+
 
 }
