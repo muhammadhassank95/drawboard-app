@@ -74,6 +74,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     // }
   }
 
+
   private initDrawFlow(htmlElement: HTMLElement): void {
     this.editor = new Drawflow(htmlElement);
     this.editor.reroute = true;
@@ -83,80 +84,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     const dataToImport = {
       drawflow: {
         Home: {
-          // data: {
-          //   '1': {
-          //     id: 1,
-          //     name: 'node1',
-          //     data: {},
-          //     class: '',
-          //     html: '\n          <div>\n           <input min="0" />\n          </div>\n          ',
-          //     typenode: false,
-          //     inputs: {},
-          //     outputs: {},
-          //     pos_x: 134,
-          //     pos_y: 131,
-          //   },
-          //   '2': {
-          //     id: 2,
-          //     name: 'node2',
-          //     data: {template: 'HAHAHAH'},
-          //     class: 'template',
-          //     html: '\n          <div>\n            <i class="title-box">node2</i>\n <textarea df-template></textarea>         </div>\n          ',
-          //     typenode: false,
-          //     inputs: {
-          //       input_1: {
-          //         connections: [
-          //           {
-          //             node: '3',
-          //             input: 'output_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     outputs: {
-          //       output_1: {
-          //         connections: [
-          //           {
-          //             node: '3',
-          //             output: 'input_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     pos_x: 520,
-          //     pos_y: 111,
-          //   },
-          //   '3': {
-          //     id: 3,
-          //     name: 'node3',
-          //     data: {},
-          //     class: '',
-          //     html: '\n          <div>\n            <i class="title-box">node3</i>\n          </div>\n          ',
-          //     typenode: false,
-          //     inputs: {
-          //       input_1: {
-          //         connections: [
-          //           {
-          //             node: '2',
-          //             input: 'output_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     outputs: {
-          //       output_1: {
-          //         connections: [
-          //           {
-          //             node: '2',
-          //             output: 'input_1',
-          //           },
-          //         ],
-          //       },
-          //     },
-          //     pos_x: 525,
-          //     pos_y: 321,
-          //   },
-          // },
           data: {}
         },
       },
@@ -259,6 +186,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       this.selectedItem = <NodeElement>(
         this.nodes.find((node: NodeElement) => node.name === e.target.outerText)
       );
+      console.log(this.selectedItem);
     }
   }
 
@@ -286,6 +214,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     if (e.type === 'drop') {
       console.log('onDrop :>> e :>> ', e);
       e.preventDefault();
+      var data = e.dataTransfer.getData("data-node");
       this.addNodeToDrawBoard(e.clientX, e.clientY);
       this.resetAllInputsOutputs();
     }
@@ -305,52 +234,80 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         pos_x *
           (this.editor.precanvas.clientWidth /
             (this.editor.precanvas.clientWidth * this.editor.zoom)) -
-        this.editor.precanvas.getBoundingClientRect().x *
-          (this.editor.precanvas.clientWidth /
-            (this.editor.precanvas.clientWidth * this.editor.zoom));
+              this.editor.precanvas.getBoundingClientRect().x *
+                (this.editor.precanvas.clientWidth /
+                  (this.editor.precanvas.clientWidth * this.editor.zoom));
 
       pos_y =
         pos_y *
           (this.editor.precanvas.clientHeight /
             (this.editor.precanvas.clientHeight * this.editor.zoom)) -
-        this.editor.precanvas.getBoundingClientRect().y *
-          (this.editor.precanvas.clientHeight /
-            (this.editor.precanvas.clientHeight * this.editor.zoom));
-            // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
-            const htmlTemplate = `
-            <div>
-              <div>
-              <textarea df-template></textarea>
-              </div>
-            </div>
-            `;
-            const data = { template: `${this.selectedItem.name}` }
-            this.positionX = pos_x;
-            this.positionY = pos_y
+              this.editor.precanvas.getBoundingClientRect().y *
+                (this.editor.precanvas.clientHeight /
+                  (this.editor.precanvas.clientHeight * this.editor.zoom));
 
+
+      const data = { template: `${this.selectedItem.name}` }
+      this.positionX = pos_x;
+      this.positionY = pos_y;
       const nodeName = this.selectedItem.name;
-      
-      //editor.addNode(name, inputs, outputs, posx, posy, class, data, html);
-      //editor.addNode('welcome', 0, 0, 50, 50, 'welcome', {}, welcome );
 
-      const nodeId = this.editor.addNode(
-        this.selectedItem.name,
-        this.selectedItem.inputs,
-        this.selectedItem.outputs,
-        pos_x,
-        pos_y,
-        'template',
-        data,
-        htmlTemplate,
-        false
-      );
+      switch (this.selectedItem.name){
+        //CARD 1 (SINGLE OUTPUT)
+        case 'Single Output':
+          var singleOutput = `
+            <textarea nz-input class="gold-card-textarea"  placeholder="Enter Text" maxlength="30" ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'gold-card', data,
+            singleOutput, false
+          );
+          break;
+
+        //CARD 2 (SINGLE INPUT)
+        case 'Single Input':
+          var singleInput = `
+            <textarea nz-input rows="3" class="blue-card-textarea"  placeholder="Enter Text" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'blue-card', data,
+            singleInput, false
+          );
+          break;
+
+        //CARD 3 (SINGLE INPUT AND OUTPUT)
+        case 'Single Input and Output':
+          var singleInputAndOutput = `
+            <textarea nz-input rows="2" class="gold-card-textarea"  placeholder="Enter Text" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'gold-card', data,
+            singleInputAndOutput, false
+          );
+          break;
+
+        //CARD 4 (Cutsom IO)
+        case 'Custom IO':
+          var customIO = `
+            <textarea nz-input rows="2" class="gold-card-textarea"  placeholder="Enter Text" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'gold-card', data,
+            customIO, false
+          );
+          break;
+      }
+
 
       this.nodesDrawn.push({
         nodeId,
         nodeName,
       });
 
-      // const newNode = <DrawflowNode>this.editor.getNodeFromId(nodeId);
     }
   }
 

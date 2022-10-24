@@ -7,34 +7,226 @@
 
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
-.drawflow .drawflow-node.selected{
-    background: #f7f7f7 !important;
-    border: 1px solid #4ea9ff;
-    -webkit-box-shadow: 0 2px 20px 2px #4ea9ff !important;
-    box-shadow: 0 2px 20px 2px #4ea9ff !important;
-}
-.drawflow .drawflow-node{
-    width: auto !important;
-    background: #f7f7f7 !important;
-    border: 1px solid white !important;
-    -webkit-box-shadow: 0 10px 20px rgba(202, 202, 202, 1), 0 0px 5px rgba(202, 202, 202, 1) !important;
-    box-shadow: 2px 10px 20px rgba(202, 202, 202, 1), 0px 0px 5px rgba(202, 202, 202, 1) !important;
-    padding: 0px;
-    width: 200px;
-    padding: 20px !important;
-}
-.drawflow .drawflow-node .input{
-    background: white !important;
-    border: 2px solid rgb(202 202 202) !important;
-    left: -33px !important;
-}
-.drawflow .drawflow-node .output{
-    background: white !important;
-    border: 2px solid rgb(202 202 202) !important;
-    right: -10px !important;
-}
 .draw-flow-poc{
     width: 100% !important;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// DRAWFLOW THEME START /////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+$border-color: black;
+$dfBackgroundSize: 0px;
+$dfBackgroundImage: none;
+
+// GOLD CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.gold-card {
+  display: flex !important;
+  background: rgba(239, 225, 179, 1) !important;
+  color: black !important;
+  width: auto !important;
+  border: 1px  solid black !important;
+  border-radius: 4px !important;
+  min-height: 40px !important;
+  min-width: 180px !important;
+  padding: 10px;
+  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  .gold-card-textarea{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    background: rgba(239, 225, 179, 1) !important;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+
+  }
+
+}
+
+.drawflow .drawflow-node.gold-card:hover {
+  background: rgba(232, 211, 144, 1) !important;
+  color: black !important;
+  border: 1px  solid black !important;
+  border-radius: 4px !important;
+  -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  .gold-card-textarea{
+    background: rgba(232, 211, 144, 1) !important;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+  }
+}
+
+.drawflow .drawflow-node.gold-card.selected {
+  background: rgba(232, 211, 144, 1) !important;
+  color: black !important;
+  border: 1px  solid black !important;
+  border-radius: 4px !important;
+  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
+  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
+  .gold-card-textarea{
+    background: rgba(232, 211, 144, 1) !important;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+  }
+}
+
+// BLUE CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.blue-card {
+  display: flex !important;
+  background: #014a72 !important;
+  color: white !important;
+  border: 1px  solid black !important;
+  border-radius: 4px !important;
+  min-height: 40px !important;
+  width: auto !important;
+  min-width: 380px !important;
+  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  .blue-card-textarea{
+    width: 100%;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    background: #014a72 !important;
+    color: white;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+  }
+}
+
+.drawflow .drawflow-node.blue-card:hover {
+  background: #013b5b !important;
+  color: white !important;
+  border: 1px  solid black !important;
+  border-radius: 4px !important;
+  -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  .blue-card-textarea{
+    background: #013b5b !important;
+    color: white;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+  }
+}
+
+.drawflow .drawflow-node.blue-card.selected {
+  background: #013b5b !important;
+  color: White !important;
+  border: 1px  solid black !important;
+  border-radius: 4px !important;
+  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
+  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
+  .blue-card-textarea{
+    background: #013b5b !important;
+    color: white;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+  }
+}
+
+// INPUTS /////////////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node .input {
+  left: -20px !important;
+  background: rgba(247, 247, 247, 1) !important;
+  border: 1px  solid black !important;
+  border-radius: 50px !important;
+  height: 14px !important;
+  width: 14px !important;
+}
+
+.drawflow .drawflow-node .input:hover {
+  background: rgba(108, 163, 109, 1) !important;
+  border: 1px solid rgba(0, 0, 0, 1) !important;
+  border-radius: 50px!important;
+}
+
+// OUTPUTS /////////////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node .outputs {
+  float: none !important;
+}
+
+.drawflow .drawflow-node .output {
+  right: -6px !important;
+  background: rgba(247, 247, 247, 1) !important;
+  border: 1px  solid black !important;
+  border-radius: 50px !important;
+  height: 14px !important;
+  width: 14px !important;
+}
+
+.drawflow .drawflow-node .output:hover {
+  background: rgba(108, 163, 109, 1) !important;
+  border: 1px  solid black !important;
+  border-radius: 50px !important;
+}
+
+// LINES /////////////////////////////////////////////////////////////////////////////
+
+.drawflow .connection .main-path {
+  stroke-width: 4px !important;
+  stroke: rgba(1, 74, 114, 1) !important;
+}
+
+.drawflow .connection .main-path:hover {
+  stroke: rgba(108, 163, 109, 1) !important;
+}
+
+.drawflow .connection .main-path.selected {
+  stroke: rgba(232, 97, 97, 1) !important;
+}
+
+.drawflow .connection .point {
+  stroke: black !important;
+  stroke-width: 1px !important;
+  fill: rgba(247, 247, 247, 1) !important;
+}
+
+.drawflow .connection .point:hover {
+  stroke: black !important;
+  stroke-width: 2px !important;
+  fill: white !important;
+}
+
+.drawflow-delete {
+  display: block !important;
+  color: rgba(255, 255, 255, 1) !important;
+  background: rgba(116, 116, 116, 1) !important;
+  border: 1px solid black !important;
+  border-radius: 50px !important;
+}
+
+.parent-node .drawflow-delete {
+  top: 0 !important;
+}
+
+.drawflow-delete:hover {
+  color: rgba(255, 255, 255, 1) !important;
+  background: rgba(232, 97, 97, 1) !important;
+  border: 1px solid black !important;
+  border-radius: 50px !important;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// DRAWFLOW THEME END ///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////

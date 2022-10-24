@@ -1,4 +1,4 @@
-<div class="draw-flow-poc">
+<div class="drawflow draw-flow-poc">
     <header class="p-3">
       <div class="flex justify-between items-center" [formGroup]="formGroup">
         <div (click)="back()" class="cursor-pointer flex items-center">
@@ -16,28 +16,14 @@
     <div class="wrapper">
       <div class="col" style="text-align: center">
         <ng-container *ngFor="let node of nodes">
-          <div
-            class="drag-drawflow"
-            draggable="true"
-            (dragstart)="onDragStart($event)"
-          >
+          <div class="drag-drawflow" draggable="true" (dragstart)="onDragStart($event)" data-node="node.name">
             {{ node.name }}
           </div>
           <ng-container *ngIf="node.id === 4">
             <label>Inputs:</label>
-            <input
-              type="number"
-              [(ngModel)]="node.inputs"
-              min="0"
-              style="width: 30px"
-            />
+            <input type="number" [(ngModel)]="node.inputs" min="0" style="width: 30px"/>
             <label> Outputs:</label>
-            <input
-              type="number"
-              [(ngModel)]="node.outputs"
-              min="0"
-              style="width: 30px"
-            />
+            <input type="number" [(ngModel)]="node.outputs"  min="0" style="width: 30px"/>
           </ng-container>
         </ng-container>
         <br>
@@ -81,4 +67,3 @@
       </div>
     </div>
   </div>
-  
