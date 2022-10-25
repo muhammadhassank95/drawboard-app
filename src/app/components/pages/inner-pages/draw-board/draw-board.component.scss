@@ -5,17 +5,12 @@
   
     --background-box-title: #f7f7f7;
   
-    margin: 0px;
-    padding: 0px;
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
   }
   
   header {
     border-bottom: 1px solid var(--border-color);
-    padding-left: 20px;
   }
   
   
@@ -44,7 +39,7 @@
   
   .wrapper {
     width: 100%;
-    height: calc(100vh - 67px);
+    height: calc(100vh - 237px);
     display: flex;
   }
   

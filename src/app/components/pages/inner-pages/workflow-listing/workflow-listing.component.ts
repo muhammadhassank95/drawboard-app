@@ -18,6 +18,7 @@ export class WorkflowListingComponent implements OnInit {
   public rowData: any;
   public api: any
   public frameworkComponents: any;
+  public searchString: string = '';
 
   constructor(
     private router: Router,
@@ -97,6 +98,12 @@ export class WorkflowListingComponent implements OnInit {
       console.log('...Fetching new records...')
       this.getDiagrams()
     });
+  }
+
+  public filterListing(searchString: KeyboardEvent): void {
+    console.error('searchString B',this.searchString)
+    this.api.setQuickFilter(this.searchString)
+    
   }
 
   dateFormatter(params: any) {

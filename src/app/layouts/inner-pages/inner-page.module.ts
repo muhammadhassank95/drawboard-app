@@ -9,15 +9,19 @@ import { WorkflowListingComponent } from 'src/app/components/pages/inner-pages/w
 import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-helper/button-renderer/button-renderer.component';
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { HeaderComponent } from 'src/app/components/partials/header/header/header.component';
+import { FooterComponent } from 'src/app/components/partials/footer/footer.component';
+
+
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    DrawBoardComponent,
-    InnerPagesComponent,
-    ButtonRendererComponent,
+    DrawBoardComponent, 
+    InnerPagesComponent, 
     WorkflowListingComponent,
-    GridActionIconsComponent
+    ButtonRendererComponent,
+    GridActionIconsComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
