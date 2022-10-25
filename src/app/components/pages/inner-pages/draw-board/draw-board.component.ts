@@ -60,7 +60,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public diagramId: string = '';
 
   public nodeSelection = [
-    { id: 1, name: 'Single Output', inputs: 0, outputs: 1, },
+    { id: 1, name: 'Single Output', inputs: 0, outputs: 1 },
     { id: 2, name: 'Single Input', inputs: 1, outputs: 0, },
     { id: 3, name: 'Single Input and Output', inputs: 1, outputs: 1, },
     { id: 4, name: 'Custom IO', inputs: 0, outputs: 0, },
@@ -261,7 +261,9 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   // Drawflow Editor Operations
+  
   addNodeToDrawBoard(pos_x: number, pos_y: number) {
+      console.error('this.selectedItem',this.selectedItem)
     if (this.editor.editor_mode === 'edit') {
       pos_x =
         pos_x *
@@ -280,7 +282,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
             (this.editor.precanvas.clientHeight * this.editor.zoom));
             // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
             const htmlTemplate = `
-            <div>
+            <div >
               <div class="${this.selectedItem.name}">
                 <textarea df-template style="border: 1px solid #ccc; padding: 3px 8px;"></textarea>
               </div>
@@ -301,7 +303,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         this.selectedItem.outputs,
         pos_x,
         pos_y,
-        'template',
+        this.selectedItem.name,
         data,
         htmlTemplate,
         false

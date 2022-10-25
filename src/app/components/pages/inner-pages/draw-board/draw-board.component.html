@@ -2,7 +2,7 @@
     <header class="p-3">
       <div class="flex justify-between items-center" [formGroup]="formGroup">
         <div class="flex">
-          <input type="text" nz-input formControlName="title" class="mb-1" placeholder="Name your diagram"/>
+          <input type="text" nz-input formControlName="title" class="mb-1 rounded shadow-lg" placeholder="Name your diagram"/>
         </div>
         <div class="flex">
           <nz-tag
@@ -27,7 +27,7 @@
             (blur)="handleInputConfirm()"
             (keydown.enter)="handleInputConfirm()"
           />
-          <em (click)="back()" class="ph-x text-xl cursor-pointer"></em>
+          <em (click)="back()" class="ph-sign-out text-xl cursor-pointer"></em>
         </div>
       </div>
     </header>

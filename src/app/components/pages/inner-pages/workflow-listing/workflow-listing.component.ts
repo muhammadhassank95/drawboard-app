@@ -51,8 +51,8 @@ export class WorkflowListingComponent implements OnInit {
 
   public setGridDataCols(): void {
     this.columnDefs = [
-      { field: "name" }, 
-      { field: "tag" }, 
+      { field: "name", headerName: 'FMEA' }, 
+      { field: "tag", headerName: 'Tags' }, 
       { field: "createdBy" }, 
       { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) }, 
       { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
