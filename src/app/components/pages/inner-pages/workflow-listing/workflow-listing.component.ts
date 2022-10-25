@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { GridReadyEvent } from 'ag-grid-community';
 import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-helper/button-renderer/button-renderer.component';
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
+import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-workflow-listing',
@@ -17,7 +19,8 @@ export class WorkflowListingComponent implements OnInit {
   public frameworkComponents: any;
 
   constructor(
-    public router: Router
+    public router: Router,
+    public drawBoardServices: DrawBoardService
   ) { 
     this.setFrameworksComponent()
   }
@@ -31,6 +34,15 @@ export class WorkflowListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.setGridDataCols();
+    this.getDiagrams();
+  }
+
+  public getDiagrams(): void {
+    this.drawBoardServices.getDiagram().subscribe((response: any) => {
+      if(response){
+        this.rowData = response;
+      } 
+    })
   }
 
   newWorkflow(): void {
@@ -39,11 +51,11 @@ export class WorkflowListingComponent implements OnInit {
 
   public setGridDataCols(): void {
     this.columnDefs = [
-      { field: "name" }, 
-      { field: "tags" }, 
+      { field: "name", headerName: 'FMEA' }, 
+      { field: "tag", headerName: 'Tags' }, 
       { field: "createdBy" }, 
-      { field: "dateTime" }, 
-      { field: "lastUpdated" },
+      { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) }, 
+      { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
       {
         headerName: 'Actions',
         cellRenderer: 'iconRenderer',
@@ -52,11 +64,7 @@ export class WorkflowListingComponent implements OnInit {
         }
       }
     ]
-    this.rowData = [
-      { id: 1, name: "Boiler Feed Water Pump", tags: "boiler, water, pump", createdBy: 'Arnold', dateTime: '10/19/2022', lastUpdated: '10/20/2022' },
-      { id: 2, name: "Surveillance", tags: "lorem,ipsum,test", createdBy: 'Malek', dateTime: '10/20/2022', lastUpdated: '10/20/2022' },
-      { id: 3, name: "Detailed Offline Pump Inspection", tags: "tag1,tag2,tag3", createdBy: 'Matthew', dateTime: '10/17/2022', lastUpdated: '10/19/2022' },
-    ]
+    
   }
 
   public onGridReady(params: GridReadyEvent){
@@ -66,8 +74,16 @@ export class WorkflowListingComponent implements OnInit {
 
   public OnDiagramView(e: any): void {
     console.error('eeee',e)
-    // this.router.navigate(['/cloud-map', e.rowData]);
+    this.router.navigate([`/cloud-map/${e.rowData.id}`]);
 
+  }
+
+  dateFormatter(params: any) {
+    return params ? moment.utc(params.data.createdDate).format('MM/DD/YYYY') : "";
+  }
+
+  dateFormatterLastUpdate(params: any) {
+    return params ? moment.utc(params.data.lastUpdate).format('MM/DD/YYYY') : "";
   }
 
 }

@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { WorkflowListingComponent } from 'src/app/components/pages/inner-pages/workflow-listing/workflow-listing.component';
 import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-helper/button-renderer/button-renderer.component';
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
+import { HeaderComponent } from 'src/app/components/partials/header/header/header.component';
 
 
 
@@ -17,7 +18,8 @@ import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-he
     InnerPagesComponent, 
     WorkflowListingComponent,
     ButtonRendererComponent,
-    GridActionIconsComponent
+    GridActionIconsComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

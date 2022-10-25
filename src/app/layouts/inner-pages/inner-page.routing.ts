@@ -10,6 +10,7 @@ const routes: Routes = [{
     children: [
         { path: '', redirectTo: 'workflow-listing', pathMatch: 'full' },
         { path: 'workflow-listing', component: WorkflowListingComponent, pathMatch: 'full', data: { title: 'Workflow Listing' } },
+        { path: 'cloud-map/:id', component: DrawBoardComponent, pathMatch: 'full', data: { title: 'Cloud Map' } },
         { path: 'cloud-map', component: DrawBoardComponent, pathMatch: 'full', data: { title: 'Cloud Map' } },
     ]
 }]

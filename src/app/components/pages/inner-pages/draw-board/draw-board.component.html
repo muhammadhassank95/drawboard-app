@@ -1,16 +1,34 @@
 <div class="drawflow draw-flow-poc">
     <header class="p-3">
       <div class="flex justify-between items-center" [formGroup]="formGroup">
-        <div (click)="back()" class="cursor-pointer flex items-center">
-          <em class="ph-arrow-left mr-1 text-xl"></em>
-          <span>
-            Back
-          </span>
+        <div class="flex">
+          <input type="text" nz-input formControlName="title" class="mb-1 rounded shadow-lg" placeholder="Name your diagram"/>
         </div>
-        <div>
-          <input type="text" nz-input formControlName="title" class="mb-1" placeholder="Name your diagram"/>
+        <div class="flex">
+          <nz-tag
+            *ngFor="let tag of diagramTags.controls; let i = index"
+            [nzMode]="'closeable'"
+          >
+            {{ sliceTagName(tag.value) }}
+          </nz-tag>
+          <nz-tag *ngIf="!inputVisible" class="editable-tag" nzNoAnimation (click)="showInput()">
+            <span nz-icon nzType="plus"></span>
+            New Tag
+          </nz-tag>
+          <input
+            #inputElement
+            nz-input
+            nzSize="small"
+            *ngIf="inputVisible"
+            type="text"
+            [(ngModel)]="inputValue"
+            [ngModelOptions]="{standalone: true}"
+            style="width: 78px;"
+            (blur)="handleInputConfirm()"
+            (keydown.enter)="handleInputConfirm()"
+          />
+          <em (click)="back()" class="ph-sign-out text-xl cursor-pointer"></em>
         </div>
-        <div></div>
       </div>
     </header>
     <div class="wrapper">

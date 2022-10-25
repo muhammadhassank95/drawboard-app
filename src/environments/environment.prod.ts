@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  API: {
+    ENDPOINT: 'https://topbusinessriskapi.azurewebsites.net/api'
+  }
 };

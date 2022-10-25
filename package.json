@@ -22,6 +22,7 @@
     "ag-grid-angular": "^28.2.0",
     "ag-grid-community": "^28.2.0",
     "drawflow": "^0.0.55",
+    "moment": "^2.29.4",
     "ng-zorro-antd": "^14.1.1",
     "phosphor-icons": "^1.4.2",
     "rxjs": "~7.5.0",
