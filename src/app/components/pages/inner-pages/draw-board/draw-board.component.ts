@@ -60,10 +60,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public diagramId: string = '';
 
   public nodeSelection = [
-    { id: 1, name: 'Single Output', inputs: 0, outputs: 1 },
-    { id: 2, name: 'Single Input', inputs: 1, outputs: 0, },
-    { id: 3, name: 'Single Input and Output', inputs: 1, outputs: 1, },
-    { id: 4, name: 'Custom IO', inputs: 0, outputs: 0, },
+    { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
+    { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
+    { id: 3, name: 'singleInRed', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-red.png'},
+    { id: 4, name: 'singleInGreen', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-green.png'},
+    { id: 5, name: 'singleInOrg', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-org.png'},
+    { id: 6, name: 'singleInBlue', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-blue.png'},
   ]
 
   constructor(
@@ -80,6 +82,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   public initializeList(length: number) {
     this.nodes = this.nodeSelection;
+    console.error('nodesssss',this.nodes)
     // for (let i = 0; i < length; i++) {
     //   this.nodes.push({
     //     id: i + 1,
@@ -219,7 +222,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     if (e.type === 'dragstart') {
       console.log('onDragStart :>> e :>> ', e);
       this.selectedItem = <NodeElement>(
-        this.nodes.find((node: NodeElement) => node.name === e.target.outerText)
+        this.nodes.find((node: NodeElement) => node.name === e.target.name)
       );
       console.log(this.selectedItem);
     }
@@ -246,10 +249,11 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   onDrop(e: any) {
     // After dropping the element, create a node
+    console.error('eeeeee', e)
     if (e.type === 'drop') {
       console.log('onDrop :>> e :>> ', e);
       e.preventDefault();
-      var data = e.dataTransfer.getData("data-node");
+      // var data = e.dataTransfer.getData("data-node");
       this.addNodeToDrawBoard(e.clientX, e.clientY);
       this.resetAllInputsOutputs();
     }
@@ -283,13 +287,13 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
           (this.editor.precanvas.clientHeight /
             (this.editor.precanvas.clientHeight * this.editor.zoom));
             // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
-            const htmlTemplate = `
-            <div >
-              <div class="${this.selectedItem.name}">
-                <textarea df-template style="border: 1px solid #ccc; padding: 3px 8px;"></textarea>
-              </div>
-            </div>
-            `;
+            // const htmlTemplate = `
+            // <div >
+            //   <div class="${this.selectedItem.name}">
+            //     <textarea id="textarea" df-template style="border: 1px solid #ccc; padding: 3px 8px;"></textarea>
+            //   </div>
+            // </div>
+            // `;
 
 
       const data = { template: `${this.selectedItem.name}` }
@@ -297,17 +301,79 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       this.positionY = pos_y;
       const nodeName = this.selectedItem.name;
 
-      const nodeId = this.editor.addNode(
-        this.selectedItem.name,
-        this.selectedItem.inputs,
-        this.selectedItem.outputs,
-        pos_x,
-        pos_y,
-        this.selectedItem.name,
-        data,
-        htmlTemplate,
-        false
-      );
+      switch (this.selectedItem.name){
+        //CARD 1 (SINGLE OUTPUT)
+        case 'singleOut':
+          var singleOutput = `
+            <textarea id="textarea" nz-input class="mani-card-textarea"  placeholder="" maxlength="30" ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'mani-card', data,
+            singleOutput, false
+          );
+          break;
+
+        //CARD 2 (SINGLE INPUT AND OUTPUT)
+        case 'singleInOut':
+          var singleInputAndOutput = `
+            <textarea id="textarea" nz-input rows="2" class="mani-card-textarea"  placeholder="" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'mani-card', data,
+            singleInputAndOutput, false
+          );
+          break;
+
+        //CARD 3 (SINGLE INPUT RED)
+        case 'singleInRed':
+          var singleInputAndOutput = `
+            <textarea id="textarea" nz-input rows="3" class="red-card-textarea"  placeholder="" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'red-card', data,
+            singleInputAndOutput, false
+          );
+          break;
+
+        //CARD 4 (SINGLE INPUT GREEN)
+        case 'singleInGreen':
+          var singleInputAndOutput = `
+            <textarea id="textarea" nz-input rows="3" class="green-card-textarea"  placeholder="" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'green-card', data,
+            singleInputAndOutput, false
+          );
+          break;
+
+        //CARD 5 (SINGLE INPUT ORANGE)
+        case 'singleInOrg':
+          var singleInputAndOutput = `
+            <textarea id="textarea" nz-input rows="3" class="org-card-textarea"  placeholder="" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'org-card', data,
+            singleInputAndOutput, false
+          );
+          break;
+        //CARD 6 (SINGLE INPUT BLUE)
+        case 'singleInBlue':
+          var singleInputAndOutput = `
+            <textarea id="textarea" nz-input rows="3" class="blue-card-textarea"  placeholder="" nzBorderless ></textarea>
+          `;
+          var nodeId = this.editor.addNode(
+            this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
+            pos_x, pos_y, 'blue-card', data,
+            singleInputAndOutput, false
+          );
+          break;
+      }
+
 
       this.nodesDrawn.push({
         nodeId,

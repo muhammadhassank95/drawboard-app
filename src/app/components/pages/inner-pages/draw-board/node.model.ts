@@ -3,5 +3,5 @@ export interface NodeElement {
     name: string;
     inputs: number;
     outputs: number;
+    imgPath: string;
   }
-  

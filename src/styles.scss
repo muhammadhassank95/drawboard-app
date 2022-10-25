@@ -23,139 +23,177 @@ $border-color: black;
 $dfBackgroundSize: 0px;
 $dfBackgroundImage: none;
 
-// GOLD CARD //////////////////////////////////////////////////////////////////////////
-
-.drawflow .drawflow-node.gold-card {
+.drawflow .drawflow-node{
   display: flex !important;
-  background: rgba(239, 225, 179, 1) !important;
-  color: black !important;
   width: auto !important;
-  border: 1px  solid black !important;
   border-radius: 4px !important;
-  min-height: 40px !important;
-  min-width: 180px !important;
   padding: 10px;
   -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
   box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
-  .gold-card-textarea{
+  border: 1px  solid #929292 !important;
+
+  #textarea{
     padding-top: 5px !important;
     padding-bottom: 5px !important;
-    background: rgba(239, 225, 179, 1) !important;
-    resize: none;
-    white-space: normal;
-    text-align: justify;
-    text-align-last: center;
-
-  }
-
-}
-
-.drawflow .drawflow-node.gold-card:hover {
-  background: rgba(232, 211, 144, 1) !important;
-  color: black !important;
-  border: 1px  solid black !important;
-  border-radius: 4px !important;
-  -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
-  box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
-  .gold-card-textarea{
-    background: rgba(232, 211, 144, 1) !important;
+    width: 100%;
     resize: none;
     white-space: normal;
     text-align: justify;
     text-align-last: center;
   }
+  &:hover{
+    border: 1px  solid #5a5a5a !important;
+    border-radius: 4px !important;
+    -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+    box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  }
+  &.selected{
+    border: 1px  solid #5a5a5a !important;
+    border-radius: 4px !important;
+    -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+    box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  }
 }
 
-.drawflow .drawflow-node.gold-card.selected {
-  background: rgba(232, 211, 144, 1) !important;
-  color: black !important;
-  border: 1px  solid black !important;
-  border-radius: 4px !important;
-  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
-  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
-  .gold-card-textarea{
-    background: rgba(232, 211, 144, 1) !important;
-    resize: none;
-    white-space: normal;
-    text-align: justify;
-    text-align-last: center;
+// MANILLA CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.mani-card {
+  background-color: #efe1b3 !important;
+  color: #5b5a53 !important;
+  min-height: 40px !important;
+  min-width: 180px !important;
+  .mani-card-textarea{
+    background-color: #efe1b3  !important;
+  }
+  &:hover {
+    background-color: #eedb9d !important;
+    .mani-card-textarea{
+      background-color: #eedb9d  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.mani-card.selected {
+  background-color: #eedb9d !important;
+  .mani-card-textarea{
+    background-color: #eedb9d !important;
+  }
+}
+
+// GREEN CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.green-card {
+  background-color: #57a961 !important;
+  color: #f2f8f2 !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .green-card-textarea{
+    background-color: #57a961  !important;
+  }
+  &:hover {
+    background-color: #57a25d !important;
+    .green-card-textarea{
+      background-color: #57a25d  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.green-card.selected {
+  background-color: #4d9153 !important;
+  .green-card-textarea{
+    background-color: #4d9153 !important;
+  }
+}
+
+// RED CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.red-card {
+  background-color: #fdbfb3 !important;
+  color: #3a3534 !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .red-card-textarea{
+    background-color: #fdbfb3  !important;
+  }
+  &:hover {
+    background-color: #ffa795 !important;
+    .red-card-textarea{
+      background-color: #ffa795  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.red-card.selected {
+  background-color: #ffa795 !important;
+  .red-card-textarea{
+    background-color: #ffa795 !important;
+  }
+}
+
+// ORANGE CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.org-card {
+  background-color: #ff9d00 !important;
+  color: #433f38 !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .org-card-textarea{
+    background-color: #ff9d00  !important;
+  }
+  &:hover {
+    background-color: #f09400 !important;
+    .org-card-textarea{
+      background-color: #f09400  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.org-card.selected {
+  background-color: #f09400 !important;
+  .org-card-textarea{
+    background-color: #f09400 !important;
   }
 }
 
 // BLUE CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.blue-card {
-  display: flex !important;
-  background: #014a72 !important;
-  color: white !important;
-  border: 1px  solid black !important;
-  border-radius: 4px !important;
+  background-color: #2e70a9 !important;
+  color: #d2d8dd !important;
   min-height: 40px !important;
-  width: auto !important;
   min-width: 380px !important;
-  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
-  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
   .blue-card-textarea{
-    width: 100%;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-    background: #014a72 !important;
-    color: white;
-    resize: none;
-    white-space: normal;
-    text-align: justify;
-    text-align-last: center;
+    background-color: #2e70a9  !important;
   }
-}
-
-.drawflow .drawflow-node.blue-card:hover {
-  background: #013b5b !important;
-  color: white !important;
-  border: 1px  solid black !important;
-  border-radius: 4px !important;
-  -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
-  box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
-  .blue-card-textarea{
-    background: #013b5b !important;
-    color: white;
-    resize: none;
-    white-space: normal;
-    text-align: justify;
-    text-align-last: center;
+  &:hover {
+    background-color: #2069a9 !important;
+    .blue-card-textarea{
+      background-color: #2069a9  !important;
+    }
   }
 }
 
 .drawflow .drawflow-node.blue-card.selected {
-  background: #013b5b !important;
-  color: White !important;
-  border: 1px  solid black !important;
-  border-radius: 4px !important;
-  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
-  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.55) !important;
+  background-color: #2069a9 !important;
   .blue-card-textarea{
-    background: #013b5b !important;
-    color: white;
-    resize: none;
-    white-space: normal;
-    text-align: justify;
-    text-align-last: center;
+    background-color: #2069a9 !important;
   }
 }
 
 // INPUTS /////////////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node .input {
-  left: -20px !important;
+  left: -21px !important;
   background: rgba(247, 247, 247, 1) !important;
-  border: 1px  solid black !important;
+  border: 1px  solid #929292 !important;
   border-radius: 50px !important;
-  height: 14px !important;
-  width: 14px !important;
+  height: 12px !important;
+  width: 12px !important;
 }
 
 .drawflow .drawflow-node .input:hover {
-  background: rgba(108, 163, 109, 1) !important;
-  border: 1px solid rgba(0, 0, 0, 1) !important;
+  background: rgb(145, 145, 145) !important;
+  border: 1px  solid #5a5a5a !important;
   border-radius: 50px!important;
 }
 
@@ -166,33 +204,33 @@ $dfBackgroundImage: none;
 }
 
 .drawflow .drawflow-node .output {
-  right: -6px !important;
-  background: rgba(247, 247, 247, 1) !important;
-  border: 1px  solid black !important;
+  right: -9px !important;
+  background: rgb(247, 247, 247) !important;
+  border: 1px  solid #929292 !important;
   border-radius: 50px !important;
-  height: 14px !important;
-  width: 14px !important;
+  height: 12px !important;
+  width: 12px !important;
 }
 
 .drawflow .drawflow-node .output:hover {
-  background: rgba(108, 163, 109, 1) !important;
-  border: 1px  solid black !important;
+  background: rgb(187, 187, 187) !important;
+  border: 1px  solid #5a5a5a !important;
   border-radius: 50px !important;
 }
 
 // LINES /////////////////////////////////////////////////////////////////////////////
 
 .drawflow .connection .main-path {
-  stroke-width: 4px !important;
-  stroke: rgba(1, 74, 114, 1) !important;
+  stroke-width: 3px !important;
+  // stroke: rgb(68, 109, 131) !important;
 }
 
 .drawflow .connection .main-path:hover {
-  stroke: rgba(108, 163, 109, 1) !important;
+  stroke: rgb(126, 151, 126) !important;
 }
 
 .drawflow .connection .main-path.selected {
-  stroke: rgba(232, 97, 97, 1) !important;
+  stroke: #f37567 !important;
 }
 
 .drawflow .connection .point {
@@ -210,19 +248,19 @@ $dfBackgroundImage: none;
 .drawflow-delete {
   display: block !important;
   color: rgba(255, 255, 255, 1) !important;
-  background: rgba(116, 116, 116, 1) !important;
-  border: 1px solid black !important;
+  background: rgb(172, 172, 172) !important;
+  border: 1px solid rgb(98, 98, 98) !important;
   border-radius: 50px !important;
 }
 
 .parent-node .drawflow-delete {
-  top: 0 !important;
+  top: -20px !important;
 }
 
 .drawflow-delete:hover {
   color: rgba(255, 255, 255, 1) !important;
-  background: rgba(232, 97, 97, 1) !important;
-  border: 1px solid black !important;
+  background: #f37567 !important;
+  border: 1px solid rgb(98, 98, 98) !important;
   border-radius: 50px !important;
 }
 
