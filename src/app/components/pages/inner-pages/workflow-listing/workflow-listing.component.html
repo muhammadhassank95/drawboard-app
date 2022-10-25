@@ -6,12 +6,7 @@
             nzType="default"
             (click)="newWorkflow()"
         >Create New</button>
-        <input
-            class="w-1/5 rounded drop-shadow-lg"
-            type="text"
-            nz-input
-            placeholder="Search"
-        />
+        <input type="text" nz-input placeholder="Search" [ngModel]="searchString" (ngModelChange)="searchString = $event" (keyup)="filterListing($event)" class="w-1/6 rounded drop-shadow-lg"/>
     </div>
     <div>
         <ag-grid-angular    
