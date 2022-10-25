@@ -9,6 +9,7 @@ import { WorkflowListingComponent } from 'src/app/components/pages/inner-pages/w
 import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-helper/button-renderer/button-renderer.component';
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { HeaderComponent } from 'src/app/components/partials/header/header/header.component';
+import { FooterComponent } from 'src/app/components/partials/footer/footer.component';
 
 
 
@@ -19,7 +20,8 @@ import { HeaderComponent } from 'src/app/components/partials/header/header/heade
     WorkflowListingComponent,
     ButtonRendererComponent,
     GridActionIconsComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

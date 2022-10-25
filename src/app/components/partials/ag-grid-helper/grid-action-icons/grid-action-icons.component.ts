@@ -38,4 +38,14 @@ export class GridActionIconsComponent implements ICellRendererAngularComp {
     }
   }
 
+  OnDiagramDelete(event: any): void {
+    if(this.params.onDiagramDelete instanceof Function){
+      const params: any = {
+        event: event,
+        rowData: this.params.node.data,
+      };
+      this.params.onDiagramDelete(params);
+    }
+  }
+
 }

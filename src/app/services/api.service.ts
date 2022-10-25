@@ -22,22 +22,23 @@ export class ApiService {
   //   }
   // }
 
-  public get(path: string): Observable<any>{
+  public get(path: string): Observable<any> {
     // let httpOptions = { ...this.httpOptions };
     return this.httpClient.get(`${this.endpointUrl}${path}`).pipe(map((mapData: any) => mapData))
   }
 
-  public post(path: string, data?: any): Observable<any>{
-    // let httpOptions = { ...this.httpOptions };
-
-    return this.httpClient.post(`${this.endpointUrl}${path}`,data) //httpOptions)
-    .pipe(map((mapData: any) => mapData))
+  public post(path: string, data?: any): Observable<any> {
+    return this.httpClient.post(`${this.endpointUrl}${path}`, data)
+      .pipe(map((mapData: any) => mapData))
   }
-  
-  public put(path: string, data?: any): Observable<any>{
-    // let httpOptions = { ...this.httpOptions };
 
-    return this.httpClient.put(`${this.endpointUrl}${path}`,data,) //httpOptions)
-    .pipe(map((mapData: any) => mapData))
+  public put(path: string, data?: any): Observable<any> {
+    return this.httpClient.put(`${this.endpointUrl}${path}`, data,)
+      .pipe(map((mapData: any) => mapData))
+  }
+
+  public delete(pathWithId: string): Observable<any> {
+    return this.httpClient.delete(`${this.endpointUrl}${pathWithId}`)
+      .pipe(map((mapData: any) => mapData))
   }
 }

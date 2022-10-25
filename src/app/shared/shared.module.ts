@@ -6,15 +6,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [],
-  imports: [], 
+  imports: [],
   exports: [
     AgGridModule,
     ReactiveFormsModule,
     //ngZorro
+    NzModalModule,
     NzInputModule,
     NzButtonModule,
     NzTagModule,
