@@ -5,6 +5,7 @@ import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-hel
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service';
 import * as moment from 'moment';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-workflow-listing',
@@ -19,63 +20,83 @@ export class WorkflowListingComponent implements OnInit {
   public frameworkComponents: any;
 
   constructor(
-    public router: Router,
-    public drawBoardServices: DrawBoardService
-  ) { 
+    private router: Router,
+    private drawBoardServices: DrawBoardService,
+    private modal: NzModalService
+  ) {
     this.setFrameworksComponent()
   }
 
-  public setFrameworksComponent(): void {
+  public setFrameworksComponent() {
     this.frameworkComponents = {
       buttonRenderer: ButtonRendererComponent,
       iconRenderer: GridActionIconsComponent
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.setGridDataCols();
     this.getDiagrams();
   }
 
-  public getDiagrams(): void {
+  getDiagrams() {
     this.drawBoardServices.getDiagram().subscribe((response: any) => {
-      if(response){
+      if (response) {
         this.rowData = response;
-      } 
+      }
     })
   }
 
-  newWorkflow(): void {
+  newWorkflow() {
     this.router.navigateByUrl('cloud-map')
   }
 
-  public setGridDataCols(): void {
+  setGridDataCols() {
     this.columnDefs = [
-      { field: "name", headerName: 'FMEA' }, 
-      { field: "tag", headerName: 'Tags' }, 
-      { field: "createdBy" }, 
-      { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) }, 
+      { field: "name", headerName: 'FMEA' },
+      { field: "tag", headerName: 'Tags' },
+      { field: "createdBy" },
+      { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) },
       { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
       {
         headerName: 'Actions',
         cellRenderer: 'iconRenderer',
         cellRendererParams: {
-          onDiagramView: this.OnDiagramView.bind(this)
+          onDiagramView: this.OnDiagramView.bind(this),
+          onDiagramDelete: this.showDeleteConfirm.bind(this),
         }
       }
     ]
-    
   }
 
-  public onGridReady(params: GridReadyEvent){
+  onGridReady(params: GridReadyEvent) {
     this.api = params.api;
     params.api.sizeColumnsToFit();
   }
 
-  public OnDiagramView(e: any): void {
-    console.error('eeee',e)
+  OnDiagramView(e: any) {
+    console.error('eeee', e)
     this.router.navigate([`/cloud-map/${e.rowData.id}`]);
+  }
 
+  showDeleteConfirm(e: any): void {
+    this.modal.confirm({
+      nzTitle: 'Are you sure delete this diagram?',
+      // nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => this.OnDiagramDelete(e),
+      nzCancelText: 'No',
+      nzOnCancel: () => true
+    });
+  }
+
+  OnDiagramDelete(e: any) {
+    this.drawBoardServices.deleteDiagram(e.rowData.id).subscribe((res: any) => {
+      console.log('...Fetching new records...')
+      this.getDiagrams()
+    });
   }
 
   dateFormatter(params: any) {
@@ -85,5 +106,4 @@ export class WorkflowListingComponent implements OnInit {
   dateFormatterLastUpdate(params: any) {
     return params ? moment.utc(params.data.lastUpdate).format('MM/DD/YYYY') : "";
   }
-
 }

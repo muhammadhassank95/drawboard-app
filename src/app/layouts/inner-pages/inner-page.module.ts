@@ -10,16 +10,14 @@ import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-hel
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { HeaderComponent } from 'src/app/components/partials/header/header/header.component';
 
-
-
 @NgModule({
   declarations: [
-    DrawBoardComponent, 
-    InnerPagesComponent, 
-    WorkflowListingComponent,
+    HeaderComponent,
+    DrawBoardComponent,
+    InnerPagesComponent,
     ButtonRendererComponent,
-    GridActionIconsComponent,
-    HeaderComponent
+    WorkflowListingComponent,
+    GridActionIconsComponent
   ],
   imports: [
     CommonModule,

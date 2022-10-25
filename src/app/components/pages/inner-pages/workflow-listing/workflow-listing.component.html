@@ -1,7 +1,17 @@
-<div class="workflow-listing" class="flex flex-col p-5 mx-5 mb-5 shadow-lg rounded">
+<div class="workflow-listing flex flex-col p-5 mx-5 mb-5 shadow-lg rounded">
     <div class="mb-3 flex justify-end">
-        <button nz-button nzType="default" (click)="newWorkflow()" class="w-[10%] mr-2 rounded shadow-lg">Create New</button>
-        <input type="text" nz-input placeholder="Search" class="w-1/5 rounded drop-shadow-lg"/>
+        <button
+            class="w-[10%] mr-2 rounded shadow-lg"
+            nz-button
+            nzType="default"
+            (click)="newWorkflow()"
+        >Create New</button>
+        <input
+            class="w-1/5 rounded drop-shadow-lg"
+            type="text"
+            nz-input
+            placeholder="Search"
+        />
     </div>
     <div>
         <ag-grid-angular    
@@ -10,6 +20,7 @@
             [rowData]="rowData" 
             [columnDefs]="columnDefs"
             (gridReady)="onGridReady($event)"
-            [frameworkComponents]="frameworkComponents"></ag-grid-angular>
+            [frameworkComponents]="frameworkComponents"
+        ></ag-grid-angular>
     </div>
 </div>
