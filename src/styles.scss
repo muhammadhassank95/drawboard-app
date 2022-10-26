@@ -7,31 +7,265 @@
 
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
-.drawflow .drawflow-node.selected{
-    background: #f7f7f7 !important;
-    border: 1px solid #4ea9ff;
-    -webkit-box-shadow: 0 2px 20px 2px #4ea9ff !important;
-    box-shadow: 0 2px 20px 2px #4ea9ff !important;
+.draw-flow-poc{
+    width: 100% !important;
 }
-.drawflow .drawflow-node{
-    width: auto !important;
-    background: #f7f7f7 !important;
-    border: 1px solid white !important;
-    -webkit-box-shadow: 0 10px 20px rgba(202, 202, 202, 1), 0 0px 5px rgba(202, 202, 202, 1) !important;
-    box-shadow: 2px 10px 20px rgba(202, 202, 202, 1), 0px 0px 5px rgba(202, 202, 202, 1) !important;
-    padding: 0px;
-    width: 200px;
-    padding: 20px !important;
-}
-.drawflow .drawflow-node .input{
-    background: white !important;
-    border: 2px solid rgb(202 202 202) !important;
-    left: -33px !important;
-}
-.drawflow .drawflow-node .output{
-    background: white !important;
-    border: 2px solid rgb(202 202 202) !important;
-    right: -10px !important;
-}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// DRAWFLOW THEME START /////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+$border-color: black;
+$dfBackgroundSize: 0px;
+$dfBackgroundImage: none;
+
+.drawflow .drawflow-node{
+  display: flex !important;
+  width: auto !important;
+  border-radius: 4px !important;
+  padding: 10px;
+  -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  border: 1px  solid #929292 !important;
+
+  #textarea{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    width: 100%;
+    resize: none;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
+  }
+  &:hover{
+    border: 1px  solid #5a5a5a !important;
+    border-radius: 4px !important;
+    -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+    box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  }
+  &.selected{
+    border: 1px  solid #5a5a5a !important;
+    border-radius: 4px !important;
+    -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+    box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+  }
+}
+
+// MANILLA CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.mani-card {
+  background-color: #efe1b3 !important;
+  color: #5b5a53 !important;
+  min-height: 40px !important;
+  min-width: 180px !important;
+  .mani-card-textarea{
+    background-color: #efe1b3  !important;
+  }
+  &:hover {
+    background-color: #eedb9d !important;
+    .mani-card-textarea{
+      background-color: #eedb9d  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.mani-card.selected {
+  background-color: #eedb9d !important;
+  .mani-card-textarea{
+    background-color: #eedb9d !important;
+  }
+}
+
+// GREEN CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.green-card {
+  background-color: #57a961 !important;
+  color: #f2f8f2 !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .green-card-textarea{
+    background-color: #57a961  !important;
+  }
+  &:hover {
+    background-color: #57a25d !important;
+    .green-card-textarea{
+      background-color: #57a25d  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.green-card.selected {
+  background-color: #4d9153 !important;
+  .green-card-textarea{
+    background-color: #4d9153 !important;
+  }
+}
+
+// RED CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.red-card {
+  background-color: #fdbfb3 !important;
+  color: #3a3534 !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .red-card-textarea{
+    background-color: #fdbfb3  !important;
+  }
+  &:hover {
+    background-color: #ffa795 !important;
+    .red-card-textarea{
+      background-color: #ffa795  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.red-card.selected {
+  background-color: #ffa795 !important;
+  .red-card-textarea{
+    background-color: #ffa795 !important;
+  }
+}
+
+// ORANGE CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.org-card {
+  background-color: #ff9d00 !important;
+  color: #433f38 !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .org-card-textarea{
+    background-color: #ff9d00  !important;
+  }
+  &:hover {
+    background-color: #f09400 !important;
+    .org-card-textarea{
+      background-color: #f09400  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.org-card.selected {
+  background-color: #f09400 !important;
+  .org-card-textarea{
+    background-color: #f09400 !important;
+  }
+}
+
+// BLUE CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.blue-card {
+  background-color: #2e70a9 !important;
+  color: #d2d8dd !important;
+  min-height: 40px !important;
+  min-width: 380px !important;
+  .blue-card-textarea{
+    background-color: #2e70a9  !important;
+  }
+  &:hover {
+    background-color: #2069a9 !important;
+    .blue-card-textarea{
+      background-color: #2069a9  !important;
+    }
+  }
+}
+
+.drawflow .drawflow-node.blue-card.selected {
+  background-color: #2069a9 !important;
+  .blue-card-textarea{
+    background-color: #2069a9 !important;
+  }
+}
+
+// INPUTS /////////////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node .input {
+  left: -21px !important;
+  background: rgba(247, 247, 247, 1) !important;
+  border: 1px  solid #929292 !important;
+  border-radius: 50px !important;
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.drawflow .drawflow-node .input:hover {
+  background: rgb(145, 145, 145) !important;
+  border: 1px  solid #5a5a5a !important;
+  border-radius: 50px!important;
+}
+
+// OUTPUTS /////////////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node .outputs {
+  float: none !important;
+}
+
+.drawflow .drawflow-node .output {
+  right: -9px !important;
+  background: rgb(247, 247, 247) !important;
+  border: 1px  solid #929292 !important;
+  border-radius: 50px !important;
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.drawflow .drawflow-node .output:hover {
+  background: rgb(187, 187, 187) !important;
+  border: 1px  solid #5a5a5a !important;
+  border-radius: 50px !important;
+}
+
+// LINES /////////////////////////////////////////////////////////////////////////////
+
+.drawflow .connection .main-path {
+  stroke-width: 3px !important;
+  // stroke: rgb(68, 109, 131) !important;
+}
+
+.drawflow .connection .main-path:hover {
+  stroke: rgb(126, 151, 126) !important;
+}
+
+.drawflow .connection .main-path.selected {
+  stroke: #f37567 !important;
+}
+
+.drawflow .connection .point {
+  stroke: black !important;
+  stroke-width: 1px !important;
+  fill: rgba(247, 247, 247, 1) !important;
+}
+
+.drawflow .connection .point:hover {
+  stroke: black !important;
+  stroke-width: 2px !important;
+  fill: white !important;
+}
+
+.drawflow-delete {
+  display: block !important;
+  color: rgba(255, 255, 255, 1) !important;
+  background: rgb(172, 172, 172) !important;
+  border: 1px solid rgb(98, 98, 98) !important;
+  border-radius: 50px !important;
+}
+
+.parent-node .drawflow-delete {
+  top: -20px !important;
+}
+
+.drawflow-delete:hover {
+  color: rgba(255, 255, 255, 1) !important;
+  background: #f37567 !important;
+  border: 1px solid rgb(98, 98, 98) !important;
+  border-radius: 50px !important;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// DRAWFLOW THEME END ///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
