@@ -222,7 +222,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     if (e.type === 'dragstart') {
       console.log('onDragStart :>> e :>> ', e);
       this.selectedItem = <NodeElement>(
-        this.nodes.find((node: NodeElement) => node.name === e.target.name)
+        this.nodes.find((node: NodeElement) => node.id === parseInt(e.target.id))
       );
       console.log(this.selectedItem);
     }
@@ -296,7 +296,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
             // `;
 
 
-      const data = { template: `${this.selectedItem.name}` }
+      const data = { template: `` }
       this.positionX = pos_x;
       this.positionY = pos_y;
       const nodeName = this.selectedItem.name;
@@ -305,7 +305,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 1 (SINGLE OUTPUT)
         case 'singleOut':
           var singleOutput = `
-            <textarea id="textarea" nz-input class="mani-card-textarea"  placeholder="" maxlength="30" ></textarea>
+            <textarea id="textarea" nz-input class="mani-card-textarea" df-template placeholder="" maxlength="30" ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -317,7 +317,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 2 (SINGLE INPUT AND OUTPUT)
         case 'singleInOut':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="2" class="mani-card-textarea"  placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" nz-input rows="2" class="mani-card-textarea" df-template placeholder="" nzBorderless ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -329,7 +329,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 3 (SINGLE INPUT RED)
         case 'singleInRed':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="red-card-textarea"  placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" nz-input rows="3" class="red-card-textarea" df-template placeholder="" nzBorderless ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -341,7 +341,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 4 (SINGLE INPUT GREEN)
         case 'singleInGreen':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="green-card-textarea"  placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" nz-input rows="3" class="green-card-textarea" df-template placeholder="" nzBorderless ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -353,7 +353,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 5 (SINGLE INPUT ORANGE)
         case 'singleInOrg':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="org-card-textarea"  placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" nz-input rows="3" class="org-card-textarea" df-template placeholder="" nzBorderless ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -364,7 +364,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 6 (SINGLE INPUT BLUE)
         case 'singleInBlue':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="blue-card-textarea"  placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" nz-input rows="3" class="blue-card-textarea" df-template placeholder="" nzBorderless ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
