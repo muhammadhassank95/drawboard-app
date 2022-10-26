@@ -48,4 +48,14 @@ export class GridActionIconsComponent implements ICellRendererAngularComp {
     }
   }
 
+  OnDiagramShare(event: any): void {
+    if(this.params.onDiagramDelete instanceof Function){
+      const params: any = {
+        event: event,
+        rowData: this.params.node.data,
+      };
+      this.params.onDiagramShare(params);
+    }
+  }
+
 }

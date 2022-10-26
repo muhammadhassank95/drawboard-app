@@ -64,6 +64,7 @@ export class WorkflowListingComponent implements OnInit {
         cellRenderer: 'iconRenderer',
         cellRendererParams: {
           onDiagramView: this.OnDiagramView.bind(this),
+          onDiagramShare: this.onDiagramShare.bind(this),
           onDiagramDelete: this.showDeleteConfirm.bind(this),
         }
       }
@@ -77,6 +78,10 @@ export class WorkflowListingComponent implements OnInit {
 
   OnDiagramView(e: any) {
     this.router.navigate([`/cloud-map/${e.rowData.id}`]);
+  }
+
+  onDiagramShare(e: any) {
+    console.log('share', e)
   }
 
   showDeleteConfirm(e: any): void {
