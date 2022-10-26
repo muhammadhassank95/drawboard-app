@@ -8,6 +8,7 @@ import {
   TemplateRef,
   ViewChild,
   ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,13 +24,14 @@ import Drawflow, {
 import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service';
 import { WorkflowListingComponent } from '../workflow-listing/workflow-listing.component';
 import { NodeElement } from './node.model';
-import {lastValueFrom} from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   entryComponents: [WorkflowListingComponent],
   selector: 'app-draw-board',
   templateUrl: './draw-board.component.html',
   styleUrls: ['./draw-board.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DrawBoardComponent implements OnInit, AfterViewInit {
   nodes: NodeElement[] = [];
@@ -62,8 +64,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
     { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
-    { id: 3, name: 'singleInRed', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-red.png'},
-    { id: 4, name: 'singleInGreen', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-green.png'},
+    { id: 3, name: 'singleInRed', inputs: 0, outputs: 0, imgPath: 'assets/image/no-node-red.png'},
+    { id: 4, name: 'singleInGreen', inputs: 0, outputs: 0, imgPath: 'assets/image/no-node-green.png'},
     { id: 5, name: 'singleInOrg', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-org.png'},
     { id: 6, name: 'singleInBlue', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-blue.png'},
   ]
@@ -301,7 +303,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 1 (SINGLE OUTPUT)
         case 'singleOut':
           var singleOutput = `
-            <textarea id="textarea" nz-input class="mani-card-textarea" df-template placeholder="" maxlength="30" ></textarea>
+            <textarea id="textarea" class="mani-card-textarea"  placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -313,7 +315,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 2 (SINGLE INPUT AND OUTPUT)
         case 'singleInOut':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="2" class="mani-card-textarea" df-template placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" rows="2" class="mani-card-textarea"  placeholder="Enter Text" df-template ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -325,7 +327,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 3 (SINGLE INPUT RED)
         case 'singleInRed':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="red-card-textarea" df-template placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" rows="6" class="red-card-textarea"  placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -337,7 +339,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 4 (SINGLE INPUT GREEN)
         case 'singleInGreen':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="green-card-textarea" df-template placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" rows="6" class="green-card-textarea"  placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -349,7 +351,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 5 (SINGLE INPUT ORANGE)
         case 'singleInOrg':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="org-card-textarea" df-template placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" rows="3" class="org-card-textarea"  placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -360,7 +362,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 6 (SINGLE INPUT BLUE)
         case 'singleInBlue':
           var singleInputAndOutput = `
-            <textarea id="textarea" nz-input rows="3" class="blue-card-textarea" df-template placeholder="" nzBorderless ></textarea>
+            <textarea id="textarea" rows="3" class="blue-card-textarea" df-template placeholder="Enter Text" ></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -453,5 +455,5 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.inputVisible = false;
   }
 
-
 }
+
