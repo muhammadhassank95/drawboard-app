@@ -76,7 +76,6 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   OnDiagramView(e: any) {
-    console.error('eeee', e)
     this.router.navigate([`/cloud-map/${e.rowData.id}`]);
   }
 
@@ -101,9 +100,7 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   public filterListing(searchString: KeyboardEvent): void {
-    console.error('searchString B',this.searchString)
     this.api.setQuickFilter(this.searchString)
-    
   }
 
   dateFormatter(params: any) {

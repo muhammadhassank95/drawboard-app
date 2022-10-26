@@ -82,7 +82,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   public initializeList(length: number) {
     this.nodes = this.nodeSelection;
-    console.error('nodesssss',this.nodes)
     // for (let i = 0; i < length; i++) {
     //   this.nodes.push({
     //     id: i + 1,
@@ -249,9 +248,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   onDrop(e: any) {
     // After dropping the element, create a node
-    console.error('eeeeee', e)
     if (e.type === 'drop') {
-      console.log('onDrop :>> e :>> ', e);
       e.preventDefault();
       // var data = e.dataTransfer.getData("data-node");
       this.addNodeToDrawBoard(e.clientX, e.clientY);
@@ -269,7 +266,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   // Drawflow Editor Operations
 
   addNodeToDrawBoard(pos_x: number, pos_y: number) {
-      console.error('this.selectedItem',this.selectedItem)
     if (this.editor.editor_mode === 'edit') {
       pos_x =
         pos_x *
@@ -421,11 +417,11 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     if(this.formGroup.valid){
       if(this.isEdit){
         this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
-          console.error('responmse',response)
+          console.log('responmse',response)
         })
       } else {
         this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
-          console.error('responmse',response)
+          console.log('responmse',response)
         })
       }
     } else {
