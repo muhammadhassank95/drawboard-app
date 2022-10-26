@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
   }
 
   public navigate(path: string): void {
-    console.error('pathh', path)
     this.router.navigateByUrl(path)
   }
 

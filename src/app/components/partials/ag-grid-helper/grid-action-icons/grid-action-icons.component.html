@@ -2,6 +2,9 @@
     <button *ngIf="params.onDiagramView" class="ml-2" mat-icon-button (click)="OnDiagramView($event)">
         <em class="ph-folder-notch-open"></em>
     </button>
+    <button *ngIf="params.onDiagramDelete" class="ml-2" mat-icon-button (click)="OnDiagramShare($event)">
+        <em class="ph-share-network"></em>
+    </button>
     <button *ngIf="params.onDiagramDelete" class="ml-2" mat-icon-button (click)="OnDiagramDelete($event)">
         <em class="ph-trash-simple"></em>
     </button>
