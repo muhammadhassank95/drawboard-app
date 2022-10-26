@@ -5,17 +5,8 @@
 // }
 .draw-flow-poc {
 
-  margin: 0px;
-  padding: 0px;
-  width: 100vw;
-  height: 100vh;
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
-}
-
-header {
-  border-bottom: 1px solid black;
-  padding-left: 20px;
 }
 
 header a {
@@ -24,15 +15,15 @@ header a {
 
 .wrapper {
   width: 100%;
-  height: calc(100vh - 67px);
+  height: calc(100vh - 225px);
   display: flex;
 }
 
 .col {
   overflow: auto;
-  width: 250px;
+  width: 220px;
   height: 100%;
-  border-right: 1px solid black;
+  // border-right: 1px solid black;
 }
 
 .drag-drawflow {
@@ -104,14 +95,11 @@ header a {
   float: right;
   position: absolute;
   bottom: 10px;
-  right: 140px;
+  right: 15px;
   display: flex;
   font-size: 24px;
-  color: white;
   padding: 5px 10px;
-  background: #555555;
   border-radius: 4px;
-  border-right: 1px solid $border-color;
   z-index: 5;
   cursor: pointer;
 }
@@ -142,11 +130,12 @@ header a {
 
 #drawflow {
   position: relative;
-  width: calc(100vw - 250px);
+  width: calc(100vw - 220px);
   height: calc(100%);
   background: #ebecec;
   background-size: $dfBackgroundSize $dfBackgroundSize;
   background-image: $dfBackgroundImage;
+  border-radius: 0 15px 15px 0;
 }
 
 @media only screen and (max-width: 768px) {

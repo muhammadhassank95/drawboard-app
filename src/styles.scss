@@ -7,9 +7,6 @@
 
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
-.draw-flow-poc{
-    width: 100% !important;
-}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -269,3 +266,11 @@ $dfBackgroundImage: none;
 //////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// DRAWFLOW THEME END ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
+
+.ant-tag.plus {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}

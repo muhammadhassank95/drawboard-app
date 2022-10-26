@@ -1,9 +1,9 @@
 <div class="header flex justify-between items-center p-5 m-5 shadow-lg rounded">
-    <div class="text-lg">
+    <div (click)="navigate('/')" class="text-lg cursor-pointer">
         <img src="../../../../../assets/logo/cloud-map.png" class="w-[160px]">
     </div>
     <div class="flex items-center">
-        <span class="mr-2 cursor-pointer">
+        <span (click)="navigate('/account-information')" class="mr-2 cursor-pointer">
             <em class="ph-gear text-3xl"></em>
         </span>
         <span class="cursor-pointer">

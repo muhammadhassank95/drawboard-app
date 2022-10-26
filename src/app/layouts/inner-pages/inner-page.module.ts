@@ -10,6 +10,7 @@ import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-hel
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { HeaderComponent } from 'src/app/components/partials/header/header/header.component';
 import { FooterComponent } from 'src/app/components/partials/footer/footer.component';
+import { AccountInformationComponent } from 'src/app/components/pages/inner-pages/account-information/account-information.component';
 
 
 
@@ -20,6 +21,7 @@ import { FooterComponent } from 'src/app/components/partials/footer/footer.compo
     WorkflowListingComponent,
     ButtonRendererComponent,
     GridActionIconsComponent,
+    AccountInformationComponent,
     HeaderComponent,
     FooterComponent
   ],

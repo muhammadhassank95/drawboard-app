@@ -1,4 +1,4 @@
-<div class="draw-flow-poc shadow-lg mb-5 mr-5 ml-5 p-5">
+<div class="draw-flow-poc shadow-lg mx-5 p-3">
     <header class="py-3">
       <div class="flex justify-between items-center" [formGroup]="formGroup">
         <div class="flex">
@@ -8,12 +8,12 @@
           <nz-tag
             *ngFor="let tag of diagramTags.controls; let i = index"
             [nzMode]="'closeable'"
+            class="editable-tag rounded-full flex items-center"
           >
             {{ sliceTagName(tag.value) }}
           </nz-tag>
-          <nz-tag *ngIf="!inputVisible" class="editable-tag" nzNoAnimation (click)="showInput()">
-            <span nz-icon nzType="plus"></span>
-            New Tag
+          <nz-tag *ngIf="!inputVisible" class="editable-tag plus border-none bg-none flex" nzNoAnimation (click)="showInput()">
+            <em class="ph-plus text-lg"></em>
           </nz-tag>
           <input
             #inputElement
@@ -29,31 +29,30 @@
           />
         </div>
         <div>
-          <span class="rounded-full p-2 flex items-center bg-[#707070] text-white">
+          <span class="rounded-full p-1 flex items-center bg-[#707070] text-white">
             <em (click)="back()" class="ph-x text-xl cursor-pointer"></em>
           </span>
         </div>
       </div>
     </header>
-    <div class="wrapper">
-      <div class="col flex flex-col justify-start content-center items-center mt-2">
-        <ng-container *ngFor="let node of nodes">
-          <div class="flex justify-center" draggable="true" (dragstart)="onDragStart($event)" data-node="node.name">
-            <img class="flex mini-card" name="{{node.name}}" src="{{node.imgPath}}" alt="node img" [id]="node.id">
-          </div>
-          <!-- <ng-container *ngIf="node.id === 4">
-            <label>Inputs:</label>
-            <input type="number" [(ngModel)]="node.inputs" min="0" style="width: 30px"/>
-            <label> Outputs:</label>
-            <input type="number" [(ngModel)]="node.outputs"  min="0" style="width: 30px"/>
-          </ng-container> -->
-        </ng-container>
-        <button
-          class="w-[50%] rounded shadow-lg"
-          nz-button
-          nzType="default"
-          (click)="onSubmit()"
-        >SAVE</button>
+    <div class="wrapper border border-gray-400 rounded-xl">
+      <div class="col flex flex-col justify-between content-center items-center mt-2 pb-5">
+        <div>
+          <ng-container *ngFor="let node of nodes">
+            <div class="flex justify-center" draggable="true" (dragstart)="onDragStart($event)" data-node="node.name">
+              <img class="flex mini-card w-44" name="{{node.name}}" src="{{node.imgPath}}" alt="node img" [id]="node.id">
+            </div>
+          </ng-container>
+        </div>
+        <div class="flex flex-col items-center w-full">
+          <button
+            class="rounded shadow-lg mb-1 w-4/5"
+            nz-button
+            nzType="default"
+            (click)="onSubmit()"
+          >SAVE</button>
+          <span class="text-[10px]">VERSION 0.001</span>
+        </div>
       </div>
       <!-- <button (click)="addImage(selectedItem)">Add Image</button> -->
       <div class="col-right">
@@ -73,22 +72,10 @@
           (dragend)="onDragEnd($event)"
           (drop)="onDrop($event)"
         >
-          <!-- <div class="btn-submit" (click)="onSubmit()">Save</div> -->
-          <div class="btn-clear" (click)="onClear()">Clear</div>
-          <!-- <div class="btn-ed" (click)="initializeList(1)">Select Node</div> -->
-          <div class="btn-lock">
-            <em (click)="changeMode()" class="ph-lock-simple"></em>
-            <!-- <button
-              (click)="changeMode()"
-              [ngStyle]="{ display: locked ? 'block' : 'none' }"
-            >
-              Unlock
-            </button> -->
-          </div>
-          <div class="bar-zoom">
-            <em class="ph-magnifying-glass-minus" (click)="onZoomOut()"></em>
-            <em class="ph-magnifying-glass" (click)="onZoomReset()"></em>
-            <em class="ph-magnifying-glass-plus" (click)="onZoomIn()"></em>
+          <!-- <div class="btn-clear" (click)="onClear()">Clear</div> -->
+          <div class="btn-lock color-[#555555]">
+            <em class="ph-share-network mr-2"></em>
+            <em (click)="changeMode()" [ngClass]="{'ph-lock-simple': this.locked, 'ph-lock-open': !this.locked}"></em>
           </div>
         </div>
       </div>
