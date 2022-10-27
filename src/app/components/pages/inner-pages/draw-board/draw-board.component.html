@@ -2,7 +2,12 @@
     <header class="flex p-3">
       <div class="flex grow justify-between items-center" [formGroup]="formGroup">
         <div class="flex items-center">
-          <input class="rounded shadow-md" type="text" nz-input formControlName="title"  placeholder="Name your diagram"/>
+          <div class="flex justify-between items-center" [formGroup]="formGroup">
+            <div class="flex">
+              <span (click)="showInputOnClick()" *ngIf="!isEditInput && isEdit" class="text-lg font-medium"> {{ formGroup.value.title }} </span>
+              <input type="text" *ngIf="isEditInput || !isEdit" nz-input formControlName="title"
+                class="mb-1 rounded shadow-lg" placeholder="Name your diagram" (keyup.enter)="showInputOnClick()"/>
+            </div>
           <div class="flex mx-4 content-center">
             <nz-tag
               *ngFor="let tag of diagramTags.controls; let i = index"

@@ -60,6 +60,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public diagramByIdResponse: any;
   public isEdit: boolean = false;
   public diagramId: string = '';
+  public isEditInput: boolean = false;
 
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
@@ -80,6 +81,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   public back(): void {
     this.router.navigateByUrl('');
+  }
+
+  public showInputOnClick(): void {
+    this.isEditInput = !this.isEditInput;
   }
 
   public initializeList(length: number) {
@@ -128,7 +133,9 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         if(this.diagramByIdResponse){
           this.canvasData = JSON.parse(this.diagramByIdResponse.data);
           this.formGroup.get('title')?.patchValue(this.diagramByIdResponse.name);
-          this.diagramTags.push(new FormControl(this.diagramByIdResponse.tag));
+          this.diagramByIdResponse.tags.forEach((tag: any) => {
+            this.diagramTags.push(new FormControl(tag.name));
+          })
         }
       }
 
@@ -414,7 +421,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     const payload = {
       name: this.formGroup.value.title,
       data: JSON.stringify(dataExport.drawflow),
-      tag: this.diagramTags.value[0]
+      tags: this.diagramTags.value
     }
     if(this.formGroup.valid){
       if(this.isEdit){

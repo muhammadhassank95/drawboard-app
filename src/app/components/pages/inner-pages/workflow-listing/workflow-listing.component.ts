@@ -55,7 +55,7 @@ export class WorkflowListingComponent implements OnInit {
   setGridDataCols() {
     this.columnDefs = [
       { field: "name", headerName: 'FMEA' },
-      { field: "tag", headerName: 'Tags' },
+      { field: "tag", headerName: 'Tags', valueGetter: 'data.name'  },
       { field: "createdBy" },
       { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) },
       { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
@@ -64,6 +64,7 @@ export class WorkflowListingComponent implements OnInit {
         cellRenderer: 'iconRenderer',
         cellRendererParams: {
           onDiagramView: this.OnDiagramView.bind(this),
+          onDiagramShare: this.onDiagramShare.bind(this),
           onDiagramDelete: this.showDeleteConfirm.bind(this),
         }
       }
@@ -77,6 +78,10 @@ export class WorkflowListingComponent implements OnInit {
 
   OnDiagramView(e: any) {
     this.router.navigate([`/cloud-map/${e.rowData.id}`]);
+  }
+
+  onDiagramShare(e: any) {
+    console.log('share', e)
   }
 
   showDeleteConfirm(e: any): void {
