@@ -2,12 +2,11 @@
     <header class="flex p-3">
       <div class="flex grow justify-between items-center" [formGroup]="formGroup">
         <div class="flex items-center">
-          <div class="flex justify-between items-center" [formGroup]="formGroup">
-            <div class="flex">
-              <span (click)="showInputOnClick()" *ngIf="!isEditInput && isEdit" class="text-lg font-medium"> {{ formGroup.value.title }} </span>
-              <input type="text" *ngIf="isEditInput || !isEdit" nz-input formControlName="title"
-                class="mb-1 rounded shadow-lg" placeholder="Name your diagram" (keyup.enter)="showInputOnClick()"/>
-            </div>
+          <div class="flex">
+            <span (click)="showInputOnClick()" *ngIf="!isEditInput && isEdit" class="text-lg font-medium"> {{ formGroup.value.title }} </span>
+            <input type="text" *ngIf="isEditInput || !isEdit" nz-input formControlName="title"
+              class="mb-1 rounded shadow-lg" placeholder="Name your diagram" (keyup.enter)="showInputOnClick()"/>
+          </div>
           <div class="flex mx-4 content-center">
             <nz-tag
               *ngFor="let tag of diagramTags.controls; let i = index"
@@ -65,7 +64,7 @@
         </div>
       </div>
       <!-- <button (click)="addImage(selectedItem)">Add Image</button> -->
-      <div class="flex grow">
+      <div>
         <!-- <div
           class="btn-export"
           onclick="Swal.fire({ title: 'Export',
@@ -74,7 +73,7 @@
         >
           Export
         </div> -->
-        <div class="flex grow"
+        <div
           id="drawflow"
           (dragenter)="onDragEnter($event)"
           (dragleave)="onDragLeave($event)"
@@ -83,9 +82,10 @@
           (drop)="onDrop($event)"
         >
           <!-- <div class="btn-clear" (click)="onClear()">Clear</div> -->
-          <div class="btn-lock color-[#555555]">
-            <em class="ph-share-network mr-2"></em>
-            <em (click)="changeMode()" [ngClass]="{'ph-lock-simple': this.locked, 'ph-lock-open': !this.locked}"></em>
+          <div class="btn-lock color-[#979797]">
+            <em class="ph-share-network" nz-tooltip nzTooltipTitle="Share"></em>
+            <em (click)="changeMode()" class="ml-2" [ngClass]="{'ph-lock-simple': this.locked, 'ph-lock-open': !this.locked}" nz-tooltip nzTooltipTitle="Lock"></em>
+            <!-- <em (click)="toggleGrid()" [ngClass]="{'ph-grid-four': this.gridToggle, 'ph-square': !this.gridToggle}" nz-tooltip nzTooltipTitle="Toggle Grid"></em> -->
           </div>
         </div>
       </div>

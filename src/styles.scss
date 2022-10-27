@@ -96,6 +96,14 @@ $dfBackgroundImage: none;
   .green-card-textarea{
     font-size: 10px;
     background-color: #57a961  !important;
+    &::-webkit-input-placeholder{
+      color: #d6ded6;
+      &:focus{
+        &::-webkit-input-placeholder {
+          color: #f2f8f2;
+        }
+      }
+    }
   }
   &:hover {
     background-color: #57a25d !important;
@@ -116,12 +124,20 @@ $dfBackgroundImage: none;
 
 .drawflow .drawflow-node.red-card {
   background-color: #e9684f !important;
-  color: #e6cec9 !important;
+  color: #e7d7d4 !important;
   min-height: 40px !important;
   min-width: 180px !important;
   .red-card-textarea{
     font-size: 10px;
     background-color: #e9684f  !important;
+    &::-webkit-input-placeholder{
+      color: #dcb2a9;
+      &:focus{
+        &::-webkit-input-placeholder {
+          color: #e6cec9;
+        }
+      }
+    }
   }
   &:hover {
     background-color: #e85a3e !important;
@@ -148,6 +164,14 @@ $dfBackgroundImage: none;
   .org-card-textarea{
     font-size: 11px;
     background-color: #ff9d00  !important;
+    &::-webkit-input-placeholder{
+      color: #817e76;
+      &:focus{
+        &::-webkit-input-placeholder {
+          color: #67625c;
+        }
+      }
+    }
   }
   &:hover {
     background-color: #f09400 !important;

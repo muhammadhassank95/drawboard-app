@@ -134,9 +134,11 @@
   width: calc(100vw - 220px);
   height: calc(100%);
   // background: #ebecec;
-  background-size: $dfBackgroundSize $dfBackgroundSize;
-  background-image: $dfBackgroundImage;
-  border-radius: 0 15px 15px 0;
+  // background-size: 25px 25px;
+  // background-image:
+  // linear-gradient(to right, #f1f1f1 1px, transparent 1px),
+  // linear-gradient(to bottom, #f1f1f1 1px, transparent 1px);
+
 }
 
 @media only screen and (max-width: 768px) {

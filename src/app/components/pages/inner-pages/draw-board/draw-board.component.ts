@@ -44,6 +44,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   editor!: any;
 
   locked: boolean = false;
+  gridToggle: boolean = true;
 
   lastMousePositionEv: any;
   public selectedNodeFromId: any;
@@ -61,6 +62,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public isEdit: boolean = false;
   public diagramId: string = '';
   public isEditInput: boolean = false;
+
 
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
@@ -461,6 +463,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.inputValue = '';
     this.inputVisible = false;
   }
+  toggleGrid(){
+    this.gridToggle = !this.gridToggle;
+  }
+  
 
 }
 

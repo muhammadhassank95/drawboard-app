@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
   declarations: [],
@@ -19,7 +20,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzInputModule,
     NzButtonModule,
     NzTagModule,
-    NzAvatarModule
+    NzAvatarModule,
+    NzToolTipModule
   ]
 })
 export class SharedModule { }
