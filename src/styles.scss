@@ -29,15 +29,23 @@ $dfBackgroundImage: none;
   -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
   box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
   border: 1px  solid #929292 !important;
+  .drawflow_content_node{
+    height: auto;
+  }
 
   #textarea{
     padding-top: 5px !important;
     padding-bottom: 5px !important;
     width: 100%;
+    height: auto;
     resize: none;
     white-space: normal;
     text-align: justify;
     text-align-last: center;
+    &:focus{
+      border: none;
+      outline: none;
+    }
   }
   &:hover{
     border: 1px  solid #5a5a5a !important;
@@ -84,9 +92,18 @@ $dfBackgroundImage: none;
   background-color: #57a961 !important;
   color: #f2f8f2 !important;
   min-height: 40px !important;
-  min-width: 380px !important;
+  min-width: 180px !important;
   .green-card-textarea{
+    font-size: 10px;
     background-color: #57a961  !important;
+    &::-webkit-input-placeholder{
+      color: #d6ded6;
+      &:focus{
+        &::-webkit-input-placeholder {
+          color: #f2f8f2;
+        }
+      }
+    }
   }
   &:hover {
     background-color: #57a25d !important;
@@ -106,25 +123,34 @@ $dfBackgroundImage: none;
 // RED CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.red-card {
-  background-color: #fdbfb3 !important;
-  color: #3a3534 !important;
+  background-color: #e9684f !important;
+  color: #e7d7d4 !important;
   min-height: 40px !important;
-  min-width: 380px !important;
+  min-width: 180px !important;
   .red-card-textarea{
-    background-color: #fdbfb3  !important;
+    font-size: 10px;
+    background-color: #e9684f  !important;
+    &::-webkit-input-placeholder{
+      color: #dcb2a9;
+      &:focus{
+        &::-webkit-input-placeholder {
+          color: #e6cec9;
+        }
+      }
+    }
   }
   &:hover {
-    background-color: #ffa795 !important;
+    background-color: #e85a3e !important;
     .red-card-textarea{
-      background-color: #ffa795  !important;
+      background-color: #e85a3e  !important;
     }
   }
 }
 
 .drawflow .drawflow-node.red-card.selected {
-  background-color: #ffa795 !important;
+  background-color: #e85a3e !important;
   .red-card-textarea{
-    background-color: #ffa795 !important;
+    background-color: #e85a3e !important;
   }
 }
 
@@ -134,9 +160,18 @@ $dfBackgroundImage: none;
   background-color: #ff9d00 !important;
   color: #433f38 !important;
   min-height: 40px !important;
-  min-width: 380px !important;
+  min-width: 440px !important;
   .org-card-textarea{
+    font-size: 11px;
     background-color: #ff9d00  !important;
+    &::-webkit-input-placeholder{
+      color: #817e76;
+      &:focus{
+        &::-webkit-input-placeholder {
+          color: #67625c;
+        }
+      }
+    }
   }
   &:hover {
     background-color: #f09400 !important;
@@ -159,8 +194,9 @@ $dfBackgroundImage: none;
   background-color: #2e70a9 !important;
   color: #d2d8dd !important;
   min-height: 40px !important;
-  min-width: 380px !important;
+  min-width: 440px !important;
   .blue-card-textarea{
+    font-size: 11px;
     background-color: #2e70a9  !important;
   }
   &:hover {
@@ -181,7 +217,7 @@ $dfBackgroundImage: none;
 // INPUTS /////////////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node .input {
-  left: -21px !important;
+  left: -16px !important;
   background: rgba(247, 247, 247, 1) !important;
   border: 1px  solid #929292 !important;
   border-radius: 50px !important;
@@ -202,7 +238,7 @@ $dfBackgroundImage: none;
 }
 
 .drawflow .drawflow-node .output {
-  right: -9px !important;
+  right: -5px !important;
   background: rgb(247, 247, 247) !important;
   border: 1px  solid #929292 !important;
   border-radius: 50px !important;
@@ -228,7 +264,7 @@ $dfBackgroundImage: none;
 }
 
 .drawflow .connection .main-path.selected {
-  stroke: #f37567 !important;
+  stroke: #e9684f !important;
 }
 
 .drawflow .connection .point {
@@ -245,20 +281,20 @@ $dfBackgroundImage: none;
 
 .drawflow-delete {
   display: block !important;
-  color: rgba(255, 255, 255, 1) !important;
-  background: rgb(172, 172, 172) !important;
-  border: 1px solid rgb(98, 98, 98) !important;
+  color: rgb(125, 125, 125) !important;
+  background: rgba(255, 255, 255, 1) !important;
+  border: 1px solid rgb(125, 125, 125)  !important;
   border-radius: 50px !important;
 }
 
 .parent-node .drawflow-delete {
-  top: -20px !important;
+  top: -16px !important;
 }
 
 .drawflow-delete:hover {
   color: rgba(255, 255, 255, 1) !important;
-  background: #f37567 !important;
-  border: 1px solid rgb(98, 98, 98) !important;
+  background: rgb(125, 125, 125) !important;
+  border: 1px solid rgba(255, 255, 255, 1)  !important;
   border-radius: 50px !important;
 }
 
@@ -274,3 +310,6 @@ $dfBackgroundImage: none;
   padding: 0;
   cursor: pointer;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
