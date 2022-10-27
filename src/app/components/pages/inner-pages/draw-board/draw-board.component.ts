@@ -58,6 +58,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public diagramByIdResponse: any;
   public isEdit: boolean = false;
   public diagramId: string = '';
+  public isEditInput: boolean = false;
 
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
@@ -78,6 +79,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   public back(): void {
     this.router.navigateByUrl('');
+  }
+
+  public showInputOnClick(): void {
+    this.isEditInput = !this.isEditInput;
   }
 
   public initializeList(length: number) {
