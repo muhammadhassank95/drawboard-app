@@ -2,7 +2,9 @@
     <header class="py-3">
       <div class="flex justify-between items-center" [formGroup]="formGroup">
         <div class="flex">
-          <input type="text" nz-input formControlName="title" class="mb-1 rounded shadow-lg" placeholder="Name your diagram"/>
+          <span (click)="showInputOnClick()" *ngIf="!isEditInput && isEdit" class="text-lg font-medium"> {{ formGroup.value.title }} </span>
+          <input type="text" *ngIf="isEditInput || !isEdit" nz-input formControlName="title" 
+            class="mb-1 rounded shadow-lg" placeholder="Name your diagram" (keyup.enter)="showInputOnClick()"/>
         </div>
         <div class="flex">
           <nz-tag
