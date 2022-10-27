@@ -55,7 +55,11 @@ export class WorkflowListingComponent implements OnInit {
   setGridDataCols() {
     this.columnDefs = [
       { field: "name", headerName: 'FMEA' },
-      { field: "tag", headerName: 'Tags', valueGetter: 'data.name'  },
+      { 
+        field: "tag", headerName: 'Tags', 
+        valueGetter: (paramm: any) => this.tagsGetter(paramm), 
+        cellRenderer: (paramm: any) => this.renderCell(paramm) 
+      },
       { field: "createdBy" },
       { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) },
       { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
@@ -114,5 +118,26 @@ export class WorkflowListingComponent implements OnInit {
 
   dateFormatterLastUpdate(params: any) {
     return params ? moment.utc(params.data.lastUpdate).format('MM/DD/YYYY') : "";
+  }
+
+  tagsGetter(params: any): any {
+    let tags: any = [];
+    params.data.tags.forEach((data: any, i: number) => {
+      tags.push(data.name)
+    })
+    return tags;
+  }
+
+  renderCell(params: any): any {
+    let tags: any = [];
+    params.data.tags.forEach((data: any, i: number) => {
+      if(i <= 3){
+        tags.push(`<span class="border border-gray-400 rounded-full py-1 px-2 text-[10px]">${data.name}</span>`)
+      }
+      if(i === 4){
+        tags.push(`<span class="ml-1 text-[13px]">...</span>`)
+      }
+    })
+    return `${[...tags]}`;
   }
 }
