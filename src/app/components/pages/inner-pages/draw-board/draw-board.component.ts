@@ -471,17 +471,21 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       if(this.isEdit){
         this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
           if(response.status === 'Success'){
-            this.createNotification('success', "FMEA Saved.");
+            response.status = 'success';
+            this.createNotification(response.status, response.message);
           } else {
-            this.createNotification('error', "Something went wrong..");
+            response.status = 'error';
+            this.createNotification(response.status, response.message);
           }
         })
       } else {
         this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
           if(response.status === 'Success'){
-            this.createNotification('success', "FMEA Created.");
+            response.status = 'success';
+            this.createNotification(response.status, response.message);
           } else {
-            this.createNotification('error', "Something went wrong..");
+            response.status = 'error';
+            this.createNotification(response.status, response.message);
           }
         })
       }
