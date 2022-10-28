@@ -1,4 +1,4 @@
-<div class="workflow-listing flex flex-col p-5 mx-3 shadow-lg rounded bg-white">
+<div class="workflow-listing flex flex-col grow p-5 mx-3 shadow-lg rounded bg-white">
     <div class="mb-3 flex justify-end">
         <button
             class="px-4 mr-2 rounded shadow-lg"
@@ -8,9 +8,9 @@
         >Create New</button>
         <input type="text" nz-input placeholder="Search" [ngModel]="searchString" (ngModelChange)="searchString = $event" (keyup)="filterListing($event)" class="w-1/6 rounded drop-shadow-lg"/>
     </div>
-    <div>
+    <div class=" grow overflow-hidden">
         <ag-grid-angular
-            style="width: auto; height: 600px;"
+            style="width: 100%; height: 100%;"
             class="ag-theme-alpine"
             [rowData]="rowData"
             [columnDefs]="columnDefs"
