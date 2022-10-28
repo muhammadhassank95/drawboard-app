@@ -11,8 +11,7 @@ import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-he
 import { HeaderComponent } from 'src/app/components/partials/header/header/header.component';
 import { FooterComponent } from 'src/app/components/partials/footer/footer.component';
 import { AccountInformationComponent } from 'src/app/components/pages/inner-pages/account-information/account-information.component';
-
-
+import { DeleteDiagramModalComponent } from 'src/app/components/partials/modals/delete-diagram-modal/delete-diagram-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,8 @@ import { AccountInformationComponent } from 'src/app/components/pages/inner-page
     GridActionIconsComponent,
     AccountInformationComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DeleteDiagramModalComponent
   ],
   imports: [
     CommonModule,

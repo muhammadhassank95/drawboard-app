@@ -40,7 +40,7 @@ import { GENERATED_ID } from 'src/app/utilities/uuid.utility';
 export class DrawBoardComponent implements OnInit, AfterViewInit {
   nodes: NodeElement[] = [];
   nodesHTML!: NodeListOf<Element>;
-  @ViewChild('txtArea', {static: true}) txtArea!: TemplateRef<any>;
+  @ViewChild('txtArea', { static: true }) txtArea!: TemplateRef<any>;
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
 
   nodesDrawn: any[] = [];
@@ -74,10 +74,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
     { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
-    { id: 3, name: 'singleInRed', inputs: 0, outputs: 0, imgPath: 'assets/image/no-node-red.png'},
-    { id: 4, name: 'singleInGreen', inputs: 0, outputs: 0, imgPath: 'assets/image/no-node-green.png'},
-    { id: 5, name: 'singleInOrg', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-org.png'},
-    { id: 6, name: 'singleInBlue', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-blue.png'},
+    { id: 3, name: 'singleInRed', inputs: 0, outputs: 0, imgPath: 'assets/image/no-node-red.png' },
+    { id: 4, name: 'singleInGreen', inputs: 0, outputs: 0, imgPath: 'assets/image/no-node-green.png' },
+    { id: 5, name: 'singleInOrg', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-org.png' },
+    { id: 6, name: 'singleInBlue', inputs: 1, outputs: 0, imgPath: 'assets/image/single-in-blue.png' },
   ]
 
   constructor(
@@ -88,7 +88,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private renderer2: Renderer2,
     private notification: NzNotificationService,
-  ) {}
+  ) { }
 
   public onEventListener(selectedName: any): void {
     const element = document.getElementById(this.selectedItemname);
@@ -100,20 +100,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   public showInputOnClick(): void {
-    console.log("isEdit: "+ this.isEdit+ " isEditInput: "+ this.isEditInput)
+    console.log("isEdit: " + this.isEdit + " isEditInput: " + this.isEditInput)
     this.isEditInput = !this.isEditInput;
   }
 
   public initializeList(length: number) {
     this.nodes = this.nodeSelection;
-    // for (let i = 0; i < length; i++) {
-    //   this.nodes.push({
-    //     id: i + 1,
-    //     name: 'Diagram' + (i + 1),
-    //     inputs: 0,
-    //     outputs: 0,
-    //   });
-    // }
   }
 
   private initDrawFlow(htmlElement: HTMLElement, diagramData?: any): void {
@@ -123,7 +115,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.editor.force_first_input = false;
     this.editor.start();
     let dataToImport: any;
-    if(diagramData){
+    if (diagramData) {
       dataToImport = {
         drawflow: this.canvasData,
       };
@@ -143,11 +135,11 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.drawFlowHtmlElement = <HTMLElement>document.getElementById('drawflow');
     const hehe = await this.initializeData();
     this.route.data.subscribe(async (data) => {
-      if(this.route.snapshot.paramMap.get('id')){
+      if (this.route.snapshot.paramMap.get('id')) {
         this.isEdit = true;
         const responsezz = this.drawBoardService.getDiagramByid(this.route.snapshot.paramMap.get('id')!)
         this.diagramByIdResponse = await lastValueFrom(responsezz);
-        if(this.diagramByIdResponse){
+        if (this.diagramByIdResponse) {
           this.canvasData = JSON.parse(this.diagramByIdResponse.data);
           // this.editor.zoom = this.canvasData.zoomValue;
           this.formGroup.get('title')?.patchValue(this.diagramByIdResponse.name);
@@ -157,90 +149,89 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         }
       }
 
-        this.initDrawFlow(this.drawFlowHtmlElement, this.canvasData);
-        this.editor.draggable_inputs = false;
-        // Events!
-        this.editor.on('nodeCreated', (id: any) => {
-          console.log(
-            'Editor Event :>> Node created ' + id,
-            this.editor.getNodeFromId(id)
-          );
-        });
+      this.initDrawFlow(this.drawFlowHtmlElement, this.canvasData);
+      this.editor.draggable_inputs = false;
+      // Events!
+      this.editor.on('nodeCreated', (id: any) => {
+        console.log(
+          'Editor Event :>> Node created ' + id,
+          this.editor.getNodeFromId(id)
+        );
+      });
 
-        this.editor.on('nodeRemoved', (id: any) => {
-          console.log('Editor Event :>> Node removed ' + id);
-        });
+      this.editor.on('nodeRemoved', (id: any) => {
+        console.log('Editor Event :>> Node removed ' + id);
+      });
 
-        this.editor.on('nodeSelected', (id: any) => {
-          // debugger
-          const item = this.editor.getNodeFromId(id);
-          this.selectedNodeToSave = item;
-          const htmlDom = new DOMParser().parseFromString(item.html, 'text/html');
-          const htmlDomId = htmlDom.getElementsByTagName("textarea")[0].id;
-          this.selectedItemname = htmlDomId;
-          this.selectedNodeFromId = this.editor.getNodeFromId(id);
+      this.editor.on('nodeSelected', (id: any) => {
+        const item = this.editor.getNodeFromId(id);
+        this.selectedNodeToSave = item;
+        const htmlDom = new DOMParser().parseFromString(item.html, 'text/html');
+        const htmlDomId = htmlDom.getElementsByTagName("textarea")[0].id;
+        this.selectedItemname = htmlDomId;
+        this.selectedNodeFromId = this.editor.getNodeFromId(id);
 
-          setTimeout(() => {
-            let htmlCollection = document.getElementsByClassName('selected')[0].id;
-            this.selectedNodeIdEl = htmlCollection;            
-            console.error('haha',htmlCollection)       
-          })
+        setTimeout(() => {
+          let htmlCollection = document.getElementsByClassName('selected')[0].id;
+          this.selectedNodeIdEl = htmlCollection;
+          console.error('haha', htmlCollection)
+        })
 
-        });
+      });
 
-        this.editor.on('moduleCreated', (name: any) => {
-          console.log('Editor Event :>> Module Created ' + name);
-        });
+      this.editor.on('moduleCreated', (name: any) => {
+        console.log('Editor Event :>> Module Created ' + name);
+      });
 
-        this.editor.on('moduleChanged', (name: any) => {
-          console.log('Editor Event :>> Module Changed ' + name);
-        });
+      this.editor.on('moduleChanged', (name: any) => {
+        console.log('Editor Event :>> Module Changed ' + name);
+      });
 
-        this.editor.on('connectionCreated', (connection: any) => {
-          console.log('Editor Event :>> Connection created ', connection);
-        });
+      this.editor.on('connectionCreated', (connection: any) => {
+        console.log('Editor Event :>> Connection created ', connection);
+      });
 
-        this.editor.on('connectionRemoved', (connection: any) => {
-          console.log('Editor Event :>> Connection removed ', connection);
-        });
+      this.editor.on('connectionRemoved', (connection: any) => {
+        console.log('Editor Event :>> Connection removed ', connection);
+      });
 
-        this.editor.on('nodeUnselected', (connection: boolean) => {
-          this.onEventListener(this.selectedNodeToSave);
-          this.editor.reroute_fix_curvature = true;
-          console.error('this.selectedNodeToSave',this.selectedNodeToSave)
-          console.error('this.selectedNodeToSave B',this.selectedItemname)
-          setTimeout(() => {
-            this.editor.updateConnectionNodes(this.selectedNodeIdEl);
-          },100)
-          // this.editor.import(this.editor.export())
-        });
+      this.editor.on('nodeUnselected', (connection: boolean) => {
+        this.onEventListener(this.selectedNodeToSave);
+        this.editor.reroute_fix_curvature = true;
+        console.error('this.selectedNodeToSave', this.selectedNodeToSave)
+        console.error('this.selectedNodeToSave B', this.selectedItemname)
+        setTimeout(() => {
+          this.editor.updateConnectionNodes(this.selectedNodeIdEl);
+        }, 100)
+        // this.editor.import(this.editor.export())
+      });
 
-        // this.editor.on('mouseMove', (position: any) => {
-        //   console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
-        // });
+      // this.editor.on('mouseMove', (position: any) => {
+      //   console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
+      // });
 
-        this.editor.on('nodeMoved', (id: any) => {
-          console.log('Editor Event :>> Node moved ' + id);
-        });
+      this.editor.on('nodeMoved', (id: any) => {
+        console.log('Editor Event :>> Node moved ' + id);
+      });
 
-        this.editor.on('zoom', (zoom: any) => {
-          this.currentZoomValue = zoom;
-          console.log('Editor Event :>> Zoom level ' + zoom);
-        });
+      this.editor.on('zoom', (zoom: any) => {
+        this.currentZoomValue = zoom;
+        console.log('Editor Event :>> Zoom level ' + zoom);
+      });
 
-        // this.editor.on('translate', (position: any) => {
-        //   console.log(
-        //     'Editor Event :>> Translate x:' + position.x + ' y:' + position.y
-        //   );
-        // });
+      // this.editor.on('translate', (position: any) => {
+      //   console.log(
+      //     'Editor Event :>> Translate x:' + position.x + ' y:' + position.y
+      //   );
+      // });
 
-        this.editor.on('addReroute', (id: any) => {
-          console.log('Editor Event :>> Reroute added ' + id);
-        });
+      this.editor.on('addReroute', (id: any) => {
+        console.log('Editor Event :>> Reroute added ' + id);
+      });
 
-        this.editor.on('removeReroute', (id: any) => {
-          console.log('Editor Event :>> Reroute removed ' + id);
-        });
+      this.editor.on('removeReroute', (id: any) => {
+        console.log('Editor Event :>> Reroute removed ' + id);
+      });
     });
   }
 
@@ -285,7 +276,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     e.preventDefault();
     e.stopPropagation();
     this.lastMousePositionEv = e;
-    // console.log('onDragOver :>> e :>> ', e);
   }
 
   onDragEnd(e: any) {
@@ -310,40 +300,38 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   // Drawflow Editor Operations
-
   addNodeToDrawBoard(pos_x: number, pos_y: number) {
     if (this.editor.editor_mode === 'edit') {
       pos_x =
         pos_x *
-          (this.editor.precanvas.clientWidth /
-            (this.editor.precanvas.clientWidth * this.editor.zoom)) -
-              this.editor.precanvas.getBoundingClientRect().x *
-                (this.editor.precanvas.clientWidth /
-                  (this.editor.precanvas.clientWidth * this.editor.zoom));
+        (this.editor.precanvas.clientWidth /
+          (this.editor.precanvas.clientWidth * this.editor.zoom)) -
+        this.editor.precanvas.getBoundingClientRect().x *
+        (this.editor.precanvas.clientWidth /
+          (this.editor.precanvas.clientWidth * this.editor.zoom));
 
       pos_y =
         pos_y *
-          (this.editor.precanvas.clientHeight /
-            (this.editor.precanvas.clientHeight * this.editor.zoom)) -
+        (this.editor.precanvas.clientHeight /
+          (this.editor.precanvas.clientHeight * this.editor.zoom)) -
         this.editor.precanvas.getBoundingClientRect().y *
-          (this.editor.precanvas.clientHeight /
-            (this.editor.precanvas.clientHeight * this.editor.zoom));
-            // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
-            // const htmlTemplate = `
-            // <div >
-            //   <div class="${this.selectedItem.name}">
-            //     <textarea id="textarea" df-template style="border: 1px solid #ccc; padding: 3px 8px;"></textarea>
-            //   </div>
-            // </div>
-            // `;
-
+        (this.editor.precanvas.clientHeight /
+          (this.editor.precanvas.clientHeight * this.editor.zoom));
+      // const htmlTemplate = '\n          <div [formGroup]="formGorup">\n           <input formControlName="test" />\n   <app-workflow-listing>\n</app-workflow-listing>\n       </div>\n          ';
+      // const htmlTemplate = `
+      // <div >
+      //   <div class="${this.selectedItem.name}">
+      //     <textarea id="textarea" df-template style="border: 1px solid #ccc; padding: 3px 8px;"></textarea>
+      //   </div>
+      // </div>
+      // `;
 
       const data = { template: `` }
       this.positionX = pos_x;
       this.positionY = pos_y;
       const nodeName = this.selectedItem.name;
 
-      switch (this.selectedItem.name){
+      switch (this.selectedItem.name) {
         //CARD 1 (SINGLE OUTPUT)
         case 'singleOut':
           var singleOutput = `
@@ -421,20 +409,17 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
           break;
       }
 
-
       this.nodesDrawn.push({
         nodeId,
         nodeName,
       });
-
     }
   }
 
   addImage(selectedItem: any): void {
-    if(selectedItem){
+    if (selectedItem) {
       this.editor.drawflow.drawflow.Home.data[selectedItem.id].html = `<img src="https://www.w3schools.com/Tags/img_girl.jpg">`
-
-      this.cdr.detectChanges()
+      this.cdr.detectChanges(); // this should be ng after view in it discuss Bryan
     }
   }
   onClear() {
@@ -466,11 +451,11 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       data: JSON.stringify(this.editor.drawflow.drawflow),
       tags: this.diagramTags.value
     }
-    console.error('dataExport.drawflow',this.editor.drawflow.drawflow)
-    if(this.formGroup.valid){
-      if(this.isEdit){
-        this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
-          if(response.status === 'Success'){
+    console.error('dataExport.drawflow', this.editor.drawflow.drawflow)
+    if (this.formGroup.valid) {
+      if (this.isEdit) {
+        this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!, payload).subscribe((response: any) => {
+          if (response.status === 'Success') {
             response.status = 'success';
             this.createNotification(response.status, response.message);
           } else {
@@ -480,7 +465,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         })
       } else {
         this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
-          if(response.status === 'Success'){
+          if (response.status === 'Success') {
             response.status = 'success';
             this.createNotification(response.status, response.message);
           } else {
@@ -494,7 +479,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       this.formGroup.markAllAsTouched();
     }
   }
-
 
   handleClose(removedTag: {}): void {
     this.tags = this.tags.filter(tag => tag !== removedTag);
@@ -520,29 +504,26 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.inputVisible = false;
   }
 
-  toggleGrid(){
+  toggleGrid() {
     this.gridToggle = !this.gridToggle;
   }
 
-  getGridStyle(){
-    if(this.gridToggle){
+  getGridStyle() {
+    if (this.gridToggle) {
       let style = {
         'background-size': '25px 25px',
         'background-image': 'linear-gradient(to right, #f1f1f1 1px, transparent 1px), linear-gradient(to bottom, #f1f1f1 1px, transparent 1px)'
       }
-      return(style);
+      return (style);
     }
-    else return(null);
+    else return (null);
 
   }
 
-  createNotification(type: string, msgText: string){
+  createNotification(type: string, msgText: string) {
     this.notification.create(type, msgText, '', {
-      nzPlacement:'bottom',
+      nzPlacement: 'bottom',
     })
   }
-
-
-
 }
 

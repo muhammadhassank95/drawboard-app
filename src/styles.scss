@@ -8,8 +8,15 @@
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 
 
@@ -21,19 +28,20 @@ $border-color: black;
 $dfBackgroundSize: 0px;
 $dfBackgroundImage: none;
 
-.drawflow .drawflow-node{
+.drawflow .drawflow-node {
   display: flex !important;
   width: auto !important;
   border-radius: 4px !important;
   padding: 10px;
   -webkit-box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
-  box-shadow:  0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
-  border: 1px  solid #929292 !important;
-  .drawflow_content_node{
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.29) !important;
+  border: 1px solid #929292 !important;
+
+  .drawflow_content_node {
     height: auto;
   }
 
-  textarea{
+  textarea {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
     width: 100%;
@@ -42,22 +50,25 @@ $dfBackgroundImage: none;
     text-align: justify;
     text-align-last: center;
     overflow: hidden;
-    &:focus{
+
+    &:focus {
       border: none;
       outline: none;
     }
   }
-  &:hover{
-    border: 1px  solid #5a5a5a !important;
+
+  &:hover {
+    border: 1px solid #5a5a5a !important;
     border-radius: 4px !important;
     -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
-    box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+    box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
   }
-  &.selected{
-    border: 1px  solid #5a5a5a !important;
+
+  &.selected {
+    border: 1px solid #5a5a5a !important;
     border-radius: 4px !important;
     -webkit-box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
-    box-shadow:  0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
+    box-shadow: 0px 1px 3px 2px rgba(1, 1, 1, 0.47) !important;
   }
 }
 
@@ -68,20 +79,24 @@ $dfBackgroundImage: none;
   color: #5b5a53 !important;
   min-height: 40px !important;
   min-width: 180px !important;
-  .mani-card-textarea{
-    background-color: #efe1b3  !important;
+
+  .mani-card-textarea {
+    background-color: #efe1b3 !important;
   }
+
   &:hover {
     background-color: #eedb9d !important;
-    .mani-card-textarea{
-      background-color: #eedb9d  !important;
+
+    .mani-card-textarea {
+      background-color: #eedb9d !important;
     }
   }
 }
 
 .drawflow .drawflow-node.mani-card.selected {
   background-color: #eedb9d !important;
-  .mani-card-textarea{
+
+  .mani-card-textarea {
     background-color: #eedb9d !important;
   }
 }
@@ -93,29 +108,35 @@ $dfBackgroundImage: none;
   color: #f2f8f2 !important;
   min-height: 40px !important;
   min-width: 180px !important;
-  .green-card-textarea{
+
+  .green-card-textarea {
     font-size: 10px;
-    background-color: #57a961  !important;
-    &::-webkit-input-placeholder{
+    background-color: #57a961 !important;
+
+    &::-webkit-input-placeholder {
       color: #d6ded6;
-      &:focus{
+
+      &:focus {
         &::-webkit-input-placeholder {
           color: #f2f8f2;
         }
       }
     }
   }
+
   &:hover {
     background-color: #57a25d !important;
-    .green-card-textarea{
-      background-color: #57a25d  !important;
+
+    .green-card-textarea {
+      background-color: #57a25d !important;
     }
   }
 }
 
 .drawflow .drawflow-node.green-card.selected {
   background-color: #4d9153 !important;
-  .green-card-textarea{
+
+  .green-card-textarea {
     background-color: #4d9153 !important;
   }
 }
@@ -127,29 +148,35 @@ $dfBackgroundImage: none;
   color: #e7d7d4 !important;
   min-height: 40px !important;
   min-width: 180px !important;
-  .red-card-textarea{
+
+  .red-card-textarea {
     font-size: 10px;
-    background-color: #e9684f  !important;
-    &::-webkit-input-placeholder{
+    background-color: #e9684f !important;
+
+    &::-webkit-input-placeholder {
       color: #dcb2a9;
-      &:focus{
+
+      &:focus {
         &::-webkit-input-placeholder {
           color: #e6cec9;
         }
       }
     }
   }
+
   &:hover {
     background-color: #e85a3e !important;
-    .red-card-textarea{
-      background-color: #e85a3e  !important;
+
+    .red-card-textarea {
+      background-color: #e85a3e !important;
     }
   }
 }
 
 .drawflow .drawflow-node.red-card.selected {
   background-color: #e85a3e !important;
-  .red-card-textarea{
+
+  .red-card-textarea {
     background-color: #e85a3e !important;
   }
 }
@@ -161,29 +188,35 @@ $dfBackgroundImage: none;
   color: #433f38 !important;
   min-height: 40px !important;
   min-width: 440px !important;
-  .org-card-textarea{
+
+  .org-card-textarea {
     font-size: 11px;
-    background-color: #ff9d00  !important;
-    &::-webkit-input-placeholder{
+    background-color: #ff9d00 !important;
+
+    &::-webkit-input-placeholder {
       color: #817e76;
-      &:focus{
+
+      &:focus {
         &::-webkit-input-placeholder {
           color: #67625c;
         }
       }
     }
   }
+
   &:hover {
     background-color: #f09400 !important;
-    .org-card-textarea{
-      background-color: #f09400  !important;
+
+    .org-card-textarea {
+      background-color: #f09400 !important;
     }
   }
 }
 
 .drawflow .drawflow-node.org-card.selected {
   background-color: #f09400 !important;
-  .org-card-textarea{
+
+  .org-card-textarea {
     background-color: #f09400 !important;
   }
 }
@@ -195,21 +228,25 @@ $dfBackgroundImage: none;
   color: #d2d8dd !important;
   min-height: 40px !important;
   min-width: 440px !important;
-  .blue-card-textarea{
+
+  .blue-card-textarea {
     font-size: 11px;
-    background-color: #2e70a9  !important;
+    background-color: #2e70a9 !important;
   }
+
   &:hover {
     background-color: #2069a9 !important;
-    .blue-card-textarea{
-      background-color: #2069a9  !important;
+
+    .blue-card-textarea {
+      background-color: #2069a9 !important;
     }
   }
 }
 
 .drawflow .drawflow-node.blue-card.selected {
   background-color: #2069a9 !important;
-  .blue-card-textarea{
+
+  .blue-card-textarea {
     background-color: #2069a9 !important;
   }
 }
@@ -219,7 +256,7 @@ $dfBackgroundImage: none;
 .drawflow .drawflow-node .input {
   left: -16px !important;
   background: rgba(247, 247, 247, 1) !important;
-  border: 1px  solid #929292 !important;
+  border: 1px solid #929292 !important;
   border-radius: 50px !important;
   height: 12px !important;
   width: 12px !important;
@@ -227,8 +264,8 @@ $dfBackgroundImage: none;
 
 .drawflow .drawflow-node .input:hover {
   background: rgb(145, 145, 145) !important;
-  border: 1px  solid #5a5a5a !important;
-  border-radius: 50px!important;
+  border: 1px solid #5a5a5a !important;
+  border-radius: 50px !important;
 }
 
 // OUTPUTS /////////////////////////////////////////////////////////////////////////////////
@@ -240,7 +277,7 @@ $dfBackgroundImage: none;
 .drawflow .drawflow-node .output {
   right: -5px !important;
   background: rgb(247, 247, 247) !important;
-  border: 1px  solid #929292 !important;
+  border: 1px solid #929292 !important;
   border-radius: 50px !important;
   height: 12px !important;
   width: 12px !important;
@@ -248,7 +285,7 @@ $dfBackgroundImage: none;
 
 .drawflow .drawflow-node .output:hover {
   background: rgb(187, 187, 187) !important;
-  border: 1px  solid #5a5a5a !important;
+  border: 1px solid #5a5a5a !important;
   border-radius: 50px !important;
 }
 
@@ -283,7 +320,7 @@ $dfBackgroundImage: none;
   display: block !important;
   color: rgb(125, 125, 125) !important;
   background: rgba(255, 255, 255, 1) !important;
-  border: 1px solid rgb(125, 125, 125)  !important;
+  border: 1px solid rgb(125, 125, 125) !important;
   border-radius: 50px !important;
 }
 
@@ -294,10 +331,9 @@ $dfBackgroundImage: none;
 .drawflow-delete:hover {
   color: rgba(255, 255, 255, 1) !important;
   background: rgb(125, 125, 125) !important;
-  border: 1px solid rgba(255, 255, 255, 1)  !important;
+  border: 1px solid rgba(255, 255, 255, 1) !important;
   border-radius: 50px !important;
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// DRAWFLOW THEME END ///////////////////////////////////////////
@@ -311,8 +347,15 @@ $dfBackgroundImage: none;
   cursor: pointer;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .ant-notification-notice {
   width: fit-content;
@@ -321,53 +364,74 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   align-items: center;
   bottom: 45px;
+  right: 16px;
+
   .ant-notification-notice-content {
     margin-right: 20px;
     margin-bottom: -3px;
-    .ant-notification-notice-message{
+
+    .ant-notification-notice-message {
       padding-top: 4px;
     }
   }
+
   .ant-notification-notice-close {
     visibility: hidden;
   }
 }
 
-.delete-modal{
-  .ant-modal-content{
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid black;
-    .ant-modal-body{
-      padding: 0px !important;
-      border-radius: 10px;
-      .ant-modal-confirm-body{
-        .anticon{
-          width: 0px;
-          margin: 0px;
-          padding: 0px;
-          visibility: hidden;
-        }
-        .ant-modal-confirm-title{
-          text-align: center;
-          padding: 10px;
-          border-bottom: 1px solid black;
-        }
-        .ant-modal-confirm-content{
-          margin: 0px;
-          padding-top: 15px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-      .ant-modal-confirm-btns{
-        margin-bottom: 10px;
-        margin-right: 10px;
-      }
-    }
-    .ant-modal-close{
-      visibility: hidden;
-    }
-  }
+/* below are generic modal css generic*/
+.ant-modal-content {
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #7C7C7C;
+  border-radius: 10px !important;
+  opacity: 1;
+  overflow: hidden;
 }
 
+.ant-modal-title {
+  text-align: center;
+  color: #7C7C7C;
+  font-size: 16px;
+}
+
+.ant-modal-close {
+  display: none;
+}
+
+.ant-modal-body {
+  font-size: 16px;
+  letter-spacing: 0.31px;
+  color: #7C7C7C;
+}
+
+.ant-modal-header {
+  border-color: #7c7c7c;
+}
+
+.ant-modal-footer {
+  border: 0;
+}
+
+.ant-modal-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.ant-modal {
+  top: 0px;
+  padding: 0px;
+}
+
+.modal-btn .ant-btn {
+  box-shadow: 0px 3px 6px #00000029;
+  letter-spacing: 1.25px;
+  color: #7C7C7C !important;
+  text-transform: uppercase;
+  font-size: 14px;
+  background-color: white !important;
+  border: 0px !important;
+  margin-bottom: 10px;
+}
+
+/* above are generic modal css */
