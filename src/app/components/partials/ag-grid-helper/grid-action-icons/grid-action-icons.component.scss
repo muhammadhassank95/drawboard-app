@@ -1,0 +1,17 @@
+
+.action-button{
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  padding: 1px;
+  border-radius:50%;
+  em{
+    font-size: 18px;
+  }
+  &:hover{
+    background-color:#545454;
+    color: white;
+  }
+}

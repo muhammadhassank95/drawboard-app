@@ -1,11 +1,11 @@
-<div class="custom-grid-menu">
-    <button *ngIf="params.onDiagramView" class="ml-2" mat-icon-button (click)="OnDiagramView($event)">
+<div class="flex align-middle pt-1">
+    <button *ngIf="params.onDiagramView" class="action-button ml-2" mat-icon-button (click)="OnDiagramView($event)" nz-tooltip nzTooltipTitle="Open">
         <em class="ph-folder-notch-open"></em>
     </button>
-    <button *ngIf="params.onDiagramDelete" class="ml-2" mat-icon-button (click)="OnDiagramShare($event)">
+    <button *ngIf="params.onDiagramDelete" class="action-button ml-2" mat-icon-button (click)="OnDiagramShare($event)" nz-tooltip nzTooltipTitle="Share">
         <em class="ph-share-network"></em>
     </button>
-    <button *ngIf="params.onDiagramDelete" class="ml-2" mat-icon-button (click)="OnDiagramDelete($event)">
+    <button *ngIf="params.onDiagramDelete" class="action-button ml-2" mat-icon-button (click)="OnDiagramDelete($event)" nz-tooltip nzTooltipTitle="Delete">
         <em class="ph-trash-simple"></em>
     </button>
 </div>

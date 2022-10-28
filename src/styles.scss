@@ -313,3 +313,62 @@ $dfBackgroundImage: none;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.ant-notification-notice {
+  width: fit-content;
+  padding: 10px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  bottom: 45px;
+  right: 16px;
+  .ant-notification-notice-content {
+    margin-right: 20px;
+    margin-bottom: -3px;
+    .ant-notification-notice-message{
+      padding-top: 4px;
+    }
+  }
+  .ant-notification-notice-close {
+    visibility: hidden;
+  }
+}
+
+.delete-modal{
+  .ant-modal-content{
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid black;
+    .ant-modal-body{
+      padding: 0px !important;
+      border-radius: 10px;
+      .ant-modal-confirm-body{
+        .anticon{
+          width: 0px;
+          margin: 0px;
+          padding: 0px;
+          visibility: hidden;
+        }
+        .ant-modal-confirm-title{
+          text-align: center;
+          padding: 10px;
+          border-bottom: 1px solid black;
+        }
+        .ant-modal-confirm-content{
+          margin: 0px;
+          padding-top: 15px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+      .ant-modal-confirm-btns{
+        margin-bottom: 10px;
+        margin-right: 10px;
+      }
+    }
+    .ant-modal-close{
+      visibility: hidden;
+    }
+  }
+}
+

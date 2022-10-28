@@ -3,9 +3,9 @@
       <div class="flex grow justify-between items-center" [formGroup]="formGroup">
         <div class="flex items-center">
           <div class="flex">
-            <span (click)="showInputOnClick()" *ngIf="!isEditInput && isEdit" class="text-lg font-medium"> {{ formGroup.value.title }} </span>
+            <span (click)="showInputOnClick()" *ngIf="!isEditInput && isEdit" class="text-lg font-medium ml-2 mb-1"> {{ formGroup.value.title }} </span>
             <input type="text" *ngIf="isEditInput || !isEdit" nz-input formControlName="title"
-              class="mb-1 rounded shadow-lg" placeholder="Name your diagram" (keyup.enter)="showInputOnClick()"/>
+              class="rounded shadow-lg" placeholder="Name your diagram" (keyup.enter)="showInputOnClick()"/>
           </div>
           <div class="flex mx-4 content-center">
             <nz-tag
@@ -38,8 +38,8 @@
 
 
         <div>
-          <span class="rounded-full p-2 flex items-center bg-[#707070] text-white">
-            <em (click)="back()" class="ph-x  cursor-pointer"></em>
+          <span (click)="back()" class="rounded-full p-2 flex items-center bg-[#707070] text-white cursor-pointer">
+            <em  class="ph-x  "></em>
           </span>
         </div>
       </div>
@@ -73,7 +73,7 @@
         >
           Export
         </div> -->
-        <div
+        <div [ngStyle]="getGridStyle()"
           id="drawflow"
           (dragenter)="onDragEnter($event)"
           (dragleave)="onDragLeave($event)"
@@ -84,8 +84,8 @@
           <!-- <div class="btn-clear" (click)="onClear()">Clear</div> -->
           <div class="btn-lock color-[#979797]">
             <em class="ph-share-network" nz-tooltip nzTooltipTitle="Share"></em>
-            <em (click)="changeMode()" class="ml-2" [ngClass]="{'ph-lock-simple': this.locked, 'ph-lock-open': !this.locked}" nz-tooltip nzTooltipTitle="Lock"></em>
-            <!-- <em (click)="toggleGrid()" [ngClass]="{'ph-grid-four': this.gridToggle, 'ph-square': !this.gridToggle}" nz-tooltip nzTooltipTitle="Toggle Grid"></em> -->
+            <em (click)="changeMode()" class="mx-2" [ngClass]="{'ph-lock-simple': this.locked, 'ph-lock-open': !this.locked}" nz-tooltip nzTooltipTitle="Lock"></em>
+            <em (click)="toggleGrid()" [ngClass]="{'ph-grid-four': this.gridToggle, 'ph-square': !this.gridToggle}" nz-tooltip nzTooltipTitle="Toggle Grid"></em>
           </div>
         </div>
       </div>
