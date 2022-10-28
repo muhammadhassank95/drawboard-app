@@ -534,7 +534,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   createNotification(type: string, msgText: string){
     this.notification.create(type, msgText, '', {
-      nzPlacement:'bottomRight',
+      nzPlacement:'bottom',
     })
   }
 

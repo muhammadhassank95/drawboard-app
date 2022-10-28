@@ -20,6 +20,8 @@ export class WorkflowListingComponent implements OnInit {
   public api: any
   public frameworkComponents: any;
   public searchString: string = '';
+  public gridApi: any;
+  public gridColumnApi: any;
 
   constructor(
     private router: Router,
@@ -55,18 +57,18 @@ export class WorkflowListingComponent implements OnInit {
 
   setGridDataCols() {
     this.columnDefs = [
-      { field: "name", headerName: 'FMEA' },
+      { field: "name", headerName: 'FMEA', minWidth: 300 },
+      { field: "createdDate", headerName: 'Created On', valueFormatter: (param: any) => this.dateFormatter(param) },
+      { field: "createdBy", headerName: 'Created By' },
       {
-        field: "tag", headerName: 'Tags',
+        field: "tag", headerName: 'Tags', minWidth: 300,
         valueGetter: (paramm: any) => this.tagsGetter(paramm),
         cellRenderer: (paramm: any) => this.renderCell(paramm)
       },
-      { field: "createdBy" },
-      { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) },
-      { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
+      // { field: "lastUpdate", valueFormatter: (param: any) => this.dateFormatterLastUpdate(param) },
       {
         headerName: 'Actions',
-        cellRenderer: 'iconRenderer',
+        cellRenderer: 'iconRenderer', minWidth: 200, maxWidth: 200,
         cellRendererParams: {
           onDiagramView: this.OnDiagramView.bind(this),
           onDiagramShare: this.onDiagramShare.bind(this),
@@ -77,8 +79,17 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent) {
-    this.api = params.api;
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
     params.api.sizeColumnsToFit();
+
+    params.api.sizeColumnsToFit();
+    window.addEventListener("resize", function() {
+      setTimeout(function() {
+        params.api.sizeColumnsToFit();
+      });
+    });
   }
 
   OnDiagramView(e: any) {
