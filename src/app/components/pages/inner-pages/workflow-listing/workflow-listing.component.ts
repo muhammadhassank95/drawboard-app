@@ -87,6 +87,7 @@ export class WorkflowListingComponent implements OnInit {
 
   onDiagramShare(e: any) {
     console.log('share', e)
+    const link = `https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`;
   }
 
   showDeleteConfirm(e: any): void {
