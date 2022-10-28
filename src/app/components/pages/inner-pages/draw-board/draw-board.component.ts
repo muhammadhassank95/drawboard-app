@@ -3,12 +3,14 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   Inject,
   OnInit,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  Renderer2
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,9 +27,8 @@ import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service
 import { WorkflowListingComponent } from '../workflow-listing/workflow-listing.component';
 import { NodeElement } from './node.model';
 import { lastValueFrom } from 'rxjs';
-import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
-
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { GENERATED_ID } from 'src/app/utilities/uuid.utility';
 
 @Component({
   entryComponents: [WorkflowListingComponent],
@@ -65,9 +66,11 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public isEdit: boolean = false;
   public diagramId: string = '';
   public isEditInput: boolean = false;
-
-
-
+  public selectedItemname: string = '';
+  public currentDiagramHeight: string = '';
+  public selectedNodeToSave: any;
+  public currentZoomValue: number = 1;
+  public selectedNodeIdEl: string = '';
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
     { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
@@ -83,8 +86,14 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     public route: ActivatedRoute,
     public drawBoardService: DrawBoardService,
     private changeDetectorRef: ChangeDetectorRef,
+    private renderer2: Renderer2,
     private notification: NzNotificationService,
   ) {}
+
+  public onEventListener(selectedName: any): void {
+    const element = document.getElementById(this.selectedItemname);
+    this.editor.drawflow.drawflow.Home.data[selectedName.id].html = element?.outerHTML;
+  }
 
   public back(): void {
     this.router.navigateByUrl('');
@@ -140,6 +149,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         this.diagramByIdResponse = await lastValueFrom(responsezz);
         if(this.diagramByIdResponse){
           this.canvasData = JSON.parse(this.diagramByIdResponse.data);
+          // this.editor.zoom = this.canvasData.zoomValue;
           this.formGroup.get('title')?.patchValue(this.diagramByIdResponse.name);
           this.diagramByIdResponse.tags.forEach((tag: any) => {
             this.diagramTags.push(new FormControl(tag.name));
@@ -148,7 +158,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       }
 
         this.initDrawFlow(this.drawFlowHtmlElement, this.canvasData);
-
+        this.editor.draggable_inputs = false;
         // Events!
         this.editor.on('nodeCreated', (id: any) => {
           console.log(
@@ -163,11 +173,19 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
         this.editor.on('nodeSelected', (id: any) => {
           // debugger
-          console.log(
-            'Editor Event :>> Node selected ' + id,
-            this.editor.getNodeFromId(id)
-          );
+          const item = this.editor.getNodeFromId(id);
+          this.selectedNodeToSave = item;
+          const htmlDom = new DOMParser().parseFromString(item.html, 'text/html');
+          const htmlDomId = htmlDom.getElementsByTagName("textarea")[0].id;
+          this.selectedItemname = htmlDomId;
           this.selectedNodeFromId = this.editor.getNodeFromId(id);
+
+          setTimeout(() => {
+            let htmlCollection = document.getElementsByClassName('selected')[0].id;
+            this.selectedNodeIdEl = htmlCollection;            
+            console.error('haha',htmlCollection)       
+          })
+
         });
 
         this.editor.on('moduleCreated', (name: any) => {
@@ -186,6 +204,17 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
           console.log('Editor Event :>> Connection removed ', connection);
         });
 
+        this.editor.on('nodeUnselected', (connection: boolean) => {
+          this.onEventListener(this.selectedNodeToSave);
+          this.editor.reroute_fix_curvature = true;
+          console.error('this.selectedNodeToSave',this.selectedNodeToSave)
+          console.error('this.selectedNodeToSave B',this.selectedItemname)
+          setTimeout(() => {
+            this.editor.updateConnectionNodes(this.selectedNodeIdEl);
+          },100)
+          // this.editor.import(this.editor.export())
+        });
+
         // this.editor.on('mouseMove', (position: any) => {
         //   console.log('Editor Event :>> Position mouse x:' + position.x + ' y:' + position.y);
         // });
@@ -195,6 +224,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         });
 
         this.editor.on('zoom', (zoom: any) => {
+          this.currentZoomValue = zoom;
           console.log('Editor Event :>> Zoom level ' + zoom);
         });
 
@@ -217,8 +247,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initializeList(5);
     this.initializeFormGroup();
-
-
   }
 
   public async initializeData() {
@@ -319,7 +347,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 1 (SINGLE OUTPUT)
         case 'singleOut':
           var singleOutput = `
-            <textarea id="textarea" class="mani-card-textarea"  placeholder="Enter Text" df-template></textarea>
+            <textarea id="${GENERATED_ID()}" class="mani-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -331,7 +359,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 2 (SINGLE INPUT AND OUTPUT)
         case 'singleInOut':
           var singleInputAndOutput = `
-            <textarea id="textarea" rows="2" class="mani-card-textarea"  placeholder="Enter Text" df-template ></textarea>
+            <div id="openModal">
+              <button>
+                click me!
+              </button> 
+            </div>
+            <textarea id="${GENERATED_ID()}" class="mani-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -343,7 +376,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 3 (SINGLE INPUT RED)
         case 'singleInRed':
           var singleInputAndOutput = `
-            <textarea id="textarea" rows="6" class="red-card-textarea"  placeholder="Enter Text" df-template></textarea>
+            <textarea id="${GENERATED_ID()}" class="red-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -355,7 +388,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 4 (SINGLE INPUT GREEN)
         case 'singleInGreen':
           var singleInputAndOutput = `
-            <textarea id="textarea" rows="6" class="green-card-textarea"  placeholder="Enter Text" df-template></textarea>
+            <textarea id="${GENERATED_ID()}" class="green-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -367,7 +400,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 5 (SINGLE INPUT ORANGE)
         case 'singleInOrg':
           var singleInputAndOutput = `
-            <textarea id="textarea" rows="3" class="org-card-textarea"  placeholder="Enter Text" df-template></textarea>
+            <textarea id="${GENERATED_ID()}" class="org-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -378,7 +411,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 6 (SINGLE INPUT BLUE)
         case 'singleInBlue':
           var singleInputAndOutput = `
-            <textarea id="textarea" rows="3" class="blue-card-textarea" df-template placeholder="Enter Text" ></textarea>
+            <textarea id="${GENERATED_ID()}" class="blue-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
             this.selectedItem.name, this.selectedItem.inputs, this.selectedItem.outputs,
@@ -426,30 +459,35 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    console.log(this.formGroup.value);
-    if( this.formGroup.value.title){
-      const dataExport = this.editor.export();
-      const payload = {
-        name: this.formGroup.value.title,
-        data: JSON.stringify(dataExport.drawflow),
-        tags: this.diagramTags.value
-      }
-      if(this.formGroup.valid){
-        if(this.isEdit){
-          this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
-            console.log('responmse',response)
-          })
-        } else {
-          this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
-            console.log('responmse',response)
-          })
-        }
+    const dataExport = this.editor.export();
+    // this.editor.drawflow.drawflow.zoomValue = this.currentZoomValue;
+    const payload = {
+      name: this.formGroup.value.title,
+      data: JSON.stringify(this.editor.drawflow.drawflow),
+      tags: this.diagramTags.value
+    }
+    console.error('dataExport.drawflow',this.editor.drawflow.drawflow)
+    if(this.formGroup.valid){
+      if(this.isEdit){
+        this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
+          if(response.status === 'Success'){
+            this.createNotification('success', "FMEA Saved.");
+          } else {
+            this.createNotification('error', "Something went wrong..");
+          }
+        })
       } else {
-        this.formGroup.markAllAsTouched();
+        this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
+          if(response.status === 'Success'){
+            this.createNotification('success', "FMEA Created.");
+          } else {
+            this.createNotification('error', "Something went wrong..");
+          }
+        })
       }
-      this.createNotification('success', "Document Saved.");
     } else {
-      this.createNotification('error', "Title needed to save document.");
+      this.createNotification('error', "Title needed to save FMEA.");
+      this.formGroup.markAllAsTouched();
     }
   }
 

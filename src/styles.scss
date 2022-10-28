@@ -33,15 +33,15 @@ $dfBackgroundImage: none;
     height: auto;
   }
 
-  #textarea{
+  textarea{
     padding-top: 5px !important;
     padding-bottom: 5px !important;
     width: 100%;
     height: auto;
-    resize: none;
     white-space: normal;
     text-align: justify;
     text-align-last: center;
+    overflow: hidden;
     &:focus{
       border: none;
       outline: none;
