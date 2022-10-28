@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { GridReadyEvent } from 'ag-grid-community';
 import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-helper/button-renderer/button-renderer.component';
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service';
 import * as moment from 'moment';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-workflow-listing',
   templateUrl: './workflow-listing.component.html',
-  styleUrls: ['./workflow-listing.component.scss']
+  styleUrls: ['./workflow-listing.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class WorkflowListingComponent implements OnInit {
 
@@ -55,10 +56,10 @@ export class WorkflowListingComponent implements OnInit {
   setGridDataCols() {
     this.columnDefs = [
       { field: "name", headerName: 'FMEA' },
-      { 
-        field: "tag", headerName: 'Tags', 
-        valueGetter: (paramm: any) => this.tagsGetter(paramm), 
-        cellRenderer: (paramm: any) => this.renderCell(paramm) 
+      {
+        field: "tag", headerName: 'Tags',
+        valueGetter: (paramm: any) => this.tagsGetter(paramm),
+        cellRenderer: (paramm: any) => this.renderCell(paramm)
       },
       { field: "createdBy" },
       { field: "createdDate", valueFormatter: (param: any) => this.dateFormatter(param) },
@@ -89,14 +90,16 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   showDeleteConfirm(e: any): void {
+    console.log(e.rowData.name)
     this.modal.confirm({
-      nzTitle: 'Are you sure delete this diagram?',
-      // nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzTitle: 'Delete FMEA',
+      nzContent: 'Deleting an FMEA will send it to the Archives. Are you sure you want to delete <b>'+e.rowData.name+'</b>?',
       nzOkText: 'Yes',
-      nzOkType: 'primary',
-      nzOkDanger: true,
+      nzClassName: 'delete-modal',
+      // nzOkType: 'primary',
+      // nzOkDanger: true,
       nzOnOk: () => this.OnDiagramDelete(e),
-      nzCancelText: 'No',
+      nzCancelText: 'Cancel',
       nzOnCancel: () => true
     });
   }

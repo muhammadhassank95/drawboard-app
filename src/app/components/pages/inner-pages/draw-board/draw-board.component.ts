@@ -25,6 +25,9 @@ import { DrawBoardService } from 'src/app/services/draw-board/draw-board.service
 import { WorkflowListingComponent } from '../workflow-listing/workflow-listing.component';
 import { NodeElement } from './node.model';
 import { lastValueFrom } from 'rxjs';
+import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+
 
 @Component({
   entryComponents: [WorkflowListingComponent],
@@ -44,7 +47,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   editor!: any;
 
   locked: boolean = false;
-  gridToggle: boolean = true;
+  gridToggle: boolean = false;
 
   lastMousePositionEv: any;
   public selectedNodeFromId: any;
@@ -64,6 +67,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public isEditInput: boolean = false;
 
 
+
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
     { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
@@ -78,7 +82,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     public route: ActivatedRoute,
     public drawBoardService: DrawBoardService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private notification: NzNotificationService,
   ) {}
 
   public back(): void {
@@ -86,6 +91,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   public showInputOnClick(): void {
+    console.log("isEdit: "+ this.isEdit+ " isEditInput: "+ this.isEditInput)
     this.isEditInput = !this.isEditInput;
   }
 
@@ -211,6 +217,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initializeList(5);
     this.initializeFormGroup();
+
 
   }
 
@@ -419,26 +426,33 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    const dataExport = this.editor.export();
-    const payload = {
-      name: this.formGroup.value.title,
-      data: JSON.stringify(dataExport.drawflow),
-      tags: this.diagramTags.value
-    }
-    if(this.formGroup.valid){
-      if(this.isEdit){
-        this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
-          console.log('responmse',response)
-        })
-      } else {
-        this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
-          console.log('responmse',response)
-        })
+    console.log(this.formGroup.value);
+    if( this.formGroup.value.title){
+      const dataExport = this.editor.export();
+      const payload = {
+        name: this.formGroup.value.title,
+        data: JSON.stringify(dataExport.drawflow),
+        tags: this.diagramTags.value
       }
+      if(this.formGroup.valid){
+        if(this.isEdit){
+          this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!,payload).subscribe((response: any) => {
+            console.log('responmse',response)
+          })
+        } else {
+          this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
+            console.log('responmse',response)
+          })
+        }
+      } else {
+        this.formGroup.markAllAsTouched();
+      }
+      this.createNotification('success', "Document Saved.");
     } else {
-      this.formGroup.markAllAsTouched();
+      this.createNotification('error', "Title needed to save document.");
     }
   }
+
 
   handleClose(removedTag: {}): void {
     this.tags = this.tags.filter(tag => tag !== removedTag);
@@ -463,10 +477,30 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.inputValue = '';
     this.inputVisible = false;
   }
+
   toggleGrid(){
     this.gridToggle = !this.gridToggle;
   }
-  
+
+  getGridStyle(){
+    if(this.gridToggle){
+      let style = {
+        'background-size': '25px 25px',
+        'background-image': 'linear-gradient(to right, #f1f1f1 1px, transparent 1px), linear-gradient(to bottom, #f1f1f1 1px, transparent 1px)'
+      }
+      return(style);
+    }
+    else return(null);
+
+  }
+
+  createNotification(type: string, msgText: string){
+    this.notification.create(type, msgText, '', {
+      nzPlacement:'bottomRight',
+    })
+  }
+
+
 
 }
 
