@@ -6,7 +6,12 @@ const innerRoutes: Route = {
   loadChildren: () => import('./layouts/inner-pages/inner-page.module').then((m) => m.InnerPageModule)
 }
 
-const routes: Routes = [innerRoutes];
+const authRoutes: Route = {
+  path: '',
+  loadChildren: () => import('./layouts/auth-pages/auth-page.module').then((m) => m.AuthPageModule)
+}
+
+const routes: Routes = [authRoutes, innerRoutes];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

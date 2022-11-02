@@ -1,0 +1,53 @@
+<div class="main">
+    <div class="mx-auto px-4 max-w-screen-xl">
+        <div class="flex items-center justify-center h-screen threeblk">
+            <div class="blk left">
+                <div class="dot"></div>
+                <a class="card-cm logo-here p-4 inline-flex flex-wrap align-item-center justify-center">
+                    <img
+                        class="w-[70%]"
+                        src="/assets/logo/cloud-map.png"
+                        alt="cloud-map">
+                </a>
+            </div>
+            <form [formGroup]="signinFormGroup">
+                <div class="blk middle">
+                    <div class="card-cm py-4 px-6 my-8 flex align-item-center justify-center relative">
+                        <div class="dot dot1"></div>
+                        <input
+                            type="text"
+                            name="email"
+                            formControlName="username"
+                            placeholder="Username"
+                            class="px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none  block w-full rounded-md sm:text-sm focus:ring-1"
+                        />
+                    </div>
+                    <div class="card-cm py-4 px-6 my-8 flex align-item-center justify-center relative">
+                        <div class="dot dot2"></div>
+                        <div class="w-full block relative">
+                            <input
+                                type="password"
+                                name="email"
+                                formControlName="password"
+                                placeholder="Password"
+                                class="px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
+                            />
+                        </div>
+                        <div class="dot dot3"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="blk right">
+                <div (click)="onClickLogin()" class="card-cm p-4 flex align-item-center justify-center light-green mt-28 relative cloudmap">
+                    <div class="dot dot2"></div>
+                    <a class="btn-cm py-1 px-4">ENTER CLOUDMAP</a>
+                    <div class="dot dot3"></div>
+                </div>
+                <div (click)="onClickSignUp()" class="text-center right-in relative">
+                    <div class="dot dot3"></div>
+                    <a class="btn-cm pt-2 pb-1 px-4 mt-16">CREATE NEW ACCOUNT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
