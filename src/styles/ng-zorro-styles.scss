@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// .ant-tag.plus {
+//   @apply bg-white border-0 m-0 p-0 cursor-pointer;
+// }
+
+.ant-notification-notice {
+  @apply w-auto shadow-md p-2 flex items-center bottom-[45px] rounded;
+
+  .ant-notification-notice-content {
+    @apply mr-[20px] mb-[-3px];
+
+    .ant-notification-notice-message {
+      @apply pt-[4px];
+    }
+  }
+
+  .ant-notification-notice-close {
+    @apply invisible;
+  }
+}
+
+/* below are generic modal css generic*/
+.ant-modal-content {
+  @apply border border-[#7C7C7C] rounded-[10px] overflow-hidden shadow-md;
+}
+
+.ant-modal-title {
+  @apply text-center text-[#7C7C7C] text-[16px];
+}
+
+.ant-modal-close {
+  @apply hidden;
+}
+
+.ant-modal-body {
+  @apply text-[16px] tracking-[0.31px] text-[#7C7C7C];
+}
+
+.ant-modal-header {
+  @apply border-[#7c7c7c];
+}
+
+.ant-modal-footer {
+  @apply border-[0px];
+}
+
+.ant-modal-wrap {
+  @apply flex items-center;
+}
+
+.ant-modal {
+  @apply top-[0px] p-0;
+}
+
+.modal-btn .ant-btn {
+  @apply shadow-md tracking-[0.31px] text-[#7C7C7C] uppercase text-[14px] bg-white border-[0px] mb-[10px];
+}
+
+/* above are generic modal css */

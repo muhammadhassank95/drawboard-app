@@ -3,26 +3,7 @@
 
 .main-box {
   height: calc(100vh - 90px);
-  overflow: hidden;
   font-family: 'Roboto', sans-serif;
-}
-
-.mini-card{
-  height: 80px;
-}
-
-
-.wrapper {
-  width: 100%;
-  height: calc(100vh - 225px);
-  display: flex;
-}
-
-.col {
-  overflow: auto;
-  width: 220px;
-  height: 100%;
-  // border-right: 1px solid black;
 }
 
 .drag-drawflow {
@@ -33,112 +14,10 @@
   user-select: none;
 }
 
-.menu {
-  position: absolute;
-  height: 40px;
-  display: block;
-  background: white;
-  width: 100%;
-}
-
-.menu ul {
-  padding: 0px;
-  margin: 0px;
-  line-height: 40px;
-}
-
-.menu ul li {
-  display: inline-block;
-  margin-left: 10px;
-  border-right: 1px solid $border-color;
-  padding-right: 10px;
-  line-height: 40px;
-  cursor: pointer;
-}
-
-.menu ul li.selected {
-  font-weight: bold;
-}
-
-.btn-submit {
-  float: right;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #898989;
-  font-weight: bold;
-  border: 1px solid #898989;
-  background: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.btn-clear {
-  float: right;
-  position: absolute;
-  top: 10px;
-  right: 85px;
-  color: #898989;
-  font-weight: bold;
-  border: 1px solid #898989;
-  background: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.btn-lock {
-  float: right;
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
-  display: flex;
-  font-size: 24px;
-  padding: 5px 10px;
-  background: #898989;
-  border-radius: 4px;
-  border-right: 1px solid #898989;
-  z-index: 5;
-  cursor: pointer;
-}
-
-.bar-zoom {
-  float: right;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  display: flex;
-  font-size: 24px;
-  color: white;
-  padding: 5px 10px;
-  background: #898989;
-  border-radius: 4px;
-  border-right: 1px solid #898989;
-  z-index: 5;
-}
-
-.bar-zoom svg {
-  cursor: pointer;
-  padding-left: 10px;
-}
-
-.bar-zoom svg:nth-child(1) {
-  padding-left: 0px;
-}
-
 #drawflow {
   position: relative;
   width: calc(100vw - 220px);
   height: calc(100%);
-  // background: #ebecec;
-  // background-size: 25px 25px;
-  // background-image:
-  // linear-gradient(to right, #f1f1f1 1px, transparent 1px),
-  // linear-gradient(to bottom, #f1f1f1 1px, transparent 1px);
-
 }
 
 @media only screen and (max-width: 768px) {
@@ -153,84 +32,6 @@
   #drawflow {
     width: calc(100vw - 51px);
   }
-}
-
-/* Editing Drawflow */
-
-
-
-
-// .drawflow-node input,
-// .drawflow-node select,
-// .drawflow-node textarea {
-//   border-radius: 4px;
-//   border: 1px solid $border-color;
-//   height: 30px;
-//   line-height: 30px;
-//   font-size: 16px;
-//   width: 158px;
-//   color: #555555;
-// }
-
-// .drawflow-node textarea {
-//   height: 100px;
-// }
-
-
-// .drawflow-node.personalized {
-//   background: red;
-//   height: 200px;
-//   text-align: center;
-//   color: white;
-// }
-
-// .drawflow-node.personalized .input {
-//   background: yellow;
-// }
-
-// .drawflow-node.personalized .output {
-//   background: green;
-// }
-
-// .drawflow-node.personalized.selected {
-//   background: blue;
-// }
-
-
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 7;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.7);
-
-}
-
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: 15% auto;
-  /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 400px;
-  /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.modal .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {
@@ -256,6 +57,21 @@
 
 .drawflow .parent-node {
   position: relative;
+}
 
+.title-input{
+  width: 380px;
+  border: 1px solid white;
+  font-weight: 500;
+  font-size: 15px;
+  &:hover{
+    border: 1px solid rgb(225, 225, 225);
+  }
+  &:focus{
+    border: 1px solid rgb(124, 182, 209);
+  }
+  &::placeholder{
+    font-weight: 200;
+  }
 }
 
