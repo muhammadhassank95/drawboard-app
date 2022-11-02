@@ -15,6 +15,7 @@ $dfBackgroundImage: none;
   }
 
   textarea {
+    @apply resize;
     @apply py-[5] w-full h-auto whitespace-normal text-left overflow-hidden;
     &:focus {
       @apply border-0 outline-0;
@@ -33,7 +34,7 @@ $dfBackgroundImage: none;
 // MANILLA CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.mani-card {
-  @apply min-h-[40px] min-w-[180px] bg-[#efe1b3] text-[#5b5a53];
+  @apply bg-[#efe1b3] text-[#5b5a53];
 
   .mani-card-textarea {
     @apply bg-[#efe1b3];
@@ -59,7 +60,7 @@ $dfBackgroundImage: none;
 // GREEN CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.green-card {
-  @apply min-h-[40px] min-w-[180px] bg-[#57a961] text-[#f2f8f2];
+  @apply bg-[#57a961] text-[#f2f8f2];
   .green-card-textarea {
     @apply bg-[#57a961] text-[11px];
 
@@ -94,7 +95,7 @@ $dfBackgroundImage: none;
 // RED CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.red-card {
-  @apply min-h-[40px] min-w-[180px] bg-[#e9684f] text-[#e7d7d4];
+  @apply bg-[#e9684f] text-[#e7d7d4];
 
   .red-card-textarea {
     @apply text-[11px] bg-[#e9684f];
@@ -130,7 +131,7 @@ $dfBackgroundImage: none;
 // ORANGE CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.org-card {
-  @apply min-h-[40px] min-w-[440px] bg-[#ff9d00] text-[#433f38];
+  @apply bg-[#ff9d00] text-[#433f38];
 
   .org-card-textarea {
     @apply bg-[#ff9d00];
@@ -166,7 +167,7 @@ $dfBackgroundImage: none;
 // BLUE CARD //////////////////////////////////////////////////////////////////////////
 
 .drawflow .drawflow-node.blue-card {
-  @apply min-h-[40px] min-w-[440px] bg-[#2e70a9]  text-[#d2d8dd];
+  @apply bg-[#2e70a9]  text-[#d2d8dd];
 
   .blue-card-textarea {
     @apply bg-[#2e70a9];
