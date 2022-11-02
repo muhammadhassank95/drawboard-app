@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SigninService } from 'src/app/services/auth/signin.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-signin',
@@ -16,7 +17,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private signinService: SigninService
+    private signinService: SigninService,
+    private notification: NzNotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,6 @@ export class SigninComponent implements OnInit {
     })
   }
 
-
   public onClickLogin(): void {
     this.loading = true;
     if (this.signinFormGroup.valid) {
@@ -51,11 +52,17 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(response));
           localStorage.setItem('user-roles', JSON.stringify(userRoles));
           if (response.token !== null) {
-            // userRoles?.includes('Global') ? this.router.navigateByUrl('/global-risks') : this.router.navigateByUrl('/risks')
+            this.router.navigateByUrl('/workflow-listing')
+            this.notification.create('success', 'Logged in Successfully', '', {
+              nzPlacement: 'bottom',
+            });
             this.loading = false;
           }
         },
         error => {
+          this.notification.create('error', 'Something went wrong.', '', {
+            nzPlacement: 'bottom',
+          });
           this.loading = false;
         },)
     } else {
@@ -64,7 +71,6 @@ export class SigninComponent implements OnInit {
   }
 
   onClickSignUp() {
-    console.log('...Work In Progress...')
-    // this.router.navigateByUrl('/signup')
+    console.log('...Work In Progress...');
   }
 }
