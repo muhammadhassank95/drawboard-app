@@ -103,7 +103,7 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   public filterListing(searchString: KeyboardEvent): void {
-    this.api.setQuickFilter(this.searchString);
+    this.gridApi.setQuickFilter(this.searchString);
   }
 
   dateFormatter(params: any) {
@@ -133,12 +133,14 @@ export class WorkflowListingComponent implements OnInit {
 
   onDeleteClick(row: any) {
     this.drawBoardServices.deleteDiagram(row.id).subscribe((res: any) => {
-      // if (res) {
+      if (res.status === 'success') {
         console.log('...Fetching new records...');
         this.deleteModal.isVisible = false;
         this.getDiagrams();
-        this.createNotification('Success', 'Deleted Successfully.'); // ...need proper response from Malek...
-      // }
+        this.createNotification('success', 'Deleted Successfully.'); // ...need proper response from Malek...
+      } else {
+        this.createNotification('error', 'Something went wrong.');
+      }
     });
   }
 

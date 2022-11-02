@@ -100,7 +100,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   public showInputOnClick(): void {
-    console.log("isEdit: " + this.isEdit + " isEditInput: " + this.isEditInput)
     this.isEditInput = !this.isEditInput;
   }
 
@@ -153,14 +152,14 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       this.editor.draggable_inputs = false;
       // Events!
       this.editor.on('nodeCreated', (id: any) => {
-        console.log(
-          'Editor Event :>> Node created ' + id,
-          this.editor.getNodeFromId(id)
-        );
+        // console.log(
+        //   'Editor Event :>> Node created ' + id,
+        // );
+        this.editor.getNodeFromId(id)
       });
 
       this.editor.on('nodeRemoved', (id: any) => {
-        console.log('Editor Event :>> Node removed ' + id);
+        // console.log('Editor Event :>> Node removed ' + id);
       });
 
       this.editor.on('nodeSelected', (id: any) => {
@@ -174,32 +173,29 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
           let htmlCollection = document.getElementsByClassName('selected')[0].id;
           this.selectedNodeIdEl = htmlCollection;
-          console.error('haha', htmlCollection)
         })
 
       });
 
       this.editor.on('moduleCreated', (name: any) => {
-        console.log('Editor Event :>> Module Created ' + name);
+        // console.log('Editor Event :>> Module Created ' + name);
       });
 
       this.editor.on('moduleChanged', (name: any) => {
-        console.log('Editor Event :>> Module Changed ' + name);
+        // console.log('Editor Event :>> Module Changed ' + name);
       });
 
       this.editor.on('connectionCreated', (connection: any) => {
-        console.log('Editor Event :>> Connection created ', connection);
+        // console.log('Editor Event :>> Connection created ', connection);
       });
 
       this.editor.on('connectionRemoved', (connection: any) => {
-        console.log('Editor Event :>> Connection removed ', connection);
+        // console.log('Editor Event :>> Connection removed ', connection);
       });
 
       this.editor.on('nodeUnselected', (connection: boolean) => {
         this.onEventListener(this.selectedNodeToSave);
         this.editor.reroute_fix_curvature = true;
-        console.error('this.selectedNodeToSave', this.selectedNodeToSave)
-        console.error('this.selectedNodeToSave B', this.selectedItemname)
         setTimeout(() => {
           this.editor.updateConnectionNodes(this.selectedNodeIdEl);
         }, 100)
@@ -211,12 +207,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       // });
 
       this.editor.on('nodeMoved', (id: any) => {
-        console.log('Editor Event :>> Node moved ' + id);
+        // console.log('Editor Event :>> Node moved ' + id);
       });
 
       this.editor.on('zoom', (zoom: any) => {
         this.currentZoomValue = zoom;
-        console.log('Editor Event :>> Zoom level ' + zoom);
+        // console.log('Editor Event :>> Zoom level ' + zoom);
       });
 
       // this.editor.on('translate', (position: any) => {
@@ -226,11 +222,11 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       // });
 
       this.editor.on('addReroute', (id: any) => {
-        console.log('Editor Event :>> Reroute added ' + id);
+        // console.log('Editor Event :>> Reroute added ' + id);
       });
 
       this.editor.on('removeReroute', (id: any) => {
-        console.log('Editor Event :>> Reroute removed ' + id);
+        // console.log('Editor Event :>> Reroute removed ' + id);
       });
     });
   }
@@ -256,20 +252,19 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   // Drag Events
   onDragStart(e: any) {
     if (e.type === 'dragstart') {
-      console.log('onDragStart :>> e :>> ', e);
+      // console.log('onDragStart :>> e :>> ', e);
       this.selectedItem = <NodeElement>(
         this.nodes.find((node: NodeElement) => node.id === parseInt(e.target.id))
       );
-      console.log(this.selectedItem);
     }
   }
 
   onDragEnter(e: any) {
-    console.log('onDragEnter :>> e :>> ', e);
+    // console.log('onDragEnter :>> e :>> ', e);
   }
 
   onDragLeave(e: any) {
-    console.log('onDragLeave :>> e :>> ', e);
+    // console.log('onDragLeave :>> e :>> ', e);
   }
 
   onDragOver(e: Event) {
@@ -279,7 +274,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   }
 
   onDragEnd(e: any) {
-    console.log('onDragend :>> e :>> ', e);
+    // console.log('onDragend :>> e :>> ', e);
   }
 
   onDrop(e: any) {
@@ -347,11 +342,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         //CARD 2 (SINGLE INPUT AND OUTPUT)
         case 'singleInOut':
           var singleInputAndOutput = `
-            <div id="openModal">
-              <button>
-                click me!
-              </button> 
-            </div>
             <textarea id="${GENERATED_ID()}" class="mani-card-textarea" placeholder="Enter Text" df-template></textarea>
           `;
           var nodeId = this.editor.addNode(
@@ -451,11 +441,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       data: JSON.stringify(this.editor.drawflow.drawflow),
       tags: this.diagramTags.value
     }
-    console.error('dataExport.drawflow', this.editor.drawflow.drawflow)
     if (this.formGroup.valid) {
       if (this.isEdit) {
         this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!, payload).subscribe((response: any) => {
-          if (response.status === 'Success') {
+          if (response.status === 'success') {
             response.status = 'success';
             this.createNotification(response.status, response.message);
           } else {
@@ -465,9 +454,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         })
       } else {
         this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
-          if (response.status === 'Success') {
+          if (response.status === 'success') {
             response.status = 'success';
             this.createNotification(response.status, response.message);
+            this.router.navigate([`/cloud-map/${response.id}`]);
           } else {
             response.status = 'error';
             this.createNotification(response.status, response.message);
@@ -480,8 +470,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  handleClose(removedTag: {}): void {
-    this.tags = this.tags.filter(tag => tag !== removedTag);
+  onTagClose(i: number){
+    this.diagramTags.value.splice(i, 1);
   }
 
   sliceTagName(tag: string): string {

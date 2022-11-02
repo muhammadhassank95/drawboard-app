@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   API: {
-    ENDPOINT: 'https://topbusinessriskapi.azurewebsites.net/api'
+    // ENDPOINT: 'https://topbusinessriskapi.azurewebsites.net/api'
+    ENDPOINT: 'https://cloudmapapi.azurewebsites.net/api'
   }
 };
 

@@ -1,8 +1,8 @@
-<div class="main-box flex flex-col shadow-md rounded mx-3 bg-white">
+<div class="main-box flex grow flex-col shadow-md rounded mx-3 bg-white overflow-auto">
   <header class="flex p-3">
     <div class="flex grow justify-between items-center" [formGroup]="formGroup">
       <div class="flex items-center">
-        <div class="flex">
+        <!-- <div class="flex">
           <span
             *ngIf="!isEditInput && isEdit"
             (click)="showInputOnClick()"
@@ -16,22 +16,34 @@
             placeholder="Name your diagram"
             (keyup.enter)="showInputOnClick()"
           />
+        </div> -->
+        <div class="flex shrink-0">
+          <input
+            class="title-input whitespace-nowrap"
+            type="text"
+            nz-input
+            nzBorderless
+            formControlName="title"
+            placeholder="Name your diagram"
+            (keyup.enter)="showInputOnClick()"
+          />
         </div>
-        <div class="flex mx-4 content-center">
+        <div class="flex mx-4 content-center flex-wrap shrink">
           <nz-tag *ngFor="let tag of diagramTags.controls; let i = index" [nzMode]="'closeable'"
-            class="editable-tag rounded-full flex items-center ">
+            (nzOnClose)="onTagClose(i)"
+            class="rounded-full flex items-center">
             {{ sliceTagName(tag.value) }}
           </nz-tag>
           <nz-tag
             *ngIf="!inputVisible"
-            class="editable-tag plus border-none bg-none flex"
+            class="border-none bg-white flex cursor-pointer"
             nzNoAnimation
             (click)="showInput()"
           >
             <em class="ph-plus text-md items-center"></em>
           </nz-tag>
           <div class="flex">
-            <input
+            <input class="rounded"
               *ngIf="inputVisible"
               #inputElement
               nz-input
@@ -47,13 +59,13 @@
         </div>
       </div>
       <div>
-        <span (click)="back()" class="rounded-full p-2 flex items-center bg-[#707070] text-white cursor-pointer">
+        <span (click)="back()" class="rounded-full p-2 flex shrink-0 items-center bg-[#707070] text-white cursor-pointer">
           <em class="ph-x"></em>
         </span>
       </div>
     </div>
   </header>
-  <div class="flex grow rounded bg-white mx-3 mb-3 border-2 border-gray-300">
+  <div class="flex grow rounded bg-white mx-3 mb-3 border-2 border-gray-300 ">
     <div class="flex flex-col justify-between content-center border-r-2 border-gray-300 pt-4">
       <div>
         <ng-container *ngFor="let node of nodes">
@@ -64,7 +76,7 @@
             data-node="node.name"
           >
             <img
-              class="flex mini-card w-44"
+              class="flex w-44"
               name="{{node.name}}"
               src="{{node.imgPath}}"
               alt="node img"
@@ -103,7 +115,7 @@
         (drop)="onDrop($event)"
       >
         <!-- <div class="btn-clear" (click)="onClear()">Clear</div> -->
-        <div class="btn-lock color-[#979797]">
+        <div class="btn-panel color-[#979797] bg-[#a2a2a2] float-right absolute p-2 text-[22px] flex bottom-[10px] right-[15px] rounded z-10 cursor-pointer">
           <em
             class="ph-share-network"
             nz-tooltip
@@ -121,6 +133,18 @@
             [ngClass]="{'ph-grid-four': this.gridToggle, 'ph-square': !this.gridToggle}"
             nz-tooltip
             nzTooltipTitle="Toggle Grid"
+          ></em>
+          <em
+            (click)="onZoomOut()"
+            class="ph-magnifying-glass-minus"
+            nz-tooltip
+            nzTooltipTitle="Zoom out"
+          ></em>  
+          <em
+            (click)="onZoomIn()"
+            class="ph-magnifying-glass-plus"
+            nz-tooltip
+            nzTooltipTitle="Zoom In"
           ></em>
         </div>
       </div>
