@@ -15,15 +15,15 @@ import { DeleteDiagramModalComponent } from 'src/app/components/partials/modals/
 
 @NgModule({
   declarations: [
-    DrawBoardComponent, 
-    InnerPagesComponent, 
-    WorkflowListingComponent,
-    ButtonRendererComponent,
-    GridActionIconsComponent,
-    AccountInformationComponent,
     HeaderComponent,
     FooterComponent,
-    DeleteDiagramModalComponent
+    DrawBoardComponent,
+    InnerPagesComponent,
+    ButtonRendererComponent,
+    GridActionIconsComponent,
+    WorkflowListingComponent,
+    AccountInformationComponent,
+    DeleteDiagramModalComponent,
   ],
   imports: [
     CommonModule,
