@@ -173,7 +173,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
           let htmlCollection = document.getElementsByClassName('selected')[0].id;
           this.selectedNodeIdEl = htmlCollection;
-          // console.error('haha', htmlCollection)
         })
 
       });
@@ -197,8 +196,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       this.editor.on('nodeUnselected', (connection: boolean) => {
         this.onEventListener(this.selectedNodeToSave);
         this.editor.reroute_fix_curvature = true;
-        // console.error('this.selectedNodeToSave', this.selectedNodeToSave)
-        // console.error('this.selectedNodeToSave B', this.selectedItemname)
         setTimeout(() => {
           this.editor.updateConnectionNodes(this.selectedNodeIdEl);
         }, 100)
@@ -444,16 +441,27 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       data: JSON.stringify(this.editor.drawflow.drawflow),
       tags: this.diagramTags.value
     }
-    // console.error('dataExport.drawflow', this.editor.drawflow.drawflow)
     if (this.formGroup.valid) {
       if (this.isEdit) {
         this.drawBoardService.updateDiagram(this.route.snapshot.paramMap.get('id')!, payload).subscribe((response: any) => {
-          this.createNotification(response.status, response.message);
+          if (response.status === 'success') {
+            response.status = 'success';
+            this.createNotification(response.status, response.message);
+          } else {
+            response.status = 'error';
+            this.createNotification(response.status, response.message);
+          }
         })
       } else {
         this.drawBoardService.addDiagram(payload).subscribe((response: any) => {
-          this.createNotification(response.status, response.message);
-          this.router.navigate([`/cloud-map/${response.id}`]);
+          if (response.status === 'success') {
+            response.status = 'success';
+            this.createNotification(response.status, response.message);
+            this.router.navigate([`/cloud-map/${response.id}`]);
+          } else {
+            response.status = 'error';
+            this.createNotification(response.status, response.message);
+          }
         })
       }
     } else {
