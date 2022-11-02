@@ -8,6 +8,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 
@@ -24,7 +25,8 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzTagModule,
     NzAvatarModule,
     NzToolTipModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzPopoverModule
   ]
 })
 export class SharedModule { }

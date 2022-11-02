@@ -19,4 +19,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl(path)
   }
 
+  public onClickLogout(): void {
+    this.router.navigateByUrl('/')
+    localStorage.clear();
+  }
+
 }

@@ -85,8 +85,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     public route: ActivatedRoute,
     public drawBoardService: DrawBoardService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private renderer2: Renderer2,
     private notification: NzNotificationService,
   ) { }
 
@@ -129,10 +127,9 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     }
     this.editor.import(dataToImport);
   }
-
+  
   async ngAfterViewInit(): Promise<void> {
     this.drawFlowHtmlElement = <HTMLElement>document.getElementById('drawflow');
-    const hehe = await this.initializeData();
     this.route.data.subscribe(async (data) => {
       if (this.route.snapshot.paramMap.get('id')) {
         this.isEdit = true;
@@ -147,7 +144,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
           })
         }
       }
-
       this.initDrawFlow(this.drawFlowHtmlElement, this.canvasData);
       this.editor.draggable_inputs = false;
       // Events!
@@ -196,10 +192,8 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
       this.editor.on('nodeUnselected', (connection: boolean) => {
         this.onEventListener(this.selectedNodeToSave);
         this.editor.reroute_fix_curvature = true;
-        setTimeout(() => {
-          this.editor.updateConnectionNodes(this.selectedNodeIdEl);
-        }, 100)
-        // this.editor.import(this.editor.export())
+        this.editor.updateConnectionNodes(this.selectedNodeIdEl);
+
       });
 
       // this.editor.on('mouseMove', (position: any) => {
@@ -234,12 +228,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initializeList(5);
     this.initializeFormGroup();
-  }
-
-  public async initializeData() {
-    let apiResponse: any
-
-    return apiResponse;
   }
 
   public initializeFormGroup(): void {
@@ -457,7 +445,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
           if (response.status === 'success') {
             response.status = 'success';
             this.createNotification(response.status, response.message);
-            this.router.navigate([`/cloud-map/${response.id}`]);
+            this.redirectTo(response.id);
           } else {
             response.status = 'error';
             this.createNotification(response.status, response.message);
@@ -470,6 +458,15 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  redirectTo(uri:string){
+    // this.router.navigateByUrl('/cloud-map', {skipLocationChange: false}).then(()=>
+    this.router.navigate([`/cloud-map/${uri}`]);
+    setTimeout(() => {
+      window.location.reload();
+    })
+
+ }
+
   onTagClose(i: number){
     this.diagramTags.value.splice(i, 1);
   }
@@ -481,9 +478,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   showInput(): void {
     this.inputVisible = true;
-    setTimeout(() => {
-      this.inputElement?.nativeElement.focus();
-    }, 10);
   }
 
   handleInputConfirm(): void {

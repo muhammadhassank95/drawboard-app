@@ -6,8 +6,27 @@
         <span (click)="navigate('/account-information')" class="flex align-middle mr-2 cursor-pointer">
             <em class="ph-gear text-3xl"></em>
         </span>
-        <span class="cursor-pointer">
-            <nz-avatar nzText="AC" class="text-[#707070] bg-white border-[#707070] border"></nz-avatar>
+        <span class="cursor-pointer" >
+            <nz-avatar nzText="AC" class="text-[#707070] bg-white border-[#707070] border" 
+                nz-popover 
+                nzPopoverPlacement="bottomRight" 
+                [nzPopoverTitle]="titleTemplate" 
+                nzPopoverTrigger="click"
+                [nzPopoverContent]="contentTemplate
+                
+            "></nz-avatar>
         </span>
     </div>
 </div>
+
+<ng-template #titleTemplate>
+    <span nz-icon nzType="close"></span>
+    Account Settings
+</ng-template>
+
+<ng-template #contentTemplate>
+    <span nz-icon nzType="close"></span>
+    <span class="cursor-pointer" (click)="onClickLogout()">
+        Logout
+    </span>
+</ng-template>
