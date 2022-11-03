@@ -1,6 +1,3 @@
-@import 'src/styles.scss';
-
-
 .main-box {
   height: calc(100vh - 90px);
   font-family: 'Roboto', sans-serif;
@@ -73,5 +70,244 @@
   &::placeholder{
     font-weight: 200;
   }
+}
+
+.drawflow .drawflow-node {
+  @apply flex w-auto rounded p-3 shadow-sm border border-[#929292];
+
+  .drawflow_content_node {
+    @apply h-auto;
+  }
+
+  textarea {
+    @apply resize;
+    @apply py-[5] w-full h-auto whitespace-normal text-left overflow-hidden;
+    &:focus {
+      @apply border-0 outline-0;
+    }
+  }
+
+  &:hover {
+    @apply shadow-md border border-[#5a5a5a];
+  }
+
+  &.selected {
+    @apply shadow-md border border-[#5a5a5a];
+  }
+}
+
+// MANILLA CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.mani-card {
+  @apply bg-[#efe1b3] text-[#5b5a53];
+
+  .mani-card-textarea {
+    @apply bg-[#efe1b3];
+  }
+
+  &:hover {
+    @apply bg-[#eedb9d];
+
+    .mani-card-textarea {
+      @apply bg-[#eedb9d];
+    }
+  }
+}
+
+.drawflow .drawflow-node.mani-card.selected {
+  @apply bg-[#eedb9d];
+
+  .mani-card-textarea {
+    @apply bg-[#eedb9d];
+  }
+}
+
+// GREEN CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.green-card {
+  @apply bg-[#57a961] text-[#f2f8f2];
+  .green-card-textarea {
+    @apply bg-[#57a961] text-[11px];
+
+    &::-webkit-input-placeholder {
+      @apply text-[#d6ded6];
+
+      &:focus {
+        &::-webkit-input-placeholder {
+          @apply text-[#f2f8f2]
+        }
+      }
+    }
+  }
+
+  &:hover {
+    @apply bg-[#57a25d];
+
+    .green-card-textarea {
+      @apply bg-[#57a25d];
+    }
+  }
+}
+
+.drawflow .drawflow-node.green-card.selected {
+  @apply bg-[#4d9153];
+
+  .green-card-textarea {
+    @apply bg-[#4d9153];
+  }
+}
+
+// RED CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.red-card {
+  @apply bg-[#e9684f] text-[#e7d7d4];
+
+  .red-card-textarea {
+    @apply text-[11px] bg-[#e9684f];
+
+    &::-webkit-input-placeholder {
+      @apply text-[#dcb2a9];
+
+      &:focus {
+        &::-webkit-input-placeholder {
+          @apply text-[#e6cec9];
+        }
+      }
+    }
+  }
+
+  &:hover {
+    @apply bg-[#e85a3e];
+
+    .red-card-textarea {
+      @apply bg-[#e85a3e];
+    }
+  }
+}
+
+.drawflow .drawflow-node.red-card.selected {
+  @apply bg-[#e85a3e];
+
+  .red-card-textarea {
+    @apply bg-[#e85a3e];
+  }
+}
+
+// ORANGE CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.org-card {
+  @apply bg-[#ff9d00] text-[#433f38];
+
+  .org-card-textarea {
+    @apply bg-[#ff9d00];
+
+    &::-webkit-input-placeholder {
+      @apply text-[#817e76];
+
+      &:focus {
+        &::-webkit-input-placeholder {
+          @apply text-[#67625c];
+        }
+      }
+    }
+  }
+
+  &:hover {
+    @apply bg-[#f09400];
+
+    .org-card-textarea {
+      @apply bg-[#f09400];
+    }
+  }
+}
+
+.drawflow .drawflow-node.org-card.selected {
+  @apply bg-[#f09400];
+
+  .org-card-textarea {
+    @apply bg-[#f09400];
+  }
+}
+
+// BLUE CARD //////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node.blue-card {
+  @apply bg-[#2e70a9]  text-[#d2d8dd];
+
+  .blue-card-textarea {
+    @apply bg-[#2e70a9];
+  }
+
+  &:hover {
+    @apply bg-[#2069a9];
+
+    .blue-card-textarea {
+      @apply bg-[#2069a9]
+    }
+  }
+}
+
+.drawflow .drawflow-node.blue-card.selected {
+  @apply bg-[#2069a9];
+
+  .blue-card-textarea {
+    @apply bg-[#2069a9];
+  }
+}
+
+// INPUTS /////////////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node .input {
+  @apply left-[-18px] bg-[#F6F6F6] border border-[#929292] rounded-full h-[12px] w-[12px];
+  &:hover {
+    @apply bg-[#A7A7A7] border border-[#5a5a5a];
+  }
+}
+
+
+// OUTPUTS /////////////////////////////////////////////////////////////////////////////////
+
+.drawflow .drawflow-node .outputs {
+  float: none;
+}
+
+.drawflow .drawflow-node .output {
+  @apply left-[6px] bg-[#F6F6F6] border border-[#929292] rounded-full h-[12px] w-[12px];
+  &:hover {
+    @apply bg-[#A7A7A7] border border-[#5a5a5a];
+  }
+}
+
+// LINES /////////////////////////////////////////////////////////////////////////////
+
+.drawflow .connection .main-path {
+  @apply stroke-[3px];
+
+  &:hover{
+    @apply stroke-[#7e977e];
+  }
+  &.selected{
+    @apply stroke-[#e9684f];
+  }
+
+}
+
+.drawflow .connection .point {
+  @apply stroke-[1px] stroke-[#929292] fill-[#F6F6F6];
+  &:hover{
+    @apply stroke-[1px] stroke-[#A7A7A7] fill-[#5a5a5a];
+  }
+
+}
+
+.drawflow-delete {
+  @apply block text-[#7d7d7d] bg-white border border-[#7d7d7d] rounded-full;
+  &:hover{
+    @apply text-white bg-[#7d7d7d] border border-white rounded-full;
+  }
+}
+
+.parent-node .drawflow-delete {
+  @apply top-[-16];
 }
 
