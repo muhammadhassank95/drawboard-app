@@ -127,7 +127,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         },
       }
     }
-    console.error('this.canvasData',this.canvasData)
     if(this.canvasData){
       setTimeout(() => {
         this.editor.zoom = this.canvasData.Home.zoomValue;
