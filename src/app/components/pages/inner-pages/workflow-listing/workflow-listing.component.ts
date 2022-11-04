@@ -7,6 +7,7 @@ import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-hel
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { DeleteDiagramModalComponent } from 'src/app/components/partials/modals/delete-diagram-modal/delete-diagram-modal.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-workflow-listing',
@@ -37,6 +38,7 @@ export class WorkflowListingComponent implements OnInit {
     private router: Router,
     private notification: NzNotificationService,
     private drawBoardServices: DrawBoardService,
+    private clipboard: Clipboard
   ) {
     this.setFrameworksComponent();
   }
@@ -94,7 +96,9 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   onDiagramShare(e: any) {
-    const link = `https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`;
+    // const link = `https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`;
+    this.clipboard.copy(`https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`);
+    this.createNotification('success', `${e.rowData.name} Coppied to clipboard`);
   }
 
   showDeleteConfirm(e: any): void {

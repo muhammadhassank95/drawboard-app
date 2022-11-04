@@ -29,6 +29,7 @@ import { NodeElement } from './node.model';
 import { lastValueFrom } from 'rxjs';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { GENERATED_ID } from 'src/app/utilities/uuid.utility';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   entryComponents: [WorkflowListingComponent],
@@ -86,6 +87,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     public route: ActivatedRoute,
     public drawBoardService: DrawBoardService,
     private notification: NzNotificationService,
+    private clipboard: Clipboard
   ) { }
 
   public onEventListener(selectedName: any): void {
@@ -135,7 +137,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     }
     this.editor.import(dataToImport);
   }
-  
+
   async ngAfterViewInit(): Promise<void> {
     this.drawFlowHtmlElement = <HTMLElement>document.getElementById('drawflow');
     this.route.data.subscribe(async (data) => {
@@ -472,6 +474,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     })
 
  }
+ onDiagramShare() {
+
+  // const link = `https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`;
+  this.clipboard.copy(`https://causemap.azurewebsites.net${this.router.url}`);
+  this.createNotification('success', `${this.formGroup.value.title} Coppied to clipboard`);
+}
 
   onTagClose(i: number){
     this.diagramTags.value.splice(i, 1);
