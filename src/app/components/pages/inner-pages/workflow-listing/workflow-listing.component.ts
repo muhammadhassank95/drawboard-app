@@ -128,7 +128,7 @@ export class WorkflowListingComponent implements OnInit {
       if (i <= 3) tags.push(`<span class="border border-gray-400 rounded-full py-1 px-2 text-[10px]">${data.name}</span>`);
       if (i === 4) tags.push(`<span class="ml-1 text-[13px]">...</span>`);
     });
-    return `${[...tags]}`;
+    return tags.join(' ');
   }
 
   onDeleteClick(row: any) {
