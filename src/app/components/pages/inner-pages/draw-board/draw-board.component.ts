@@ -127,10 +127,13 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         },
       }
     }
-    setTimeout(() => {
-      this.editor.zoom = this.canvasData.Home.zoomValue;
-      this.editor.zoom_refresh();
-    })
+    console.error('this.canvasData',this.canvasData)
+    if(this.canvasData){
+      setTimeout(() => {
+        this.editor.zoom = this.canvasData.Home.zoomValue;
+        this.editor.zoom_refresh();
+      })
+    }
     this.editor.import(dataToImport);
   }
   
