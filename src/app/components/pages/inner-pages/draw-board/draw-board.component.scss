@@ -80,7 +80,7 @@
   }
 
   textarea {
-    @apply resize;
+    @apply resize-none;
     @apply py-[5] w-full h-auto whitespace-normal text-left overflow-hidden;
     &:focus {
       @apply border-0 outline-0;
@@ -102,14 +102,14 @@
   @apply bg-[#efe1b3] text-[#5b5a53];
 
   .mani-card-textarea {
-    @apply bg-[#efe1b3];
+    @apply bg-[#efe1b3] ;
   }
 
   &:hover {
     @apply bg-[#eedb9d];
 
     .mani-card-textarea {
-      @apply bg-[#eedb9d];
+      @apply bg-[#eedb9d] resize;
     }
   }
 }
@@ -118,7 +118,7 @@
   @apply bg-[#eedb9d];
 
   .mani-card-textarea {
-    @apply bg-[#eedb9d];
+    @apply bg-[#eedb9d] resize;
   }
 }
 
@@ -144,7 +144,7 @@
     @apply bg-[#57a25d];
 
     .green-card-textarea {
-      @apply bg-[#57a25d];
+      @apply bg-[#57a25d] resize;
     }
   }
 }
@@ -153,7 +153,7 @@
   @apply bg-[#4d9153];
 
   .green-card-textarea {
-    @apply bg-[#4d9153];
+    @apply bg-[#4d9153] resize;
   }
 }
 
@@ -180,7 +180,7 @@
     @apply bg-[#e85a3e];
 
     .red-card-textarea {
-      @apply bg-[#e85a3e];
+      @apply bg-[#e85a3e] resize;
     }
   }
 }
@@ -189,7 +189,7 @@
   @apply bg-[#e85a3e];
 
   .red-card-textarea {
-    @apply bg-[#e85a3e];
+    @apply bg-[#e85a3e] resize;
   }
 }
 
@@ -216,7 +216,7 @@
     @apply bg-[#f09400];
 
     .org-card-textarea {
-      @apply bg-[#f09400];
+      @apply bg-[#f09400] resize;
     }
   }
 }
@@ -225,7 +225,7 @@
   @apply bg-[#f09400];
 
   .org-card-textarea {
-    @apply bg-[#f09400];
+    @apply bg-[#f09400] resize;
   }
 }
 
@@ -242,7 +242,7 @@
     @apply bg-[#2069a9];
 
     .blue-card-textarea {
-      @apply bg-[#2069a9]
+      @apply bg-[#2069a9] resize;
     }
   }
 }
@@ -251,7 +251,7 @@
   @apply bg-[#2069a9];
 
   .blue-card-textarea {
-    @apply bg-[#2069a9];
+    @apply bg-[#2069a9] resize;
   }
 }
 

@@ -1,23 +1,23 @@
-<div class="account-information flex flex-col p-5 mx-5 mb-5 shadow-lg rounded">
+<div class="account-information flex flex-col p-3 mx-3 shadow-lg rounded bg-white">
     <span class="rounded-full p-1 flex items-center bg-[#707070] text-white self-end mb-3">
         <em (click)="close()" class="ph-x text-xl cursor-pointer"></em>
     </span>
-    <div class="flex border border-gray-500 rounded-lg" [formGroup]="formGroup">
-        <div class="w-1/2 border-r border-r-gray-500">
+    <div class="flex grow border border-gray-300 rounded-lg" [formGroup]="formGroup">
+        <div class="w-1/2 border-r border-r-gray-300">
             <div class="p-5 flex flex-col">
                 <span class="text-lg font-medium">Account Information</span>
                 <div class="mt-5">
                     <div class="flex mb-3">
-                        <input type="text" nz-input formControlName="fullName" class="mb-1 rounded shadow-lg mr-2" placeholder="Fullname"/>
-                        <input type="text" nz-input formControlName="email" class="mb-1 rounded shadow-lg mr-2" placeholder="Email"/>
+                        <input type="text" nz-input formControlName="fullName" class="mb-1 rounded shadow-md mr-2" placeholder="Fullname"/>
+                        <input type="text" nz-input formControlName="email" class="mb-1 rounded shadow-md mr-2" placeholder="Email"/>
                     </div>
                     <div class="flex">
-                        <input type="text" nz-input formControlName="company" class="mb-1 rounded shadow-lg mr-2" placeholder="Company"/>
-                        <input type="text" nz-input formControlName="position" class="mb-1 rounded shadow-lg mr-2" placeholder="Position"/>
+                        <input type="text" nz-input formControlName="company" class="mb-1 rounded shadow-md mr-2" placeholder="Company"/>
+                        <input type="text" nz-input formControlName="position" class="mb-1 rounded shadow-md mr-2" placeholder="Position"/>
                     </div>
                 </div>
                 <button
-                    class="mr-2 mt-3 rounded shadow-lg w-fit self-end uppercase"
+                    class="mr-2 mt-3 rounded shadow-md w-fit self-end uppercase"
                     nz-button
                     nzType="default"
                     (click)="changePassword()"
@@ -25,12 +25,12 @@
             </div>
         </div>
         <div class="w-1/2">
-            <div class="p-5 flex flex-col">
+            <div class="p-5 flex flex-col grow h-[100%]">
                 <span class="mb-5 text-lg font-medium">Contact CloudMap</span>
-                <input type="text" nz-input class="mb-4 rounded shadow-lg w-1/2" placeholder="Title"/>
-                <textarea rows="4" formControlName="message" class="mb-1 rounded shadow-lg mr-2" nz-input></textarea>
+                <input type="text" nz-input class="mb-4 rounded shadow-md w-1/2" placeholder="Title"/>
+                <textarea rows="4" formControlName="message" class="resize-none mb-1 rounded shadow-md mr-2 grow" nz-input></textarea>
                 <button
-                    class="w-fit mr-2 mt-3 rounded shadow-lg self-end"
+                    class="w-fit mt-3 rounded shadow-md self-end"
                     nz-button
                     nzType="default"
                     (click)="changePassword()"

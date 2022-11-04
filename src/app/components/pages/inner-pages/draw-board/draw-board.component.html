@@ -36,11 +36,12 @@
           </nz-tag>
           <nz-tag
             *ngIf="!inputVisible"
-            class="border-none bg-white flex cursor-pointer"
+            class="border-none bg-white flex cursor-pointer text-gray-400 items-center ml-[-4px]"
             nzNoAnimation
             (click)="showInput()"
           >
-            <em class="ph-plus text-md items-center"></em>
+            <em class="ph-plus text-md items-center mr-1 "></em>
+            New Tag
           </nz-tag>
           <div class="flex">
             <input class="rounded"
@@ -120,6 +121,7 @@
             class="ph-share-network"
             nz-tooltip
             nzTooltipTitle="Share"
+            (click)="onDiagramShare()"
           ></em>
           <em
             class="mx-2"
@@ -136,10 +138,10 @@
           ></em>
           <em
             (click)="onZoomOut()"
-            class="ph-magnifying-glass-minus"
+            class="ph-magnifying-glass-minus ml-2"
             nz-tooltip
             nzTooltipTitle="Zoom out"
-          ></em>  
+          ></em>
           <em
             (click)="onZoomIn()"
             class="ph-magnifying-glass-plus"
