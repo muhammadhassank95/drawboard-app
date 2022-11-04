@@ -90,7 +90,9 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   public onEventListener(selectedName: any): void {
     const element = document.getElementById(this.selectedItemname);
-    this.editor.drawflow.drawflow.Home.data[selectedName.id].html = element?.outerHTML;
+    if(this.editor.drawflow.drawflow.Home.data[selectedName.id]){
+      this.editor.drawflow.drawflow.Home.data[selectedName.id].html = element?.outerHTML;
+    }
   }
 
   public back(): void {
@@ -125,6 +127,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         },
       }
     }
+    if(this.canvasData){
+      setTimeout(() => {
+        this.editor.zoom = this.canvasData.Home.zoomValue;
+        this.editor.zoom_refresh();
+      })
+    }
     this.editor.import(dataToImport);
   }
   
@@ -137,7 +145,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         this.diagramByIdResponse = await lastValueFrom(responsezz);
         if (this.diagramByIdResponse) {
           this.canvasData = JSON.parse(this.diagramByIdResponse.data);
-          // this.editor.zoom = this.canvasData.zoomValue;
           this.formGroup.get('title')?.patchValue(this.diagramByIdResponse.name);
           this.diagramByIdResponse.tags.forEach((tag: any) => {
             this.diagramTags.push(new FormControl(tag.name));
@@ -206,7 +213,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
       this.editor.on('zoom', (zoom: any) => {
         this.currentZoomValue = zoom;
-        // console.log('Editor Event :>> Zoom level ' + zoom);
       });
 
       // this.editor.on('translate', (position: any) => {
@@ -423,7 +429,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     const dataExport = this.editor.export();
-    // this.editor.drawflow.drawflow.zoomValue = this.currentZoomValue;
+    this.editor.drawflow.drawflow.Home.zoomValue = this.currentZoomValue;
     const payload = {
       name: this.formGroup.value.title,
       data: JSON.stringify(this.editor.drawflow.drawflow),
