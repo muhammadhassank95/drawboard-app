@@ -72,6 +72,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public selectedNodeToSave: any;
   public currentZoomValue: number = 1;
   public selectedNodeIdEl: string = '';
+  public fmeaID: any;
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
     { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
@@ -129,12 +130,10 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         },
       }
     }
-    if(this.canvasData){
-      setTimeout(() => {
-        this.editor.zoom = this.canvasData.Home.zoomValue;
-        this.editor.zoom_refresh();
-      })
-    }
+    setTimeout(() => {
+      this.editor.zoom = this.canvasData.Home.zoomValue;
+      this.editor.zoom_refresh();
+    })
     this.editor.import(dataToImport);
   }
 
@@ -143,6 +142,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     this.route.data.subscribe(async (data) => {
       if (this.route.snapshot.paramMap.get('id')) {
         this.isEdit = true;
+        this.fmeaID = this.route.snapshot.paramMap.get('id');
         const responsezz = this.drawBoardService.getDiagramByid(this.route.snapshot.paramMap.get('id')!)
         this.diagramByIdResponse = await lastValueFrom(responsezz);
         if (this.diagramByIdResponse) {
@@ -475,9 +475,12 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
  }
  onDiagramShare() {
-
-  // const link = `https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`;
-  this.clipboard.copy(`https://causemap.azurewebsites.net${this.router.url}`);
+  let link: string = '';
+  
+  location.origin.includes('localhost:4200') ? 
+  link = `http://localhost:4200/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}` :
+  link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}`
+  this.clipboard.copy(link);
   this.createNotification('success', `${this.formGroup.value.title} Coppied to clipboard`);
 }
 

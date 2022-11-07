@@ -1,8 +1,9 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Router, RouterStateSnapshot, RoutesRecognized } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SigninService } from 'src/app/services/auth/signin.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-signin',
@@ -11,6 +12,9 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class SigninComponent implements OnInit {
 
+  public isFromShareLink: boolean = false;
+  public fmeaId: string = '';
+  public fmeaName: string = '';
   public loading = false;
   public hide: boolean = true;
   public signinFormGroup!: FormGroup;
@@ -19,11 +23,34 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private signinService: SigninService,
     private notification: NzNotificationService,
-  ) { }
+    public route: ActivatedRoute
+  ) { 
+    this.getRouterFmeaId();
+  }
 
   ngOnInit(): void {
     this.initializeFormgroup();
     this.authCheck();
+  }
+
+  public getRouterFmeaId(): void {
+    this.router.events
+    .pipe(
+      filter(e => (e instanceof ActivationEnd) && (Object.keys(e.snapshot.params).length > 0)),
+      map(e => e instanceof ActivationEnd ? e.snapshot.params : {})
+    )
+    .subscribe(params => {
+      if(params){
+        this.fmeaId = params.fmeaId;
+        this.fmeaName = params.fmeaName
+        this.isFromShareLink = true;
+
+        if(this.fmeaName === 'undefined'){
+          this.router.navigateByUrl('/login');
+          this.isFromShareLink = false;
+        }
+      }
+    });
   }
 
   public authCheck(): void {
@@ -31,6 +58,7 @@ export class SigninComponent implements OnInit {
     if (token !== null) {
       this.router.navigateByUrl('/workflow-listing')
     }
+  
   }
 
   public initializeFormgroup(): void {
@@ -52,7 +80,11 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(response));
           localStorage.setItem('user-roles', JSON.stringify(userRoles));
           if (response.token !== null) {
-            this.router.navigateByUrl('/workflow-listing')
+            if(this.isFromShareLink){
+              this.router.navigateByUrl(`cloud-map/${this.fmeaId}`)
+            } else {
+              this.router.navigateByUrl('/workflow-listing')
+            }
             this.notification.create('success', 'Logged in Successfully', '', {
               nzPlacement: 'bottom',
             });

@@ -1,6 +1,7 @@
 <div class="main">
     <div class="mx-auto px-4 max-w-screen-xl">
         <div class="flex items-center justify-center h-screen threeblk">
+            <span *ngIf="isFromShareLink" class="absolute top-1/3">You're trying to view the <strong class="capitalize">{{ fmeaName }}</strong> FMEA. Please log in or create a free account if you don't have one.</span>
             <div class="blk left">
                 <div class="dot"></div>
                 <a class="card-cm logo-here p-4 inline-flex flex-wrap align-item-center justify-center">
