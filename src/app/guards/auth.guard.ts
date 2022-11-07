@@ -1,26 +1,44 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, RoutesRecognized, UrlTree } from "@angular/router";
+import { Observable, filter } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router) { }
-    canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+
+    private fmeaId!: string;
+    private fmeaName!: string;
+
+    constructor(
+        private router: Router,
+        public route: ActivatedRoute
+        ) { }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         const token: string | null = localStorage.getItem('access-token') || null;
-        if (token === null) this.redirectToSignIn();
-        try {
-        } catch {
-            this.redirectToSignIn();
-            alert('Invalid token')
+        if(state.url.includes('fmeaId')) {
+            this.fmeaId = state.root.queryParams.fmeaId;
+            this.fmeaName = state.root.queryParams.fmeaName;
+            this.redirectToSignInFmea();
+            return true;
+        } else {
+            if (token === null) this.redirectToSignIn();
+            try {
+            } catch {
+                this.redirectToSignIn();
+                alert('Invalid token')
+            }
+            return true;
         }
-        return true;
     }
 
     public redirectToSignIn(): void {
         this.router.navigateByUrl('/login')
+    }
+
+    public redirectToSignInFmea(): void {
+        this.router.navigate([`/login/${this.fmeaId}/${this.fmeaName}`]);
     }
 
 }

@@ -7,7 +7,8 @@ const routes: Routes = [{
     component: SigninComponent,
     children: [
         { path: '', redirectTo: 'login', pathMatch: 'full' },
-        { path: 'login', component: SigninComponent, pathMatch: 'full', data: { title: 'Workflow Listing' } }
+        { path: 'login', component: SigninComponent, pathMatch: 'full', data: { title: 'Login' } },
+        { path: 'login/:fmeaId/:fmeaName', component: SigninComponent, data: { title: 'Login FMEA' } },
     ]
 }]
 

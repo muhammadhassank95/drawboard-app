@@ -26,7 +26,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzAvatarModule,
     NzToolTipModule,
     NzNotificationModule,
-    NzPopoverModule
+    NzPopoverModule,
   ]
 })
 export class SharedModule { }
