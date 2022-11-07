@@ -44,6 +44,11 @@ export class SigninComponent implements OnInit {
         this.fmeaId = params.fmeaId;
         this.fmeaName = params.fmeaName
         this.isFromShareLink = true;
+
+        if(this.fmeaName === 'undefined'){
+          this.router.navigateByUrl('/login');
+          this.isFromShareLink = false;
+        }
       }
     });
   }

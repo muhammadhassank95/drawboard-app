@@ -20,7 +20,12 @@ export class AuthGuard implements CanActivate {
         if(state.url.includes('fmeaId')) {
             this.fmeaId = state.root.queryParams.fmeaId;
             this.fmeaName = state.root.queryParams.fmeaName;
-            this.redirectToSignInFmea();
+            console.error('state.root',state.root)
+            if (!token) { 
+                this.router.navigate([`/login/${this.fmeaId}/${this.fmeaName}`]);
+            } else {
+                this.router.navigate([`/cloud-map/${this.fmeaId}`]);
+            }
             return true;
         } else {
             if (token === null) this.redirectToSignIn();
@@ -35,10 +40,6 @@ export class AuthGuard implements CanActivate {
 
     public redirectToSignIn(): void {
         this.router.navigateByUrl('/login')
-    }
-
-    public redirectToSignInFmea(): void {
-        this.router.navigate([`/login/${this.fmeaId}/${this.fmeaName}`]);
     }
 
 }

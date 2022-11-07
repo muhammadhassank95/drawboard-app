@@ -96,8 +96,12 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   onDiagramShare(e: any) {
-    // const link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${e.rowData.id}&fmeaName=${e.rowData.name}`;
-    const link = `http://localhost:4200/cloud-map?fmeaId=${e.rowData.id}&fmeaName=${e.rowData.name}`;
+    let link: string = '';
+    
+    location.origin.includes('localhost:4200') ? 
+    link = `http://localhost:4200/cloud-map?fmeaId=${e.rowData.id}&fmeaName=${e.rowData.name}` :
+    link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${e.rowData.id}&fmeaName=${e.rowData.name}`
+
     this.clipboard.copy(link);
     this.createNotification('success', `${e.rowData.name} Coppied to clipboard`);
   }
