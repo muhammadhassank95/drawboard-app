@@ -125,9 +125,11 @@ export class WorkflowListingComponent implements OnInit {
   renderCell(params: any): any {
     let tags: any = [];
     params.data.tags.forEach((data: any, i: number) => {
-      if (i <= 3) tags.push(`<span class="border border-gray-400 rounded-full py-1 px-2 text-[10px]">${data.name}</span>`);
-      if (i === 4) tags.push(`<span class="ml-1 text-[13px]">...</span>`);
+      if (i <= 3) tags.push(`<span class="border border-gray-400 rounded-full py-1 px-2 text-[10px] ml-2 mr-2 mb-2">${data.name}</span>`);
+      if (i === 4) tags.push(`<span class="ml-2 text-[13px] mr-2 mb-2">...</span>`);
     });
+
+    console.log('tags: ', tags)
     return `${[...tags]}`;
   }
 

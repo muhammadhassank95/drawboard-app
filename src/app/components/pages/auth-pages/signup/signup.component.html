@@ -1,1 +1,160 @@
-<p>signup works!</p>
+<div class="main cm-fom p-4 h-full">
+    <div class="card-main p-4 h-full">
+        <div class="incard flex flex-col lg:flex-row flex-md-nowrap h-full">
+            <div class="flex-1 border-r p-3 h-full">
+                <div class="heading mb-3">Create New Account</div>
+                <form class="w-full max-w-2xl" [formGroup]="createAccountFormGroup">
+                    <span formGroupName="sendCodeSubGroup">
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1">
+                                    <label
+                                        class="block w-full uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        for="grid-last-name"
+                                    >Full Name</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Full Name"
+                                        formControlName="fullName"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <!-- <div class="activated-text pl-4 pt-1">Activated</div> -->
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1">
+                                    <label
+                                        class="block w-full uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        for="grid-last-name"
+                                    >Email</label>
+                                    <input
+                                        type="email"
+                                        formControlName="email"
+                                        placeholder="Enter Email"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                        >
+                                        <!-- [ngStyle]="{'background-color': email.invalid ? 'red' : ''}" -->
+                                </div>
+                                <!-- <div class="activated-text pl-4 pt-1">Activated</div> -->
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-0">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1">
+                                    <label class="block w-full uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        for="grid-last-name">
+                                        Company
+                                    </label>
+                                    <input
+                                        type="text"
+                                        formControlName="company"
+                                        placeholder="Enter Company"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <!-- <div class="activated-text pl-4 pt-1">Activated</div> -->
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1">
+                                    <label class="block w-full uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        for="grid-last-name">
+                                        Position
+                                    </label>
+                                    <input
+                                        type="text"
+                                        formControlName="position"
+                                        placeholder="Enter Position"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <!-- <div class="activated-text pl-4 pt-1">Activated</div> -->
+                            </div>
+                        </div>
+                        <div class="flex justify-end mb-6">
+                            <button (click)="sendCodeClicked()" class="cm-btn">SEND CODE</button>
+                        </div>
+                    </span>
+                    <span *ngIf="showValidateSubGroup" formGroupName="validateSubGroup">
+                        <div class="flex flex-wrap -mx-3 mb-0 justify-end">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1 mb-4">
+                                    <label
+                                        for="grid-last-name"
+                                        class="block w-full uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    >Code</label>
+                                    <input
+                                        formControlName="code"
+                                        placeholder="Enter Code"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <!-- type="number" -->
+                            </div>
+                        </div>
+                        <div class="flex justify-end mb-6">
+                            <button
+                                (click)="onValidateCodeClicked()"
+                                class="cm-btn"
+                                [disabled]="createAccountFormGroup.controls.validateSubGroup.status === 'INVALID'"
+                                >VALIDATE</button>
+                            </div>
+                            <!-- [ngClass]="{'bg-slate-400 text-white': createAccountFormGroup.controls.validateSubGroup.status === 'INVALID'}" -->
+                    </span>
+                    <span *ngIf="showPasswordSubGroup" formGroupName="passwordSubGroup">
+                        <div class="flex flex-wrap -mx-3 mb-0">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1 mb-4">
+                                    <input
+                                        formControlName="password"
+                                        type="password"
+                                        placeholder="Password"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1 mb-4">
+                                    <input
+                                        formControlName="confirmPassword"
+                                        type="password"
+                                        placeholder="Re-enter Password"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check mb-6">
+                            <input
+                                type="checkbox"
+                                id="flexCheckDefault"
+                                formControlName="isAgreeOnCondition"
+                                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                            >
+                            <label
+                                for="flexCheckDefault"
+                                class="form-check-label inline-block text-gray-800"
+                            >
+                                By checking this box, you agree with the Terms & Conditions stated on the right side of your
+                                screen.
+                            </label>
+                        </div>
+                        <div class="flex justify-end mb-6">
+                            <button
+                                (click)="onAccountCreationSaveClicked()"
+                                class="cm-btn"
+                                [disabled]="createAccountFormGroup.status === 'INVALID'"
+                            >SAVE</button>
+                        </div>
+                    </span>
+                </form>
+                <div class="brought-by py-4">
+                    Brought to you by <img src="">
+                </div>
+            </div>
+            <div class="flex-1 p-4"></div>
+        </div>
+    </div>
+</div>
+<div class="footer-text p-4 text-center">
+    CloudMap All Rights Reserved 2022
+</div>

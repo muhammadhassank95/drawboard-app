@@ -1,0 +1,66 @@
+html {
+    font-size: 16px;
+}
+img {
+    max-width: 100%;
+}
+.cm-fom .card-main {
+    box-shadow: 0rem 0rem 1rem #00000029;
+    border-radius: 0.3125rem;
+}
+
+.cm-fom .incard {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 10px;
+}
+
+.cm-fom .heading {
+    letter-spacing: 0px;
+    color: #707070;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.cm-fom .field {
+    border: 1px solid #0000001F;
+    border-radius: 0.25rem;
+    min-height: 3.625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cm-fom .activated-text,
+.cm-fom .field label {
+    letter-spacing: 0.4px;
+    color: #00000099;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+.cm-fom .cm-btn {
+    box-shadow: 0.18rem 0.18rem 0.2rem #00000029;
+    border-radius: 0.3125rem;
+    letter-spacing: 1.25px;
+    color: #7C7C7C;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: block;
+    padding: 0.625rem 0.9375rem;
+    min-width: 7.5rem;
+}
+.cm-fom .brought-by {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #08385C;
+}
+.footer-text {
+    color: #7C7C7C;
+    font-size: 1rem;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}

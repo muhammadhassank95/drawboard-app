@@ -72,5 +72,6 @@ export class SigninComponent implements OnInit {
 
   onClickSignUp() {
     console.log('...Work In Progress...');
+    this.router.navigateByUrl('/create-account');
   }
 }

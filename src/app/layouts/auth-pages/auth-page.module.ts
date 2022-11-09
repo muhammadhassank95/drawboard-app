@@ -6,11 +6,13 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthPagesComponent } from './auth-pages.component';
 import { SigninComponent } from 'src/app/components/pages/auth-pages/signin/signin.component';
+import { SignupComponent } from 'src/app/components/pages/auth-pages/signup/signup.component';
 
 @NgModule({
   declarations: [
     AuthPagesComponent,
-    SigninComponent
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     FormsModule,

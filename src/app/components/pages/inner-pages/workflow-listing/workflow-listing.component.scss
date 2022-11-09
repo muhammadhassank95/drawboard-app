@@ -1,3 +1,7 @@
 .workflow-listing{
     height: calc(100vh - 90px);
 }
+
+.grid-width-tag .ag-cell-value {
+    max-width: 300px;
+}
