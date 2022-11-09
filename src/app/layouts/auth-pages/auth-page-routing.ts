@@ -9,7 +9,7 @@ const routes: Routes = [{
     children: [
         { path: '', redirectTo: 'login', pathMatch: 'full' },
         { path: 'login', component: SigninComponent, pathMatch: 'full', data: { title: 'Login' } },
-        { path: 'create-account', component: SignupComponent, pathMatch: 'full', data: { title: 'Create Account' } }
+        { path: 'create-account', component: SignupComponent, pathMatch: 'full', data: { title: 'Create Account' } },
         { path: 'login/:fmeaId/:fmeaName', component: SigninComponent, data: { title: 'Login FMEA' } },
     ]
 }]
