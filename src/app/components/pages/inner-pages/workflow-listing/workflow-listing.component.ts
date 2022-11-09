@@ -7,6 +7,7 @@ import { ButtonRendererComponent } from 'src/app/components/partials/ag-grid-hel
 import { GridActionIconsComponent } from 'src/app/components/partials/ag-grid-helper/grid-action-icons/grid-action-icons.component';
 import { DeleteDiagramModalComponent } from 'src/app/components/partials/modals/delete-diagram-modal/delete-diagram-modal.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-workflow-listing',
@@ -37,6 +38,7 @@ export class WorkflowListingComponent implements OnInit {
     private router: Router,
     private notification: NzNotificationService,
     private drawBoardServices: DrawBoardService,
+    private clipboard: Clipboard
   ) {
     this.setFrameworksComponent();
   }
@@ -94,7 +96,14 @@ export class WorkflowListingComponent implements OnInit {
   }
 
   onDiagramShare(e: any) {
-    const link = `https://causemap.azurewebsites.net/cloud-map/${e.rowData.id}`;
+    let link: string = '';
+    
+    location.origin.includes('localhost:4200') ? 
+    link = `http://localhost:4200/cloud-map?fmeaId=${e.rowData.id}&fmeaName=${e.rowData.name}` :
+    link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${e.rowData.id}&fmeaName=${e.rowData.name}`
+
+    this.clipboard.copy(link);
+    this.createNotification('success', `${e.rowData.name} Coppied to clipboard`);
   }
 
   showDeleteConfirm(e: any): void {
@@ -128,9 +137,7 @@ export class WorkflowListingComponent implements OnInit {
       if (i <= 3) tags.push(`<span class="border border-gray-400 rounded-full py-1 px-2 text-[10px] ml-2 mr-2 mb-2">${data.name}</span>`);
       if (i === 4) tags.push(`<span class="ml-2 text-[13px] mr-2 mb-2">...</span>`);
     });
-
-    console.log('tags: ', tags)
-    return `${[...tags]}`;
+    return tags.join(' ');
   }
 
   onDeleteClick(row: any) {

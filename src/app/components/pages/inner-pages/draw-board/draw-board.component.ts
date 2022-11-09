@@ -29,6 +29,7 @@ import { NodeElement } from './node.model';
 import { lastValueFrom } from 'rxjs';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { GENERATED_ID } from 'src/app/utilities/uuid.utility';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   entryComponents: [WorkflowListingComponent],
@@ -71,6 +72,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
   public selectedNodeToSave: any;
   public currentZoomValue: number = 1;
   public selectedNodeIdEl: string = '';
+  public fmeaID: any;
   public nodeSelection = [
     { id: 1, name: 'singleOut', inputs: 0, outputs: 1, imgPath: 'assets/image/single-out.png' },
     { id: 2, name: 'singleInOut', inputs: 1, outputs: 1, imgPath: 'assets/image/single-in-out.png' },
@@ -86,11 +88,14 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     public route: ActivatedRoute,
     public drawBoardService: DrawBoardService,
     private notification: NzNotificationService,
+    private clipboard: Clipboard
   ) { }
 
   public onEventListener(selectedName: any): void {
     const element = document.getElementById(this.selectedItemname);
-    this.editor.drawflow.drawflow.Home.data[selectedName.id].html = element?.outerHTML;
+    if(this.editor.drawflow.drawflow.Home.data[selectedName.id]){
+      this.editor.drawflow.drawflow.Home.data[selectedName.id].html = element?.outerHTML;
+    }
   }
 
   public back(): void {
@@ -125,19 +130,23 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
         },
       }
     }
+    setTimeout(() => {
+      this.editor.zoom = this.canvasData.Home.zoomValue;
+      this.editor.zoom_refresh();
+    })
     this.editor.import(dataToImport);
   }
-  
+
   async ngAfterViewInit(): Promise<void> {
     this.drawFlowHtmlElement = <HTMLElement>document.getElementById('drawflow');
     this.route.data.subscribe(async (data) => {
       if (this.route.snapshot.paramMap.get('id')) {
         this.isEdit = true;
+        this.fmeaID = this.route.snapshot.paramMap.get('id');
         const responsezz = this.drawBoardService.getDiagramByid(this.route.snapshot.paramMap.get('id')!)
         this.diagramByIdResponse = await lastValueFrom(responsezz);
         if (this.diagramByIdResponse) {
           this.canvasData = JSON.parse(this.diagramByIdResponse.data);
-          // this.editor.zoom = this.canvasData.zoomValue;
           this.formGroup.get('title')?.patchValue(this.diagramByIdResponse.name);
           this.diagramByIdResponse.tags.forEach((tag: any) => {
             this.diagramTags.push(new FormControl(tag.name));
@@ -206,7 +215,6 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
       this.editor.on('zoom', (zoom: any) => {
         this.currentZoomValue = zoom;
-        // console.log('Editor Event :>> Zoom level ' + zoom);
       });
 
       // this.editor.on('translate', (position: any) => {
@@ -423,7 +431,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     const dataExport = this.editor.export();
-    // this.editor.drawflow.drawflow.zoomValue = this.currentZoomValue;
+    this.editor.drawflow.drawflow.Home.zoomValue = this.currentZoomValue;
     const payload = {
       name: this.formGroup.value.title,
       data: JSON.stringify(this.editor.drawflow.drawflow),
@@ -466,6 +474,15 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     })
 
  }
+ onDiagramShare() {
+  let link: string = '';
+  
+  location.origin.includes('localhost:4200') ? 
+  link = `http://localhost:4200/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}` :
+  link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}`
+  this.clipboard.copy(link);
+  this.createNotification('success', `${this.formGroup.value.title} Coppied to clipboard`);
+}
 
   onTagClose(i: number){
     this.diagramTags.value.splice(i, 1);
