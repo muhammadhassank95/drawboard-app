@@ -10,18 +10,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  public createAccountFormGroup!: FormGroup;
+  public password?: string;
+  public isValidEmail = false;
+  public passwordVisible = false;
   public showValidateSubGroup = false;
   public showPasswordSubGroup = false;
+  public confirmPasswordVisible = false;
+  public createAccountFormGroup!: FormGroup;
+
   constructor(
     private router: Router,
     private authService: SigninService,
-    private notification: NzNotificationService,
-  ) { }
-
-  ngOnInit(): void {
+    private notification: NzNotificationService
+  ) {
     this.initializeFormgroup();
   }
+
+  ngOnInit() { }
 
   initializeFormgroup() {
     this.createAccountFormGroup = new FormGroup({
@@ -46,17 +51,24 @@ export class SignupComponent implements OnInit {
 
   sendCodeClicked() {
     if (this.createAccountFormGroup.controls.sendCodeSubGroup.status === 'VALID') {
+      this.isValidEmail = false;
       console.log('this.createAccountFormGroup: ', this.createAccountFormGroup);
       this.authService.sendCodeApi(this.createAccountFormGroup.value.sendCodeSubGroup).subscribe((res: any) => {
         console.log('res: ', res);
-        if(res.status === 'Success') {
+        if (res.status === 'Success') {
           this.showValidateSubGroup = true;
-          this.createNotification(res.status.toLowerCase(), res.message);
           alert(res.code);
         }
-      })
+        this.createNotification(res.status.toLowerCase(), res.message);
+      },
+        err => {
+          console.log(err);
+          this.createNotification('error', 'Something went wrong. Please try again.');
+          // check error status code is 500, if so, do some action
+        });
     } else {
-      this.createNotification('error', "Please enter Email, Full Name and Company field.");
+      this.isValidEmail = true;
+      this.createNotification('error', "Please enter valid Email address.");
     }
   }
 
@@ -68,13 +80,16 @@ export class SignupComponent implements OnInit {
       }
       this.authService.validateCodeApi(validateCodePayload).subscribe((res: any) => {
         console.log('res: ', res);
-        if(res.status === 'Success') { 
+        if (res.status === 'Success') {
           this.showPasswordSubGroup = true;
-          this.createNotification(res.status.toLowerCase(), res.message);
-        } else {
-          this.createNotification(res.status.toLowerCase(), res.message);
         }
-      })
+        this.createNotification(res.status.toLowerCase(), res.message);
+      },
+        err => {
+          console.log(err);
+          this.createNotification('error', 'Something went wrong. Please try again.');
+          // check error status code is 500, if so, do some action
+        });
     } else {
       this.createNotification('error', "Please Enter Code.");
     }
@@ -95,13 +110,17 @@ export class SignupComponent implements OnInit {
 
       this.authService.createAccountApi(createAccountPayload).subscribe((res: any) => {
         console.log('res: ', res);
-        if(res.status === 'Success') {
-          this.createNotification(res.status.toLowerCase(), res.message);
+        debugger;
+        if (res?.status === 'Success') {
           this.router.navigateByUrl('/login')
-        } else {
-          this.createNotification(res.status.toLowerCase(), res.message);
         }
-      });
+        this.createNotification(res.status.toLowerCase(), res.message);
+      },
+        err => {
+          console.log(err);
+          this.createNotification('error', 'Make sure your password is complex. Please try again.');
+          // check error status code is 500, if so, do some action
+        });
     } else {
       this.createNotification('error', "Please check the required fields.");
     }

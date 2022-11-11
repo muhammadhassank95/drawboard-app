@@ -93,7 +93,7 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
 
   public onEventListener(selectedName: any): void {
     const element = document.getElementById(this.selectedItemname);
-    if(this.editor.drawflow.drawflow.Home.data[selectedName.id]){
+    if (this.editor.drawflow.drawflow.Home.data[selectedName.id]) {
       this.editor.drawflow.drawflow.Home.data[selectedName.id].html = element?.outerHTML;
     }
   }
@@ -466,25 +466,25 @@ export class DrawBoardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  redirectTo(uri:string){
+  redirectTo(uri: string) {
     // this.router.navigateByUrl('/cloud-map', {skipLocationChange: false}).then(()=>
     this.router.navigate([`/cloud-map/${uri}`]);
     setTimeout(() => {
       window.location.reload();
     })
 
- }
- onDiagramShare() {
-  let link: string = '';
-  
-  location.origin.includes('localhost:4200') ? 
-  link = `http://localhost:4200/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}` :
-  link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}`
-  this.clipboard.copy(link);
-  this.createNotification('success', `${this.formGroup.value.title} Coppied to clipboard`);
-}
+  }
+  onDiagramShare() {
+    let link: string = '';
 
-  onTagClose(i: number){
+    location.origin.includes('localhost:4200') ?
+      link = `http://localhost:4200/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}` :
+      link = `https://causemap.azurewebsites.net/cloud-map?fmeaId=${this.fmeaID}&fmeaName=${this.formGroup.value.title}`
+    this.clipboard.copy(link);
+    this.createNotification('success', `${this.formGroup.value.title} Copied to clipboard`);
+  }
+
+  onTagClose(i: number) {
     this.diagramTags.value.splice(i, 1);
   }
 
